@@ -8,4 +8,4 @@
 1. 既存の/usr/local/texlie/texmf-local/tex/latex/tetsu_physic を削除する
 2. git clone で，レポジトリを移植
 3. ls-Rファイル作成の実行（TeXが見つけられるようにするための設定）
-を自動で行います．
+を自動で行います．パスワードの入力が必要です．
