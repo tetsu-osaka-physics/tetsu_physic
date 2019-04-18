@@ -1,0 +1,107 @@
+\NeedsTeXFormat{pLaTeX2e}
+[2019/4/16]
+\ProvidesPackage{circle_eqnumber}
+
+%%%%%%%%%%%パッケージ奴%%%%%%%%%%%
+
+\usepackage{amsmath,enumitem_extended}
+\usepackage[bold]{otf}
+\usepackage[dvipdfmx]{color}
+
+%%%%%%%%%%%式キャプションを丸数字にする奴%%%%%%%%%%%
+
+\newcounter{ceq}
+\DeclareRobustCommand*{\eqmaru}[1]{%
+  \refstepcounter{ceq}%
+  \ajMaru{\arabic{ceq}}%
+  \label{#1}}
+\makeatletter
+\def\eqref#1{% #1: <label>
+  \expandafter\ifx\csname r@#1\endcsname\relax
+      % if there are no inter-refarence information about <label>
+      \ref{#1}%  Use \ref to warn about ``undefined label''
+  \else
+      % \label{<foo>} extracts \newlabel{<foo>}{{<what's referrd by \ref{foo}>}{<page number of where \label{foo} exists >}} in *.aux.
+      % \newlabel{<foo>}{{<ref>}{<page>}} defines \r@<foo> as \gdef\r@<foo>{{<ref>}{<page>}}.
+      % Therefore, when you need only what is referrd by \ref{<foo>}, you only have to get <ref>.
+      \protected@edef\@maruref@temp{
+        \expandafter\expandafter\expandafter
+        \@firstoftwo\csname r@#1\endcsname\empty\empty}%
+%      \protected@edef\@maruref@temp{%
+%        \expandafter\expandafter\expandafter
+%        \@car\csname r@#1\endcsname\empty\@nil}%
+      \ajMaru{\@maruref@temp}%
+  \fi}
+\makeatother
+
+\makeatletter
+\newif\iflongequation
+\renewenvironment{align}{
+\let\xatlevel@\@ne
+\maxfields@\m@ne\relax
+  $$%
+  \let\split\insplit@
+  \DN@{\align@\st@rredfalse}
+  \collect@body\next@
+  \checkat@false
+}{%
+  \math@cr
+  \noalign{
+      \ifdim\totwidth@>\displaywidth
+          \dimen@\prevdepth
+          \nointerlineskip
+          \vskip-\ht\strutbox@
+          \vskip-\dp\strutbox@
+          \vbox{\noindent\hbox to\displaywidth{\hbox to\totwidth@{\strut@\hfill}}}%
+          \prevdepth\dimen@
+          \longequationtrue
+          % \colorbox{black}{\textcolor{white}{式長い！}}
+      \fi
+  }
+  \egroup
+  $$
+  \ignorespacesafterend
+}
+
+\def\place@tag{%
+    \iftagsleft@
+        \kern-\tagshift@
+        \if1\shift@tag\row@\relax
+            \rlap{\vbox{%
+                \normalbaselines
+                \boxz@
+                \vbox to\lineht@{}%
+                \raise@tag
+            }}%
+        \else
+            \rlap{\boxz@}%
+        \fi
+        \kern\displaywidth@
+    \else
+        \iflongequation
+          \kern-\tagshift@
+        \else
+          \qquad\qquad
+        \fi
+        \if1\shift@tag\row@\relax
+            \llap{\vtop{%
+                \raise@tag
+                \normalbaselines
+                \setbox\@ne\null
+                \dp\@ne\lineht@
+                \box\@ne
+                \boxz@
+            }}%
+        \else
+            \llap{\boxz@}%
+        \fi
+    \fi
+}
+\makeatother
+
+\makeatletter
+\def\tagform@#1{\if@eqnsw
+$\cdots$\maketag@@@{\ajMaru{#1}}
+\else $\cdots$\maketag@@@{#1}
+\fi}
+\makeatother

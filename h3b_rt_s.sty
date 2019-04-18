@@ -1,0 +1,97 @@
+\NeedsTeXFormat{pLaTeX2e}
+[2019/4/10]
+\ProvidesPackage{h2b_rt_s}
+
+%%%%%%%%%%%パッケージ奴%%%%%%%%%%%
+
+\usepackage{amsmath,amssymb,amsthm,ulem,fancyhdr,fancybox,layout,caption,titlesec,cases}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage[version=4]{mhchmem}
+\usepackage{circle_eqnumber,enumitem_extended}
+
+%%%%%%%%%%%余白等奴%%%%%%%%%%%
+
+% ######## measure #########
+% # mm = 1mm = 2.85pt      #
+% # cm = 10mm = 28.5pt     #
+% # in = 25.4mm = 72.27pt  #
+% # pt = 0.35mm = 1pt      #
+% # em = width of [M]      #
+% # ex = height of [x]     #
+% # zw = width of [Kanji]  #
+% # zh = height of [Kanji] #
+% ##########################
+% ##################### Portrait Setting #########################
+% # TOP = 1inch + \voffset + \topmargin + \headheight + \headsep #
+% #     = 1inch + 0pt + 4pt + 20pt + 18pt (default)              #
+% # BOTTOM = \paperheight - TOP -\textheight                     #
+% ################################################################
+\setlength{\textheight}{\paperheight}   % 紙面縦幅を本文領域にする（BOTTOM=-TOP）
+\setlength{\topmargin}{-4.4truemm}       % (上の余白)=1inch+　mmに
+\addtolength{\topmargin}{-\headheight}  %
+\addtolength{\topmargin}{-\headsep}     % ヘッダの分だけ本文領域を移動させる
+\addtolength{\textheight}{-36.4truemm}    % 下の余白（BOTTOM=-TOPだから+TOP+　mm）
+% #################### Landscape Setting #######################
+% # LEFT = 1inch + \hoffset + \oddsidemargin (\evensidemargin) #
+% #      = 1inch + 0pt + 0pt                                   #
+% # RIGHT = \paperwidth - LEFT - \textwidth                    #
+% ##############################################################
+\setlength{\textwidth}{\paperwidth}     % 紙面横幅を本文領域にする（RIGHT=-LEFT）
+\setlength{\oddsidemargin}{-10.9truemm}  % (左の余白)=1inch-　mmに
+\setlength{\evensidemargin}{-0.4truemm} %
+\addtolength{\textwidth}{-28truemm}     % 右の余白も25mm（RIGHT=-LEFTだから+LEFT+　）
+
+\setlength{\columnsep}{3zw}
+\setlength{\columnseprule}{0.4pt}
+
+%%%%%%%%%%%基本コマンド奴%%%%%%%%%%%
+
+\newcommand{\maru}[1]{\ajMaru{#1}}
+\newcommand{\safemaru}[1]{{\ooalign{\hfil#1\/\hfil\crcr\raise.167ex\hbox{\mathhexbox20D}}}}
+\newcommand{\f}[1]{\,\framebox[1.2cm]{#1}\,}
+\newcommand{\ff}[1]{\,\doublebox{\hspace{.7zw}#1\hspace{.7zw}}\,}
+\newcommand{\uw}[1]{\uwave{\,\,#1\,\,}}
+
+%%%%%%%%%%%sectionで大問定義する奴%%%%%%%%%%%
+
+\renewcommand{\thesection}{\underline{\large\textbf{第　\combinedarabicwidtharabic{section}　問}}}
+\titleformat{\section}[hang]
+{\Large\gtfamily}
+{\filright\thesection}{.5em}{\filcenter}[]
+\titlespacing{\section}
+{\parindent}{1.5ex plus .1ex minus .2ex}{0pt}
+
+%%%%%%%%%%%解答図キャプションを全角にする奴%%%%%%%%%%%
+
+\renewcommand{\thefigure}{\combinedarabic{figure}}
+\renewcommand{\thetable}{\combinedarabic{table}}
+
+\captionsetup[figure]{font=normalsize}
+\renewcommand{\figurename}{解答図}
+% \captionsetup[table]{font=normalsize}
+
+\makeatletter
+\newcounter{temporalfignum}
+\def\marufigcaption{\renewcommand{\figurename}{}
+\renewcommand{\thefigure}{\ajMarucounter{figure}}
+\setcounter{temporalfignum}{\value{figure}}
+\setcounter{figure}{0}
+}
+\makeatother
+
+\def\normalfigcaption{\renewcommand{\figurename}{解答図}
+\renewcommand{\thefigure}{\combinedarabic{figure}}
+\setcounter{figure}{\value{temporalfignum}}
+}
+
+%%%%%%%%%%%大問ごとにリセットする奴%%%%%%%%%%%
+
+\makeatletter
+\@addtoreset{equation}{section}
+\@addtoreset{figure}{section}
+\@addtoreset{table}{section}
+\makeatother
+
+%%%%%%%%%%%ページ番号のスタイル奴%%%%%%%%%%%
+
+\pagestyle{empty}
