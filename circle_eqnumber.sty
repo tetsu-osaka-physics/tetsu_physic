@@ -9,12 +9,13 @@
 
 %%%%%%%%%%%式キャプションを丸数字にする奴%%%%%%%%%%%
 
-\newcounter{ceq}
-\DeclareRobustCommand*{\eqmaru}[1]{%
-  \refstepcounter{ceq}%
-  \ajMaru{\arabic{ceq}}%
-  \label{#1}}
-\makeatletter
+% \newcounter{ceq}
+% \DeclareRobustCommand*{\eqmaru}[1]{%
+%   \refstepcounter{ceq}%
+%   \ajMaru{\arabic{ceq}}%
+%   \label{#1}}
+% \makeatletter
+
 \def\eqref#1{% #1: <label>
   \expandafter\ifx\csname r@#1\endcsname\relax
       % if there are no inter-refarence information about <label>
