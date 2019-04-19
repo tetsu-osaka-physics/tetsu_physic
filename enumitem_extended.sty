@@ -1,5 +1,5 @@
 \NeedsTeXFormat{pLaTeX2e}
-\ProvidesPackage{enumitem_extended}[2019/4/18]
+\ProvidesPackage{enumitem_extended}[2019/4/20]
 
 %%%%%%%%%%%パッケージ奴%%%%%%%%%%%
 
@@ -91,12 +91,10 @@
 \fi}
 \makeatother
 
-\makeatletter
 \def\combinedarabic#1{
 \ifnum \value{#1}<10 \fullwidtharabic{#1}
   \else\arabic{#1}
   \fi}
-\makeatother
 
 \makeatletter
 \def\@irohaHira#1{\ifcase#1\or い\or ろ\or は\or に\or ほ\or へ\or と
