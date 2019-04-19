@@ -1,5 +1,5 @@
 \NeedsTeXFormat{pLaTeX2e}
-\ProvidesPackage{Fcntr}[2019/4/18]
+\ProvidesPackage{Fcntr}[2019/4/19]
 
 %%%%%%%%%%%パッケージ奴%%%%%%%%%%%
 
@@ -8,43 +8,35 @@
 
 %%%%%%%%%%%基本コマンド奴%%%%%%%%%%%
 
-% \newcommand{\f}[1]{\,\framebox[1.2cm]{#1}\,}
-% \newcommand{\ff}[1]{\,\doublebox{\hspace{.7zw}#1\hspace{.7zw}}\,}
-
 \newtoks\fstyle
 \newcounter{Fcntr}
 \setcounter{Fcntr}{0}
 \newcounter{fref}
 \newcounter{ffref}
 
+%%%%%%%%%%%大問でカウンタをリセットする奴%%%%%%%%%%%
 
-% セクション，つまり大問でカウンタをリセットするように指定．
 \makeatletter
 \@addtoreset{Fcntr}{section}
 \makeatother
 
+%%%%%%%%%%%fの定義%%%%%%%%%%%
+
 \makeatletter
 \def\f#1{
-\if#1　
-  \,\framebox[1.2cm]{#1}\,
-  \else
-  \if#1""
-    \addtocounter{Fcntr}{1}
-    \,\framebox[1.2cm]{\csname\the\fstyle\endcsname{Fcntr}}\,
-    \else
-    \setcounter{fref}{#1}
-    \,\framebox[1.2cm]{\csname\the\fstyle\endcsname{fref}}\,
-    \fi
-    \fi
+\if#1　\framebox[1.2cm]{#1}
+\else
+\if#1""\addtocounter{Fcntr}{1}\framebox[1.2cm]{\csname\the\fstyle\endcsname{Fcntr}}
+\else\setcounter{fref}{#1}\framebox[1.2cm]{\csname\the\fstyle\endcsname{fref}}
+\fi
+\fi
 }
 \makeatother
 
+%%%%%%%%%%%ffの定義%%%%%%%%%%%
+
 \def\ff#1{
-  \if#1　
-    \,\doublebox{\hspace{.7zw}　\hspace{.7zw}}\,
-    \else
-    \setcounter{ffref}{#1}
-    \,\doublebox{\hspace{.7zw}\csname\the\fstyle\endcsname{ffref}\hspace{.7zw}}\,
-    \fi
-  % \the\fstyle{ffref}
+\if#1　\,\doublebox{\hspace{.7zw}　\hspace{.7zw}}\,
+\else\setcounter{ffref}{#1}\,\doublebox{\hspace{.7zw}\csname\the\fstyle\endcsname{ffref}\hspace{.7zw}}\,
+\fi
 }
