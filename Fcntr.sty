@@ -4,25 +4,47 @@
 %%%%%%%%%%%パッケージ奴%%%%%%%%%%%
 
 \usepackage{enumitem_extended}
+\usepackage{fancybox}
 
 %%%%%%%%%%%基本コマンド奴%%%%%%%%%%%
 
-% \newcommand{\maru}[1]{\ajMaru{#1}}
-% \newcommand{\safemaru}[1]{{\ooalign{\hfil#1\/\hfil\crcr\raise.167ex\hbox{\mathhexbox20D}}}}
 % \newcommand{\f}[1]{\,\framebox[1.2cm]{#1}\,}
 % \newcommand{\ff}[1]{\,\doublebox{\hspace{.7zw}#1\hspace{.7zw}}\,}
 
-% fを自動的にカウントしたいんじゃ．多分fコマンドあるやつに後で組み込む．
-
+\newtoks\fstyle
 \newcounter{Fcntr}
 \setcounter{Fcntr}{0}
-% {\@ajRomancounter{\@nameuse{c@#1}}}
-\def\fstyle#1{
-% \expandafter#1{6}
-} %enuitemと同じコマンドかなぁ
-% enumitemを参考に
+\newcounter{fref}
+\newcounter{ffref}
 
-\def\f{
-\refstepcounter{Fcntr}
-\,\framebox[1.2cm]{\fstyle{Fcntr}}\,
+
+% セクション，つまり大問でカウンタをリセットするように指定．
+\makeatletter
+\@addtoreset{Fcntr}{section}
+\makeatother
+
+\makeatletter
+\def\f#1{
+\if#1　
+  \,\framebox[1.2cm]{#1}\,
+  \else
+  \if#1""
+    \addtocounter{Fcntr}{1}
+    \,\framebox[1.2cm]{\csname\the\fstyle\endcsname{Fcntr}}\,
+    \else
+    \setcounter{fref}{#1}
+    \,\framebox[1.2cm]{\csname\the\fstyle\endcsname{fref}}\,
+    \fi
+    \fi
+}
+\makeatother
+
+\def\ff#1{
+  \if#1　
+    \,\doublebox{\hspace{.7zw}　\hspace{.7zw}}\,
+    \else
+    \setcounter{ffref}{#1}
+    \,\doublebox{\hspace{.7zw}\csname\the\fstyle\endcsname{ffref}\hspace{.7zw}}\,
+    \fi
+  % \the\fstyle{ffref}
 }
