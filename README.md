@@ -23,7 +23,7 @@ brew install git
 ```
 3. gitアカウントの設定
 ```
-git config --global user.name=<username>
+git config --global user.name="<username>"
 git config --global user.email=<address@mail.com>
 ```
 4. 鍵の生成
