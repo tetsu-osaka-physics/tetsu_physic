@@ -35,7 +35,9 @@ ssh-keygen -t rsa
 atom id_git_rsa.pub
 ```
 で公開鍵をコピペして，自分のGitHubのページで鍵を入れて認証する．
+
 5. tetsuryoku-osaka-physicsに参加する（招待送ります）．
+
 6. get-sty.commandを実行します（デスクトップを汚したくない人は/usr/local/binに拡張子なしで保存）：
 ```
 shell:get-sty.command
