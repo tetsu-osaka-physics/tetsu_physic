@@ -38,7 +38,7 @@ atom id_git_rsa.pub
 
 6. get-sty.commandを実行します（デスクトップを汚したくない人は/usr/local/binに拡張子なしで保存）：
 ```
-sudo rm -rf /usr/local/texlive/texmf-local/tex/latex/local/⁩tetsu_physic
+sudo rm -rf /usr/local/texlive/texmf-local/tex/latex/local/tetsu_physic
 cd /usr/local/texlive/texmf-local/tex/latex/local
 sudo git clone https://github.com/tetsu-osaka-physics/tetsu_physic.git tetsu_physic
 cd ~
