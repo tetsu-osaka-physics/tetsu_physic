@@ -18,18 +18,15 @@ GitHubのアカウントを作ってもらいますが，今のところ，各�
 1. GitHubアカウントの設定
 2. gitの導入
 ```
-shellscript:
 brew install git
 ```
 3. gitアカウントの設定
 ```
-git:
 git config --global user.name=<username>
 git config --global user.email=<address@mail.com>
 ```
 4. 鍵の生成
 ```
-shell:
 cd ~/.ssh
 ssh-keygen -t rsa
 atom id_git_rsa.pub
@@ -40,7 +37,6 @@ atom id_git_rsa.pub
 
 6. get-sty.commandを実行します（デスクトップを汚したくない人は/usr/local/binに拡張子なしで保存）：
 ```
-shell:get-sty.command
 sudo rm -rf /usr/local/texlive/texmf-local/tex/latex/local/⁩tetsu_physic
 cd /usr/local/texlive/texmf-local/tex/latex/local
 sudo git clone https://github.com/tetsu-osaka-physics/tetsu_physic.git tetsu_physic
@@ -50,8 +46,7 @@ sudo mktexlsr
 ```
 権限付与のために
 ```
-shell:
 cd Desktop
 chmod a+x get-sty.command
 ```
-を実行します．（shにした人は，/usr/local/binで）
+を実行します．（shにした人は，```/usr/local/bin```で）
