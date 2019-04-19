@@ -1,0 +1,28 @@
+\NeedsTeXFormat{pLaTeX2e}
+\ProvidesPackage{Fcntr}[2019/4/18]
+
+%%%%%%%%%%%パッケージ奴%%%%%%%%%%%
+
+\usepackage{enumitem_extended}
+
+%%%%%%%%%%%基本コマンド奴%%%%%%%%%%%
+
+% \newcommand{\maru}[1]{\ajMaru{#1}}
+% \newcommand{\safemaru}[1]{{\ooalign{\hfil#1\/\hfil\crcr\raise.167ex\hbox{\mathhexbox20D}}}}
+% \newcommand{\f}[1]{\,\framebox[1.2cm]{#1}\,}
+% \newcommand{\ff}[1]{\,\doublebox{\hspace{.7zw}#1\hspace{.7zw}}\,}
+
+% fを自動的にカウントしたいんじゃ．多分fコマンドあるやつに後で組み込む．
+
+\newcounter{Fcntr}
+\setcounter{Fcntr}{0}
+% {\@ajRomancounter{\@nameuse{c@#1}}}
+\def\fstyle#1{
+% \expandafter#1{6}
+} %enuitemと同じコマンドかなぁ
+% enumitemを参考に
+
+\def\f{
+\refstepcounter{Fcntr}
+\,\framebox[1.2cm]{\fstyle{Fcntr}}\,
+}
