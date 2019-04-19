@@ -14,3 +14,42 @@ GitHubのアカウントを作ってもらいますが，今のところ，各�
 4. ls-Rファイル作成の実行（TeXが見つけられるようにするための設定）
 
 を自動で行います．パスワードの入力が必要です．
+## 初回導入時の設定
+1. GitHubアカウントの設定
+2. gitの導入
+```
+shell:
+brew install git
+```
+3. gitアカウントの設定
+```
+git:
+git config --global user.name=<username>
+git config --global user.email=<address@mail.com>
+```
+4. 鍵の生成
+```
+shell:
+cd ~/.ssh
+ssh-keygen -t rsa
+atom id_git_rsa.pub
+```
+で公開鍵をコピペして，自分のGitHubのページで鍵を入れて認証する．
+5. tetsuryoku-osaka-physicsに参加する（招待送ります）．
+6. get-sty.commandを実行します（デスクトップを汚したくない人は/usr/local/binに拡張子なしで保存）：
+```
+shell:get-sty.command
+sudo rm -rf /usr/local/texlive/texmf-local/tex/latex/local/⁩tetsu_physic
+cd /usr/local/texlive/texmf-local/tex/latex/local
+sudo git clone https://github.com/tetsu-osaka-physics/tetsu_physic.git tetsu_physic
+cd ~
+sudo rm -rf /usr/local/texlive/texmf-local/tex/latex/local/tetsu_physic/.git
+sudo mktexlsr
+```
+権限付与のために
+```
+shell:
+cd Desktop
+chmod a+x get-sty.command
+```
+を実行します．（shにした人は，/usr/local/binで）
