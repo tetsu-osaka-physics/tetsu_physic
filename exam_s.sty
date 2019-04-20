@@ -28,6 +28,19 @@
 
 \newcommand{\maru}[1]{\ajMaru{#1}}
 
+%%%%%%%%%%%fの再定義%%%%%%%%%%%
+
+\makeatletter
+\def\f#1{
+\if#1　{#1}
+\else
+\if#1""\addtocounter{Fcntr}{1}{\csname\the\fstyle\endcsname{Fcntr}}
+\else\setcounter{fref}{#1}{\csname\the\fstyle\endcsname{fref}}
+\fi
+\fi
+}
+\makeatother
+
 %%%%%%%%%%%sectionで大問定義する奴%%%%%%%%%%%
 
 \renewcommand{\thesection}{\underline{\textrm{\LARGE{第　\combinedarabic{section}　問}}}}
