@@ -47,7 +47,7 @@ sudo mktexlsr
 ```
 権限付与のために
 ```
-cd Desktop
+cd /Desktop
 chmod a+x get-sty.command
 ```
 を実行します．（shにした人は，```/usr/local/bin```で）
