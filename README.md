@@ -2,15 +2,16 @@
 ## 内容
 * circle_eqnumber.sty：align環境での数式番号を丸数字にする．参照はeqrefを使うと，丸数字になる．
 * enumitem_extended.sty：enumerate環境の番号を更に増やしたもの．カウンターの出力型としても使える．
+* Fcntr.sty：穴埋め形式の問題で，数字を自動更新する．表示の仕方は，enumitem_extendedとほぼ同じ（アスタリスクがつかない）．
 * h XXX.sty：高２，高３の教材など．目的に合わせて使い分ける．
 ## ユーザー権限について
 GitHubのアカウントを作ってもらいますが，今のところ，各ユーザーはreadonlyにしようと考えています．
 もし，「自分も編集に参加したい！」という場合は，気軽に言ってください．
 ## アップデート方法
-デスクトップ上にあるget-sty.commandを開けば，
-1. 既存の/usr/local/texlie/texmf-local/tex/latex/tetsu_physicを削除する
-2. git cloneで/usr/local/texlie/texmf-local/tex/latex/tetsu_physicにリポジトリを移植
-3. /usr/local/texlive/local/texlive/texmf-local/tex/latex/tetsu_physics/.gitを削除（リポジトリ化を解除）
+デスクトップ上にある`get-sty.command`を開けば，
+1. 既存の`/usr/local/texlie/texmf-local/tex/latex/tetsu_physic`を削除する
+2. `git clone`で`/usr/local/texlie/texmf-local/tex/latex/tetsu_physic`にリポジトリを移植
+3. `/usr/local/texlive/local/texlive/texmf-local/tex/latex/tetsu_physics/.git`を削除（リポジトリ化を解除）
 4. ls-Rファイル作成の実行（TeXが見つけられるようにするための設定）
 
 を自動で行います．パスワードの入力が必要です．
@@ -22,7 +23,7 @@ brew install git
 ```
 3. gitアカウントの設定
 ```
-git config --global user.name=<username>
+git config --global user.name="<username>"
 git config --global user.email=<address@mail.com>
 ```
 4. 鍵の生成
@@ -37,7 +38,7 @@ atom id_git_rsa.pub
 
 6. get-sty.commandを実行します（デスクトップを汚したくない人は/usr/local/binに拡張子なしで保存）：
 ```
-sudo rm -rf /usr/local/texlive/texmf-local/tex/latex/local/⁩tetsu_physic
+sudo rm -rf /usr/local/texlive/texmf-local/tex/latex/local/tetsu_physic
 cd /usr/local/texlive/texmf-local/tex/latex/local
 sudo git clone https://github.com/tetsu-osaka-physics/tetsu_physic.git tetsu_physic
 cd ~
@@ -46,7 +47,7 @@ sudo mktexlsr
 ```
 権限付与のために
 ```
-cd Desktop
+cd /Desktop
 chmod a+x get-sty.command
 ```
 を実行します．（shにした人は，```/usr/local/bin```で）
