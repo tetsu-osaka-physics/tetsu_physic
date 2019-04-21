@@ -1,0 +1,29 @@
+\NeedsTeXFormat{pLaTeX2e}
+\ProvidesPackage{uw}[2019/4/21]
+
+%%%%%%%%%%%パッケージ奴%%%%%%%%%%%
+
+\usepackage{ulem}
+
+%%%%%%%%%%%uwの定義奴%%%%%%%%%%%
+
+\makeatletter
+\newif\iff@
+\DeclareOption{f}{\f@true}
+\ExecuteOptions{f}
+\ProcessOptions\relax
+\makeatother
+
+\makeatletter
+\def\uw#1{
+\settowidth{\@tempdima}{#1}
+\ifdim\@tempdima<1em\@tempdima=1em\fi
+\iff@ %下に出す
+  \ifmmode\uwave{\hbox to\@tempdima{\hfill $#1$\hfill}}_\text{\f{}}
+  \else$\uwave{\hbox to\@tempdima{\hfill \text{#1}\hfill}}_\text{\f{}}$
+  \fi
+\else %そのまま
+  \uwave{\hbox to\@tempdima{\hfill #1\hfill}}
+\fi
+}
+\makeatother
