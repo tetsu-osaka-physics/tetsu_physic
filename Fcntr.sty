@@ -1,5 +1,5 @@
 \NeedsTeXFormat{pLaTeX2e}
-\ProvidesPackage{Fcntr}[2019/4/21]
+\ProvidesPackage{Fcntr}[2019/4/22]
 
 %%%%%%%%%%%パッケージ奴%%%%%%%%%%%
 
@@ -52,7 +52,7 @@
 %%%%%%%%%%%ffの定義奴%%%%%%%%%%%
 
 \def\ff#1{
-\if#1　\,\doublebox{\hspace{.7zw}　\hspace{.7zw}}\,
-\else\setcounter{ffref}{#1}\,\doublebox{\hspace{.7zw}\csname\the\fstyle\endcsname{ffref}\hspace{.7zw}}\,
+\if#1　\doublebox{\hspace{.7zw}　\hspace{.7zw}}
+\else\setcounter{ffref}{#1}\doublebox{\hspace{.7zw}\csname\the\fstyle\endcsname{ffref}\hspace{.7zw}}
 \fi
 }
