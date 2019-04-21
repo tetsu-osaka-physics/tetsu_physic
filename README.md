@@ -51,4 +51,4 @@ sudo mktexlsr
 cd /Desktop
 chmod a+x get-sty.command
 ```
-を実行します．（shにした人は，```/usr/local/bin```で）
+を実行します．（shにした人は，`/usr/local/bin`で）
