@@ -224,8 +224,7 @@
 % \makeatother
 
 \makeatletter
-\def\Combarabic#1{\expandafter\@Combarabic{#1}}
-\def\@Combarabic#1{\protect\combinedarabic{#1}}
+\def\Combarabic#1{\expandafter\combinedarabic{#1}}
 \AddEnumerateCounter{\Combarabic}{\Combarabic}{\combinedarabic{99}}
 \makeatother
 
