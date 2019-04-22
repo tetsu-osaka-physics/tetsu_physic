@@ -1,5 +1,5 @@
 \NeedsTeXFormat{pLaTeX2e}
-\ProvidesPackage{uw}[2019/4/21]
+\ProvidesPackage{uw}[2019/4/23]
 
 %%%%%%%%%%%パッケージ奴%%%%%%%%%%%
 
@@ -10,20 +10,20 @@
 \makeatletter
 \newif\iff@
 \DeclareOption{f}{\f@true}
-\ExecuteOptions{f}
 \ProcessOptions\relax
 \makeatother
 
 \makeatletter
+\newdimen\@uwdim
 \def\uw#1{
-\settowidth{\@tempdima}{#1}
-\ifdim\@tempdima<1em\@tempdima=1em\fi
+\settowidth{\@uwdim}{#1}
+\ifdim\@uwdim<1em\@uwdim=1em\fi
 \iff@ %下に出す
-  \ifmmode\uwave{\hbox to\@tempdima{\hfill $#1$\hfill}}_\text{\f{}}
-  \else$\uwave{\hbox to\@tempdima{\hfill \text{#1}\hfill}}_\text{\f{}}$
+  \ifmmode\uwave{\hbox to\@uwdim{\hfill $#1$\hfill}}_\text{\f{}}
+  \else$\uwave{\hbox to\@uwdim{\hfill \text{#1}\hfill}}_\text{\f{}}$
   \fi
 \else %そのまま
-  \uwave{\hbox to\@tempdima{\hfill #1\hfill}}
+  \uwave{\hbox to\@uwdim{\hfill #1\hfill}}
 \fi
 }
 \makeatother
