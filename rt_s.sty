@@ -1,0 +1,277 @@
+\NeedsTeXFormat{pLaTeX2e}
+[2019/3/25]
+\ProvidesPackage{rt_s}
+%[出，出たーwwwwww復習テスト解答奴wwwwwww]
+
+% /usr/local/texlive/texmf-local/tex/latex/local/rt_s.sty
+
+%%%%%%%%%%%パッケージ奴%%%%%%%%%%%
+
+\usepackage{amsmath,amssymb,amsthm,ulem,fancyhdr,fancybox,layout,caption,titlesec,cases}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage[dvipdfmx]{color}
+\usepackage[bold]{otf}
+\usepackage[inline]{enumitem}
+\graphicspath{{./fig/}}
+
+%%%%%%%%%%%余白等奴%%%%%%%%%%%
+
+\newcommand{\tabtopsp}[1]{\vbox{\vbox to#1{}\vbox to 1zw{}}}
+% \renewcommand{\baselinestretch}{1.8}
+\renewcommand{\headrulewidth}{0pt}
+
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\topmargin}{-0.5zw}
+\setlength{\headheight}{0mm}
+\setlength{\headsep}{0mm}
+\setlength{\textheight}{48\baselineskip}
+\setlength{\textwidth}{55zw}
+\setlength{\tabcolsep}{5pt}
+\setlength{\voffset}{-1.3cm}
+\addtolength{\textheight}{\topskip}
+
+\setlength{\columnseprule}{0.4pt}
+
+%%%%%%%%%%%基本コマンド奴%%%%%%%%%%%
+
+\newcommand{\maru}[1]{\ajMaru{#1}}
+\newcommand{\safemaru}[1]{{\ooalign{\hfil#1\/\hfil\crcr\raise.167ex\hbox{\mathhexbox20D}}}}
+\newcommand{\f}[1]{\,\framebox[1.2cm]{#1}\,}
+\newcommand{\ff}[1]{\,\doublebox{\hspace{.7zw}#1\hspace{.7zw}}\,}
+\newcommand{\uw}[1]{\uwave{\,\,#1\,\,}}
+
+%%%%%%%%%%%sectionで大問定義する奴%%%%%%%%%%%
+
+\renewcommand{\thesection}{\underline{\large\textbf{第　\fullwidtharabic{section}　問}}}
+\titleformat{\section}[hang]
+{\Large\gtfamily}
+{\filright\thesection}{.5em}{\filcenter}[]
+\titlespacing{\section}
+{\parindent}{1.5ex plus .1ex minus .2ex}{0pt}
+
+%%%%%%%%%%%enumerateの番号をotf.styでUnicode制御文字にする奴%%%%%%%%%%%
+
+\makeatletter
+\def\Kakko#1{\expandafter\@Kakko\csname c@#1\endcsname}
+\def\@Kakko#1{\protect\ajKakko{#1}}
+\AddEnumerateCounter{\Kakko}{\Kakko}{\ajKakko{99}}
+\SetEnumerateShortLabel{m}{\Kakko*}
+\makeatother
+
+\makeatletter
+\def\Kalpha#1{\expandafter\@Kalpha\csname c@#1\endcsname}
+\def\@Kalpha#1{\protect\ajKakkoalph{#1}}
+\AddEnumerateCounter{\Kalpha}{\Kalpha}{\ajKakkoalph{99}}
+\SetEnumerateShortLabel{m}{\Kalpha*}
+\makeatother
+
+\makeatletter
+\def\KAlpha#1{\expandafter\@KAlpha\csname c@#1\endcsname}
+\def\@KAlpha#1{\protect\ajKakkoAlph{#1}}
+\AddEnumerateCounter{\KAlpha}{\KAlpha}{\ajKakkoAlph{99}}
+\SetEnumerateShortLabel{m}{\KAlpha*}
+\makeatother
+
+\makeatletter
+\def\KRoman#1{\expandafter\@KRoman\csname c@#1\endcsname}
+\def\@KRoman#1{\protect\ajKakkoRoman{#1}}
+\AddEnumerateCounter{\KRoman}{\KRoman}{\ajKakkoalph{99}}
+\SetEnumerateShortLabel{m}{\KRoman*}
+\makeatother
+
+\makeatletter
+\def\Roman#1{\expandafter\@Roman\csname c@#1\endcsname}
+\def\@Roman#1{\protect\ajRoman{#1}}
+\AddEnumerateCounter{\Roman}{\Roman}{\ajRoman{99}}
+\SetEnumerateShortLabel{m}{\Roman*}
+\makeatother
+
+\makeatletter
+\def\Maru#1{\expandafter\@Maru\csname c@#1\endcsname}
+\def\@Maru#1{\protect\ajMaru{#1}}
+\AddEnumerateCounter{\Maru}{\Maru}{\ajMaru{99}}
+\SetEnumerateShortLabel{m}{\Maru*}
+\makeatother
+
+
+%%%%%%%%%%%解答図キャプションを全角にする奴%%%%%%%%%%%
+
+\makeatletter
+\def\fullwidtharabic#1{\expandafter\@fullwidtharabic\csname c@#1\endcsname}
+\def\@fullwidtharabic#1{\expandafter\@@fullwidtharabic\number#1@}
+\def\@@fullwidtharabic#1{%
+\if#1@\else
+\ifcase#1０\or １\or ２\or ３\or ４\or ５\or ６\or ７\or ８\or ９\fi
+\expandafter\@@fullwidtharabic
+\fi}
+\makeatother
+
+\renewcommand{\thefigure}{\fullwidtharabic{figure}}
+\renewcommand{\thetable}{\fullwidtharabic{table}}
+
+\captionsetup[figure]{font=normalsize}
+\renewcommand{\figurename}{解答図}
+% \captionsetup[table]{font=normalsize}
+
+%%%%%%%%%%%式キャプションを丸数字にする奴%%%%%%%%%%%
+% \label{hoge}, \eqref{hoge}で参照．
+
+\newcounter{ceq}
+\DeclareRobustCommand*{\eqmaru}[1]{%
+  \refstepcounter{ceq}%
+  \ajMaru{\arabic{ceq}}%
+  \label{#1}}
+\makeatletter
+\def\eqref#1{% #1: <label>
+  \expandafter\ifx\csname r@#1\endcsname\relax
+      % ラベル <label> に関する相互参照情報がない場合
+      \ref{#1}% \ref 自体を用いて「未定義のラベル」に関する警告処理等を行う
+  \else
+      % ・\label{<foo>} は aux ファイルに
+      %  \newlabel{<foo>}{{<\ref{foo}で参照されるもの>}{<\label{foo}の位置のページ番号>}}
+      %  を書き出す（ただし，\label が書き出させる内容を変更するパッケージはある）．
+      % ・\newlabel{<foo>}{{<ref>}{<page>}} は \r@<foo> を
+      %  \gdef\r@<foo>{{<ref>}{<page>}}
+      %  のごとく定義する（ラベルの重複に関する検査も行う）．
+      %  （つまり，\ref{<foo>} で参照されるもの「のみ」が要るときには，
+      %  (*) における <ref> の部分を取り出せばよい．）
+      \protected@edef\@maruref@temp{
+        \expandafter\expandafter\expandafter
+        \@firstoftwo\csname r@#1\endcsname\empty\empty}%
+%      \protected@edef\@maruref@temp{%
+%        \expandafter\expandafter\expandafter
+%        \@car\csname r@#1\endcsname\empty\@nil}%
+      \ajMaru{\@maruref@temp}%
+  \fi}
+\makeatother
+
+\makeatletter
+\newif\iflongequation
+% \renewenvironment{align}{%
+%   \start@align\@ne\st@rredfalse\m@ne
+% }{%
+%   \math@cr \black@\totwidth@
+%   \egroup
+%   \ifingather@
+%     \restorealignstate@
+%     \egroup
+%     \nonumber
+%     \ifnum0=`{\fi\iffalse}\fi
+%     \longequationtrue % 式長い時；普通の番号付け形式
+%   式長い！
+%   \else
+%     $$
+%     \longequationfalse % 式短い時；アレな番号付け形式
+%     式いい感じ
+%   \fi
+%   \ignorespacesafterend
+% }
+
+\renewenvironment{align}{
+\let\xatlevel@\@ne
+\maxfields@\m@ne\relax
+  $$%
+  \let\split\insplit@
+  \DN@{\align@\st@rredfalse}
+  \collect@body\next@
+  \checkat@false
+}{%
+  \math@cr
+  \noalign{%式長い時の処理
+      \ifdim\totwidth@>\displaywidth
+          \dimen@\prevdepth
+          \nointerlineskip
+          \vskip-\ht\strutbox@
+          \vskip-\dp\strutbox@
+          \vbox{\noindent\hbox to\displaywidth{\hbox to\totwidth@{\strut@\hfill}}}%
+          \prevdepth\dimen@
+          \longequationtrue % 式長い時；普通の番号付け形式
+          \colorbox{black}{\textcolor{white}{式長い！}}
+      \fi
+  }
+  \egroup
+  $$
+  \ignorespacesafterend
+}
+
+\def\place@tag{%
+    \iftagsleft@
+        \kern-\tagshift@
+        \if1\shift@tag\row@\relax
+            \rlap{\vbox{%
+                \normalbaselines
+                \boxz@
+                \vbox to\lineht@{}%
+                \raise@tag
+            }}%
+        \else
+            \rlap{\boxz@}%
+        \fi
+        \kern\displaywidth@
+    \else
+        \iflongequation
+          \kern-\tagshift@
+        \else
+          \qquad\qquad
+        \fi
+        \if1\shift@tag\row@\relax
+            \llap{\vtop{%
+                \raise@tag
+                \normalbaselines
+                \setbox\@ne\null
+                \dp\@ne\lineht@
+                \box\@ne
+                \boxz@
+            }}%
+        \else
+            \llap{\boxz@}%
+        \fi
+    \fi
+}
+\makeatother
+
+\makeatletter
+\def\tagform@#1{$\cdots$\maketag@@@{\ajMaru{#1}}}
+\makeatother
+
+%%%%%%%%%%%大問ごとにリセットする奴%%%%%%%%%%%
+
+\makeatletter
+\@addtoreset{equation}{section}
+\@addtoreset{figure}{section}
+\@addtoreset{table}{section}
+\makeatother
+
+%%%%%%%%%%%ページ番号のスタイル奴%%%%%%%%%%%
+
+% \fancypagestyle{pg}
+% {
+% % \lhead{\thesection}
+% % \rhead{\thedist}
+% \cfoot{\normalsize{-- \thepage\ --}}
+% \renewcommand{\headrulewidth}{0.0pt}
+% }
+\pagestyle{empty}
+
+%%%%%%%%%%%計算余白になる奴%%%%%%%%%%%
+
+% \newcommand{\emptypage}{
+%   \lhead{}
+%   \rhead{}
+%   \begin{center}
+%     （計算余白）
+%   \end{center}
+%   \newpage
+%   \lhead{\thesection}
+%   \rhead{\thedist}
+% }
+
+%%%%%%%%%%%プリアンブルに入れれない奴%%%%%%%%%%%
+
+% \def\style{
+% % \layout
+% \setcounter{page}{1}
+% \pagenumbering{arabic}
+% \pagestyle{pg}
+% \large
+% }
