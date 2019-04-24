@@ -16,21 +16,17 @@
 %   \label{#1}}
 % \makeatletter
 
-\def\eqref#1{% #1: <label>
+\def\eqref#1{%
   \expandafter\ifx\csname r@#1\endcsname\relax
-      % if there are no inter-refarence information about <label>
-      \ref{#1}%  Use \ref to warn about ``undefined label''
+    \ref{#1}
   \else
-      % \label{<foo>} extracts \newlabel{<foo>}{{<what's referrd by \ref{foo}>}{<page number of where \label{foo} exists >}} in *.aux.
-      % \newlabel{<foo>}{{<ref>}{<page>}} defines \r@<foo> as \gdef\r@<foo>{{<ref>}{<page>}}.
-      % Therefore, when you need only what is referrd by \ref{<foo>}, you only have to get <ref>.
-      \protected@edef\@maruref@temp{
-        \expandafter\expandafter\expandafter
-        \@firstoftwo\csname r@#1\endcsname\empty\empty}%
-%      \protected@edef\@maruref@temp{%
-%        \expandafter\expandafter\expandafter
-%        \@car\csname r@#1\endcsname\empty\@nil}%
-      \ajMaru{\@maruref@temp}%
+    \protected@edef\@maruref@temp{
+      \expandafter\expandafter\expandafter
+      \@firstoftwo\csname r@#1\endcsname\empty\empty}%
+  %      \protected@edef\@maruref@temp{%
+  %        \expandafter\expandafter\expandafter
+  %        \@car\csname r@#1\endcsname\empty\@nil}%
+    \ajMaru{\@maruref@temp}%
   \fi}
 \makeatother
 
@@ -101,11 +97,11 @@
 
 \makeatletter
 \newdimen\@tagdim
-\def\tagform@#1{\if@eqnsw
+\def\tagform@#1{\if@eqnsw%
 … \maketag@@@{\ajMaru{#1}} % 9.24683pt
 \else \settowidth{\@tagdim}{#1}
 \advance\@tagdim by-9.24683pt
-\multiply\@tagdim by-1
+\multiply\@tagdim by-1%
 … \maketag@@@{#1\hspace{\the\@tagdim}}
 \fi}
 \makeatother
