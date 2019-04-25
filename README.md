@@ -65,4 +65,7 @@ git remote show origin
 git remote prune --dry-run origin
 git remote prune origin
 ```
-複数のPCで作業する場合，ローカルのdevelopブランチでの`git push`で`origin/master`に通ってしまうことがあるので注意（バグが残ったものを`origin/master`に上げると顰蹙を買う）．
+複数のPCで作業する場合，ローカルのdevelopブランチでの`git push`で`origin/master`に通ってしまうことがあるので注意（バグが残ったものを`origin/master`に上げると顰蹙を買う）．`git push`でのpush先のリモートブランチを変更する時は，
+```
+git branch --set-upstream-to origin/[branch name]
+```
