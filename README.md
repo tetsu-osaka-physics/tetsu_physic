@@ -52,3 +52,16 @@ cd /Desktop
 chmod a+x get-sty.command
 ```
 を実行します．（shにした人は，`/usr/local/bin`で）
+
+## ブランチ関係（特にリモート）
+* リモートのブランチ削除
+```
+git push --delete origin [branch name]
+```
+* リモートで既に消えているが，ローカルには参照が残っている場合
+remoteブランチを単純参照して，remoteブランチでは削除されているがローカルに参照が残っているブランチを表示して，すでに削除されているremoteブランチのローカル参照を削除してきれいにする
+```
+git remote show origin
+git remote prune --dry-run origin
+git remote prune origin
+```
