@@ -14,13 +14,12 @@
 \makeatother
 
 \makeatletter
-\newdimen\@uwdim
 \def\uw#1{
-\settowidth{\@uwdim}{#1}
+\ifmmode\settowidth{\@uwdim}{$#1$}\else\settowidth{\@uwdim}{#1}\fi
 \ifdim\@uwdim<1em\@uwdim=1em\fi
 \iff@
-  \ifmmode\uwave{\hbox to\@uwdim{\hfill $#1$\hfill}}_\text{\f{}}
-  \else$\uwave{\hbox to\@uwdim{\hfill \text{#1}\hfill}}_\text{\f{}}$
+  \ifmmode\uwave{\hbox to\@uwdim{\hfill $#1$\hfill}}_{\f{}}
+  \else$\uwave{\hbox to\@uwdim{\hfill #1\hfill}}_{\f{}}$
   \fi
 \else
   \uwave{\hbox to\@uwdim{\hfill #1\hfill}}
