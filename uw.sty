@@ -6,7 +6,6 @@
 \usepackage{ulem}
 
 %%%%%%%%%%%uwの定義奴%%%%%%%%%%%
-
 \makeatletter
 \newif\iff@
 \DeclareOption{f}{\f@true}
@@ -14,6 +13,7 @@
 \makeatother
 
 \makeatletter
+\newdimen\@uwdim
 \def\uw#1{
 \ifmmode\settowidth{\@uwdim}{$#1$}\else\settowidth{\@uwdim}{#1}\fi
 \ifdim\@uwdim<1em\@uwdim=1em\fi
