@@ -18,8 +18,8 @@
 \ifmmode\settowidth{\@uwdim}{$#1$}\else\settowidth{\@uwdim}{#1}\fi
 \ifdim\@uwdim<1em\@uwdim=1em\fi
 \iff@
-  \ifmmode\uwave{\hbox to\@uwdim{\hfil $#1$\hfil}}_{\f{}}
-  \else$\uwave{\hbox to\@uwdim{\hfil #1\hfil}}_{\f{}}$
+  \ifmmode\uwave{\hbox to\@uwdim{\hfil $#1$\hfil}}_\text{\f{}}
+  \else$\uwave{\hbox to\@uwdim{\hfil #1\hfil}}_\text{\f{}}$
   \fi
 \else
   \ifmmode\uwave{\hbox to\@uwdim{\hfil $#1$\hfil}}
