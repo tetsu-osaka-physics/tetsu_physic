@@ -108,17 +108,18 @@
 
 \makeatletter
 \def\f#1{
+\if#1{}\def\ARG{{#1}}\else\def\ARG{#1}\fi
 \ifnobox@
-  \if#1　{#1}
+  \if\ARG　{#1}
   \else
-    \if#1""\addtocounter{Fcntr}{1}{\csname\the\fstyle\endcsname{Fcntr}}
+    \if\ARG""\addtocounter{Fcntr}{1}{\csname\the\fstyle\endcsname{Fcntr}}
     \else\setcounter{fref}{#1}{\csname\the\fstyle\endcsname{fref}}
     \fi
   \fi
 \else
-  \if#1　\framebox[1.2cm]{#1}
+  \if\ARG　\framebox[1.2cm]{#1}
   \else
-    \if#1""\addtocounter{Fcntr}{1}\framebox[1.2cm]{\csname\the\fstyle\endcsname{Fcntr}}
+    \if\ARG""\addtocounter{Fcntr}{1}\framebox[1.2cm]{\csname\the\fstyle\endcsname{Fcntr}}
     \else\setcounter{fref}{#1}\framebox[1.2cm]{\csname\the\fstyle\endcsname{fref}}
     \fi
   \fi
@@ -129,7 +130,8 @@
 %%%%%%%%%%%ffの定義奴%%%%%%%%%%%
 
 \def\ff#1{
-\if#1　\doublebox{\hspace{.7zw}　\hspace{.7zw}}
+\if#1{}\def\ARG{{#1}}\else\def\ARG{#1}\fi
+\if\ARG　\doublebox{\hspace{.7zw}　\hspace{.7zw}}
 \else\setcounter{ffref}{#1}\doublebox{\hspace{.7zw}\csname\the\fstyle\endcsname{ffref}\hspace{.7zw}}
 \fi
 }
