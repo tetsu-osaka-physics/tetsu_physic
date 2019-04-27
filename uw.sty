@@ -1,5 +1,5 @@
 \NeedsTeXFormat{pLaTeX2e}
-\ProvidesPackage{uw}[2019/4/23]
+\ProvidesPackage{uw}[2019/4/27 created by Hogemura. Visit https://github.com/tetsu-osaka-physics/tetsu_physic for further help!]
 
 %%%%%%%%%%%パッケージ奴%%%%%%%%%%%
 
@@ -18,11 +18,11 @@
 \def\uw#1{
 \settowidth{\@uwdim}{#1}
 \ifdim\@uwdim<1em\@uwdim=1em\fi
-\iff@ %下に出す
+\iff@
   \ifmmode\uwave{\hbox to\@uwdim{\hfill $#1$\hfill}}_\text{\f{}}
   \else$\uwave{\hbox to\@uwdim{\hfill \text{#1}\hfill}}_\text{\f{}}$
   \fi
-\else %そのまま
+\else
   \uwave{\hbox to\@uwdim{\hfill #1\hfill}}
 \fi
 }
