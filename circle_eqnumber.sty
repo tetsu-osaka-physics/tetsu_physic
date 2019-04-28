@@ -33,7 +33,6 @@
 \makeatletter
 \newif\iflongequation
 \renewenvironment{align}{
-\settowidth{\@FWdim}{　}
 \let\xatlevel@\@ne
 \maxfields@\m@ne\relax
   $$%
@@ -99,6 +98,7 @@
 \makeatletter
 \newdimen\@tagdim
 \newdimen\@FWdim
+\settowidth{\@FWdim}{　}
 \def\tagform@#1{\if@eqnsw%
 … \maketag@@@{\ajMaru{#1}} % 9.24683pt
 \else \settowidth{\@tagdim}{#1}
