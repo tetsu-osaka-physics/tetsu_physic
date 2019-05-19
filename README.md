@@ -29,29 +29,22 @@ git config --global user.email=<address@mail.com>
 ```
 4. 鍵の生成
 ```
+mkdir ~/.ssh
 cd ~/.ssh
 ssh-keygen -t rsa
-atom id_git_rsa.pub
+atom id_rsa.pub
 ```
 で公開鍵をコピペして，自分のGitHubのページで鍵を入れて認証する．
 
 5. tetsuryoku-osaka-physicsに参加する（招待送ります）．
 
-6. get-sty.commandを実行します（デスクトップを汚したくない人は/usr/local/binに拡張子なしで保存）：
+6. get-sty.commandを実行します（初期設定で使ったフォルダ消した場合は入れなおす）．ターミナル：
 ```
-sudo rm -rf /usr/local/texlive/texmf-local/tex/latex/local/tetsu_physic
-cd /usr/local/texlive/texmf-local/tex/latex/local
-sudo git clone https://github.com/tetsu-osaka-physics/tetsu_physic.git tetsu_physic
-cd ~
-sudo rm -rf /usr/local/texlive/texmf-local/tex/latex/local/tetsu_physic/.git
-sudo mktexlsr
-```
-権限付与のために
-```
+mv ~/FOR/get-sty.command /Desktop/get-sty.command
 cd /Desktop
 chmod a+x get-sty.command
 ```
-を実行します．（shにした人は，`/usr/local/bin`で）
+を実行します．
 
 ## ブランチ関係（特にリモート）
 * リモートのブランチ削除
