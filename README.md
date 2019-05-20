@@ -40,8 +40,8 @@ atom id_rsa.pub
 
 6. get-sty.commandを実行します（初期設定で使ったフォルダ消した場合は入れなおす）．ターミナル：
 ```
-mv ~/FOR/get-sty.command /Desktop/get-sty.command
-cd /Desktop
+mv ~/FOR/get-sty.command Desktop/get-sty.command
+cd Desktop
 chmod a+x get-sty.command
 ```
 を実行します．
