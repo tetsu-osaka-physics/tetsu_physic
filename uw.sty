@@ -16,14 +16,26 @@
 \newdimen\@uwdim
 \def\uw#1{
 \ifmmode\settowidth{\@uwdim}{$#1$}\else\settowidth{\@uwdim}{#1}\fi
-\ifdim\@uwdim<1em\@uwdim=1em\fi
-\iff@
-  \ifmmode\uwave{\hbox to\@uwdim{\hfil $\displaystyle #1$\hfil}}_\text{\f{}}
-  \else$\uwave{\hbox to\@uwdim{\hfil #1\hfil}}_\text{\f{}}$
+\ifdim\@uwdim<1em
+  \settowidth{\@uwdim}{1em}
+  \iff@
+    \ifmmode\uwave{\hbox to\@uwdim{\hfil $\displaystyle #1$\hfil}}_\text{\f{}}
+    \else$\uwave{\hbox to\@uwdim{\hfil #1\hfil}}_\text{\f{}}$
+    \fi
+  \else
+    \ifmmode\uwave{\hbox to\@uwdim{\hfil $\displaystyle#1$\hfil}}
+    \else\uwave{\hbox to\@uwdim{\hfil #1\hfil}}
+    \fi
   \fi
 \else
-  \ifmmode\uwave{\hbox to\@uwdim{\hfil $\displaystyle#1$\hfil}}
-  \else\uwave{\hbox to\@uwdim{\hfil #1\hfil}}
+  \iff@
+    \ifmmode\uwave{\displaystyle#1}_\text{\f{}}
+    \else\uwave{#1}$_\text{\f{}}$
+    \fi
+  \else
+    \ifmmode\uwave{$\displaystyle#1$}
+    \else\uwave{#1}
+    \fi
   \fi
 \fi
 }
