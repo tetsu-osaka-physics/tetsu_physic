@@ -6,6 +6,7 @@
 \usepackage{ulem}
 
 %%%%%%%%%%%uwの定義奴%%%%%%%%%%%
+
 \makeatletter
 \newif\iff@
 \DeclareOption{f}{\f@true}
@@ -38,5 +39,23 @@
     \fi
   \fi
 \fi
+\ifmmode
+\protected@write\@auxout{}%
+       {\string\newlabel{ans\arabic{section}.\theFcntr}{{$#1$}{\thepage}}}%
+\else
+\protected@write\@auxout{}%
+       {\string\newlabel{ans\arabic{section}.\theFcntr}{{#1}{\thepage}}}%
+\fi
 }
 \makeatother
+
+%%%%%%%%%%%ansの定義奴%%%%%%%%%%%
+
+\def\ans{%
+\f{}　\ref{ans\arabic{section}.\theFcntr}
+}
+
+\def\ansskip{%
+\f{}
+（略）
+}
