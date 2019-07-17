@@ -70,13 +70,11 @@
 
 %%%%%%%%%%%ページ番号のスタイル奴%%%%%%%%%%%
 
-\fancypagestyle{pg}
-{
+\renewcommand{\headrulewidth}{0.0pt}
+\pagestyle{fancy}
 \lhead{\thesection}
 \rhead{\thedist}
 \cfoot{\normalsize{-- \thepage\ --}}
-\renewcommand{\headrulewidth}{0.0pt}
-}
 
 %%%%%%%%%%%計算余白になる奴%%%%%%%%%%%
 
@@ -89,13 +87,4 @@
   \newpage
   \lhead{\thesection}
   \rhead{\thedist}
-}
-
-%%%%%%%%%%%プリアンブルに入れれない奴%%%%%%%%%%%
-
-\def\style{
-% \layout
-\setcounter{page}{1}
-\pagenumbering{arabic}
-\pagestyle{pg}
 }
