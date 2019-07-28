@@ -16,7 +16,7 @@
 \makeatletter
 \newdimen\@uwdim
 \def\uw#1{
-\ifmmode\settowidth{\@uwdim}{$\displaystyle #1$}\else\settowidth{\@uwdim}{$#1$}\fi
+\relax\ifmmode\settowidth{\@uwdim}{$\displaystyle #1$}\else\settowidth{\@uwdim}{#1}\fi
 \ifdim\@uwdim<1em
   \setlength{\@uwdim}{1em}
   \iff@
