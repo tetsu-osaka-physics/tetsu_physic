@@ -1,5 +1,5 @@
 \NeedsTeXFormat{pLaTeX2e}
-\ProvidesPackage{uw}[2019/4/27 created by Hogemura. Visit https://github.com/tetsu-osaka-physics/tetsu_physic for further help!]
+\ProvidesPackage{uw}[2019/7/28 created by Hogemura. Visit https://github.com/tetsu-osaka-physics/tetsu_physic for further help!]
 
 %%%%%%%%%%%パッケージ奴%%%%%%%%%%%
 
@@ -16,7 +16,7 @@
 \makeatletter
 \newdimen\@uwdim
 \def\uw#1{
-\ifmmode\settowidth{\@uwdim}{$#1$}\else\settowidth{\@uwdim}{#1}\fi
+\relax\ifmmode\settowidth{\@uwdim}{$\displaystyle #1$}\else\settowidth{\@uwdim}{#1}\fi
 \ifdim\@uwdim<1em
   \setlength{\@uwdim}{1em}
   \iff@
@@ -24,27 +24,29 @@
     \else$\uwave{\hbox to\@uwdim{\hfil #1\hfil}}_\text{\f{}}$
     \fi
   \else
-    \ifmmode\uwave{\hbox to\@uwdim{\hfil $\displaystyle#1$\hfil}}
+    \ifmmode\uwave{\hbox to\@uwdim{\hfil $\displaystyle #1$\hfil}}
     \else\uwave{\hbox to\@uwdim{\hfil #1\hfil}}
     \fi
   \fi
 \else
   \iff@
-    \ifmmode\uwave{\displaystyle#1}_\text{\f{}}
+    \ifmmode\uwave{\displaystyle #1}_\text{\f{}}
     \else\uwave{#1}$_\text{\f{}}$
     \fi
   \else
-    \ifmmode\uwave{$\displaystyle#1$}
+    \ifmmode\uwave{\displaystyle #1}
     \else\uwave{#1}
     \fi
   \fi
 \fi
-\ifmmode
-\protected@write\@auxout{}%
-       {\string\newlabel{ans\arabic{section}.\theFcntr}{{$#1$}{\thepage}}}%
-\else
-\protected@write\@auxout{}%
-       {\string\newlabel{ans\arabic{section}.\theFcntr}{{#1}{\thepage}}}%
+\iff@
+  \ifmmode
+  \protected@write\@auxout{}%
+  {\string\newlabel{ans\arabic{section}.\theFcntr}{{$#1$}{\thepage}}}%
+  \else
+  \protected@write\@auxout{}%
+  {\string\newlabel{ans\arabic{section}.\theFcntr}{{#1}{\thepage}}}%
+  \fi
 \fi
 }
 \makeatother
