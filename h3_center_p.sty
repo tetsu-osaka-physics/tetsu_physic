@@ -39,6 +39,20 @@
 \captionsetup[figure]{font=normalsize}
 % \captionsetup[table]{font=normalsize}
 
+\makeatletter
+\newcounter{temporalfignum}
+\def\marufigcaption{\renewcommand{\figurename}{}
+\renewcommand{\thefigure}{\Marucounter{figure}}
+\setcounter{temporalfignum}{\value{figure}}
+\setcounter{figure}{0}
+}
+\makeatother
+
+\def\normalfigcaption{\renewcommand{\figurename}{図}
+\renewcommand{\thefigure}{\combinedarabic{figure}}
+\setcounter{figure}{\value{temporalfignum}}
+}
+
 %%%%%%%%%%%大問ごとにリセットする奴%%%%%%%%%%%
 
 \makeatletter
