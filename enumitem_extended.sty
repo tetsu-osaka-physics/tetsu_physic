@@ -1,10 +1,12 @@
 \NeedsTeXFormat{pLaTeX2e}
-\ProvidesPackage{enumitem_extended}[2019/4/27 created by Hogemura and clowncrown1121. Visit https://github.com/tetsu-osaka-physics/tetsu_physic for further help!]
+\ProvidesPackage{enumitem_extended}[2019/9/13 created by Hogemura and clowncrown1121. Visit https://github.com/tetsu-osaka-physics/tetsu_physic for further help!]
 
 %%%%%%%%%%%パッケージ奴%%%%%%%%%%%
 
 \usepackage[bold]{otf}
 \usepackage[inline]{enumitem}
+\RequirePackage{ifthen}
+\RequirePackage{tikz}
 
 %%%%%%%%%%%新規カウンタ奴%%%%%%%%%%%
 
@@ -217,6 +219,268 @@
 \def\KakkoKatairoha#1{\@KakkoKatairoha{\@nameuse{c@#1}}}
 \makeatother
 
+\newcommand{\Centerarabiccounter}[1]{%
+\newif\ifunknowncharacter
+\unknowncharactertrue
+\ifthenelse{\equal{#1}{0}}{\unknowncharacterfalse%
+\parbox[c]{0.9em}{%
+\begin{tikzpicture}[line cap=rect, sharp corners, line width=0.08em]
+	\path (-0.37em,0.5em) (0.37em,-0.7em);
+	\draw (0,0)
+		ellipse (0.37em and 0.5em);
+	\draw (0,0.3em)
+		to [out=180,in=90] (-0.18em,0)
+		to [out=270,in=180] (0,-0.3em)
+		to [out=0,in=270] (0.18em,0)
+		to [out=90,in=0] (0,0.3em)
+		-- cycle;
+\end{tikzpicture}}%
+}{}%
+\ifthenelse{\equal{#1}{1}}{\unknowncharacterfalse%
+\parbox[c]{0.9em}{%
+\begin{tikzpicture}[line cap=rect, sharp corners, line width=0.08em]
+	\path (-0.37em,0.5em) (0.37em,-0.7em);
+	\draw (0,0)
+		 ellipse (0.37em and 0.5em);
+	\draw [line join = bevel] (-0.13em,0.25em)
+		.. controls (-0.07em,0.25em) and (0,0.29em) ..  (0,0.34em)
+		-- (0,-0.3em);
+\end{tikzpicture}}%
+}{}%
+\ifthenelse{\equal{#1}{2}}{\unknowncharacterfalse%
+\parbox[c]{0.9em}{%
+\begin{tikzpicture}[line cap=rect, sharp corners, line width=0.08em]
+	\path (-0.37em,0.5em) (0.37em,-0.7em);
+	\draw (0,0)
+		ellipse (0.37em and 0.5em);
+	\draw (-0.15em,0.17em)
+		to [out=85,in=180](0,0.3em)
+		to [out=0,in=90](0.15em, 0.17em)
+		.. controls (0.13em,0)and(-0.12em,-0.10em)..(-0.15em,-0.28em)
+		-- (0.15em, -0.28em);
+\end{tikzpicture}}%
+}{}%
+\ifthenelse{\equal{#1}{3}}{\unknowncharacterfalse%
+\parbox[c]{0.9em}{%
+\begin{tikzpicture}[line cap=rect, sharp corners, line width=0.08em]
+	\path (-0.37em,0.5em) (0.37em,-0.7em);
+	\draw (0,0)
+		ellipse (0.37em and 0.5em);
+	\draw (-0.15em,0.17em)
+		to[out=85,in=180](0,0.3em)
+		to [out=0,in=90](0.15em,0.17em)
+		to[out=270,in=0](-0.01em,0);
+	\draw (-0.01em,0)
+		to [out=1,in=90](0.16em,-0.15em)
+		to [out=270, in=0](0,-0.3em)
+		to [out=180,in=275](-0.17em,-0.17em);
+\end{tikzpicture}}%
+}{}%
+\ifthenelse{\equal{#1}{4}}{\unknowncharacterfalse%
+\parbox[c]{0.9em}{%
+\begin{tikzpicture}[line cap=rect, sharp corners, line width=0.08em,line join=bevel]
+	\path (-0.37em,0.5em) (0.37em,-0.7em);
+	\draw (0,0)
+		ellipse (0.37em and 0.5em);
+	\draw (0.07em,-0.3em)
+		-- (0.07em,0.34em)
+		-- (-0.22em,-0.14em)
+		-- (0.17em,-0.14em);
+\end{tikzpicture}}%
+}{}%
+\ifthenelse{\equal{#1}{5}}{\unknowncharacterfalse%
+\parbox[c]{0.9em}{%
+\begin{tikzpicture}[line cap=rect, sharp corners, line width=0.08em]
+	\path (-0.37em,0.5em) (0.37em,-0.7em);
+	\draw (0,0)
+		ellipse (0.37em and 0.5em);
+	\draw [line join=bevel] (0.14em,0.3em)
+		-- (-0.14em,0.3em)
+		-- (-0.16em,-0.02em)
+		to [out=60,in=180](0,0.08em)
+		to [out=0,in=90] (0.17em,-0.1em)
+		to [out=270,in=0](0,-0.3em)
+		to [out=180,in=290](-0.17em,-0.18em);
+\end{tikzpicture}}%
+}{}%
+\ifthenelse{\equal{#1}{6}}{\unknowncharacterfalse%
+\parbox[c]{0.9em}{%
+\begin{tikzpicture}[line cap=rect, sharp corners, line width=0.08em]
+	\path (-0.37em,0.5em) (0.37em,-0.7em);
+	\draw (0,0)
+		ellipse (0.37em and 0.5em);
+	\draw (0.15em,0.2em)
+		to [out=110,in=0](0,0.3em)
+		to [out=180, in=90](-0.17em,0)
+		to [out=270,in=180](0,-0.3em)
+		to [out=0,in=270](0.17em,-0.12em)
+		to [out=90,in=0](0.02em,0.06em)
+		to [out=180,in=80](-0.15em,-0.08em);
+\end{tikzpicture}}%
+}{}%
+\ifthenelse{\equal{#1}{7}}{\unknowncharacterfalse%
+\parbox[c]{0.9em}{%
+\begin{tikzpicture}[line cap=rect, sharp corners, line width=0.08em]
+	\path (-0.37em,0.5em) (0.37em,-0.7em);
+	\draw (0,0)
+		ellipse (0.37em and 0.5em);
+	\draw [line join=bevel](-0.15em,0.28em)
+		-- (0.17em,0.28em)
+		to [out=230,in=90](0,-0.30em);
+\end{tikzpicture}}%
+}{}%
+\ifthenelse{\equal{#1}{8}}{\unknowncharacterfalse%
+\parbox[c]{0.9em}{%
+\begin{tikzpicture}[line cap=rect, sharp corners, line width=0.08em]
+	\path (-0.37em,0.5em) (0.37em,-0.7em);
+	\draw (0,0)
+		ellipse (0.37em and 0.5em);
+	\draw (0,0.3em)
+		to [out=180,in=90](-0.15em,0.17em)
+		to [out=270,in=180](0,0.04em)
+		to [out=0,in=270](0.15em,0.17em)
+		to [out=90,in=0](0,0.3em)
+		-- cycle;
+	\draw (0,0.04em)
+		to [out=180,in=90](-0.19em,-0.13em)
+		to [out=270,in=180](0,-0.3em)
+		to [out=0,in=270](0.19em,-0.13em)
+		to [out=90,in=0](0,0.04em)
+		-- cycle;
+\end{tikzpicture}}%
+}{}%
+\ifthenelse{\equal{#1}{9}}{\unknowncharacterfalse%
+\parbox[c]{0.9em}{%
+\begin{tikzpicture}[line cap=rect, sharp corners, line width=0.08em]
+	\path (-0.37em,0.5em) (0.37em,-0.7em);
+	\draw (0,0)
+		ellipse(0.37em and 0.5em);
+	\draw (-0.15em,-0.2em)
+		to [out=290,in=180](0,-0.3em)
+		to [out=0, in=270](0.17em,0)
+		to [out=90,in=0](0,0.3em)
+		to [out=180,in=90](-0.17em,0.12em)
+		to [out=270,in=180](-0.02em,-0.06em)
+		to [out=0,in=260](0.15em,0.08em);
+\end{tikzpicture}}%
+}{}%
+\ifthenelse{\equal{#1}{a}}{\unknowncharacterfalse%
+\parbox[c]{0.9em}{%
+\begin{tikzpicture}[line cap=rect, sharp corners, line width=0.08em]
+	\path (-0.37em,0.5em) (0.37em,-0.7em);
+	\draw (0,0)
+		ellipse (0.37em and 0.5em);
+	\draw (-0.16em,0.15em)
+		to [out=70,in=180](0,0.23em)
+		to [out=0,in=90](0.16em,0.10em)
+		-- (0.16em,-0.17em)
+		to [out=320,in=150](0.20em,-0.20em);
+	\draw (0.16em,0.04em)
+		to [out=180,in=90](-0.18em,-0.15em)
+		to [out=270,in=240](0.14em,-0.14em);
+\end{tikzpicture}}%
+}{}%
+\ifthenelse{\equal{#1}{b}}{\unknowncharacterfalse%
+\parbox[c]{0.9em}{%
+\begin{tikzpicture}[line cap=rect, sharp corners, line width=0.08em]
+	\path (-0.37em,0.5em) (0.37em,-0.7em);
+	\draw (0,0)
+		ellipse (0.37em and 0.5em);
+	\draw (-0.14em,0.27em)
+		-- (-0.14em,-0.25em);
+	\draw (-0.14em,-0.13em)
+		to [out=270,in=180](0.04em,-0.27em)
+		to [out=0,in=270](0.22em,-0.09em)
+		to [out=90,in=0](0.04em,0.09em)
+		to [out=180,in=90](-0.14em,-0.05em)
+		-- cycle;
+\end{tikzpicture}}%
+}{}%
+\ifthenelse{\equal{#1}{c}}{\unknowncharacterfalse%
+\parbox[c]{0.9em}{%
+\begin{tikzpicture}[line cap=rect, sharp corners, line width=0.08em]
+	\path (-0.37em,0.5em) (0.37em,-0.7em);
+	\draw (0,0)
+		ellipse (0.37em and 0.5em);
+	\begin{scope}
+		\clip (0.25em,0.25em)
+			-- (-0.25em,0.25em)
+			-- (-0.25em,-0.3em)
+			-- (0.25em,-0.3em)
+			-- (0.25em,-0.12em)
+			-- (0,-0.12em)
+			-- (0,0.08em)
+			-- (0.25em,0.08em)
+			-- cycle;
+		\draw (0,0.20em)
+			to [out=180,in=90](-0.19em,-0.02em)
+			to [out=270,in=180](0,-0.24em)
+			to [out=0,in=270](0.19em,-0.02em)
+			to [out=90,in=0](0,0.20em)
+			-- cycle;
+	\end{scope}
+\end{tikzpicture}}%
+}{}%
+\ifthenelse{\equal{#1}{d}}{\unknowncharacterfalse%
+\parbox[c]{0.9em}{%
+\begin{tikzpicture}[line cap=rect, sharp corners, line width=0.08em]
+	\path (-0.37em,0.5em) (0.37em,-0.7em);
+	\draw (0,0)
+		ellipse (0.37em and 0.5em);
+	\draw (0.14em,0.27em)
+		-- (0.14em,-0.25em);
+	\draw (0.14em,-0.13em)
+		to [out=270,in=0](-0.04em,-0.27em)
+		to [out=180,in=270](-0.22em,-0.09em)
+		to [out=90,in=180](-0.04em,0.09em)
+		to [out=0,in=90](0.14em,-0.05em)
+		-- cycle;
+\end{tikzpicture}}%
+}{}%
+\ifthenelse{\equal{#1}{-}}{\unknowncharacterfalse%
+\parbox[c]{0.9em}{%
+\begin{tikzpicture}[line cap=rect, sharp corners, line width=0.08em]
+	\path (-0.37em,0.5em) (0.37em,-0.7em);
+	\draw (0,0)
+		ellipse (0.37em and 0.5em);
+	\draw (-0.18em,0)
+		-- (0.18em,0);
+\end{tikzpicture}}%
+}{}%
+\ifthenelse{\equal{#1}{\pm} \OR \equal{#1}{±}}{\unknowncharacterfalse%
+\parbox[c]{0.9em}{%
+\begin{tikzpicture}[line cap=rect, sharp corners, line width=0.08em]
+	\path (-0.37em,0.5em) (0.37em,-0.7em);
+	\draw (0,0)
+		ellipse (0.37em and 0.5em);
+	\draw (-0.18em,0.08em)
+		-- (0.18em,0.08em);
+	\draw (-0.18em, -0.2em)
+		-- (0.18em, -0.2em);
+	\draw (0, 0.26em)
+		-- (0,-0.1em);
+\end{tikzpicture}}%
+}{}%
+\ifunknowncharacter{%
+\parbox[c]{0.9em}{%
+\begin{tikzpicture}[line cap=rect, sharp corners, line width=0.08em]
+	\path (-0.37em,0.5em) (0.37em,-0.7em);
+	\draw (0,0)
+		ellipse (0.37em and 0.5em);
+\end{tikzpicture}}%
+}\fi
+}
+
+\makeatletter
+\def\@Centerarabic#1{\ifcase#1\or \protect\Centerarabiccounter{1}\or%
+\protect\Centerarabiccounter{2}\or \protect\Centerarabiccounter{3}\or%
+\protect\Centerarabiccounter{4}\or \protect\Centerarabiccounter{5}\or%
+\protect\Centerarabiccounter{6}\or \protect\Centerarabiccounter{7}\or%
+\protect\Centerarabiccounter{8}\or \protect\Centerarabiccounter{9}\or%
+\else\@ctrerr\fi\relax}
+\def\Centerarabic#1{\@Centerarabic{\@nameuse{c@#1}}}
+% \makeatother
+
 %%%%%%%%%%%enumitem環境のカウンタ出力を様々なのにする奴%%%%%%%%%%%
 
 \makeatletter
@@ -315,4 +579,9 @@
 \makeatletter
 \def\KKiroha#1{\expandafter\@KakkoKatairoha\csname c@#1\endcsname}
 \AddEnumerateCounter{\KKiroha}{\KKiroha}{\KakkoKatairoha{99}}
+\makeatother
+
+\makeatletter
+\def\Carabic#1{\expandafter\@Centerarabic\csname c@#1\endcsname}
+\AddEnumerateCounter{\Carabic}{\Carabic}{\Centerarabic{99}}
 \makeatother
