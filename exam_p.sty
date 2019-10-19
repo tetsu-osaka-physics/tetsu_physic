@@ -35,7 +35,7 @@
 %%%%%%%%%%%sectionで問題番号と配点を決めてヘッダに出す奴%%%%%%%%%%%
 \newcounter{dist}
 \renewcommand{\thesection}{{\Large \textrm{第\combinedarabic{section}問}}}
-\renewcommand{\section}[1]{\refstepcounter{section}\setcounter{dist}{#1}}
+\renewcommand{\section}[1]{\refstepcounter{section}\setcounter{dist}{#1}\lhead{\thesection}\rhead{\thedist}}
 \renewcommand{\thedist}{{\textrm{配点 \arabic{dist}点}}}
 
 %%%%%%%%%%%図キャプションを全角にする奴%%%%%%%%%%%
@@ -72,8 +72,8 @@
 
 \renewcommand{\headrulewidth}{0.0pt}
 \pagestyle{fancy}
-\lhead{\thesection}
-\rhead{\thedist}
+% \lhead{\thesection}
+% \rhead{\thedist}
 \cfoot{\normalsize{-- \thepage\ --}}
 
 %%%%%%%%%%%計算余白になる奴%%%%%%%%%%%
@@ -85,6 +85,6 @@
     （計算余白）
   \end{center}
   \newpage
-  \lhead{\thesection}
-  \rhead{\thedist}
+  % \lhead{\thesection}
+  % \rhead{\thedist}
 }
