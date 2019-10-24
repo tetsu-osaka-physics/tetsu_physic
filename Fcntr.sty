@@ -1,5 +1,5 @@
 \NeedsTeXFormat{pLaTeX2e}
-\ProvidesPackage{Fcntr}[2019/4/27 created by Hogemura. Visit https://github.com/tetsu-osaka-physics/tetsu_physic for further help!]
+\ProvidesPackage{Fcntr}[2019/10/24 created by Hogemura. Visit https://github.com/tetsu-osaka-physics/tetsu_physic for further help !]
 
 %%%%%%%%%%%パッケージ奴%%%%%%%%%%%
 
@@ -57,4 +57,19 @@
 \if\ARG　\doublebox{\hspace{.7zw}　\hspace{.7zw}}
 \else\setcounter{ffref}{#1}\doublebox{\hspace{.7zw}\csname\the\fstyle\endcsname{ffref}\hspace{.7zw}}
 \fi
+}
+
+%%%%%%%%%%%図キャプション変える奴の定義奴%%%%%%%%%%%
+
+\newcounter{temporalfignum}
+
+\def\setfigcapstyle#1{\renewcommand{\figurename}{}
+\renewcommand{\thefigure}{\csname#1\endcsname{figure}}
+\setcounter{temporalfignum}{\value{figure}}
+\setcounter{figure}{0}
+}
+
+\def\normalfigcaption{\renewcommand{\figurename}{図}
+\renewcommand{\thefigure}{\combinedarabic{figure}}
+\setcounter{figure}{\value{temporalfignum}}
 }

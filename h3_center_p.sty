@@ -1,5 +1,5 @@
 \NeedsTeXFormat{pLaTeX2e}
-\ProvidesPackage{h3_center_p}[2019/9/13 created by Hogemura. Visit https://github.com/tetsu-osaka-physics/tetsu_physic for further help!]
+\ProvidesPackage{h3_center_p}[2019/10/24 created by Hogemura. Visit https://github.com/tetsu-osaka-physics/tetsu_physic for further help !]
 
 %%%%%%%%%%%パッケージ奴%%%%%%%%%%%
 
@@ -38,20 +38,6 @@
 
 \captionsetup[figure]{font=normalsize}
 % \captionsetup[table]{font=normalsize}
-
-\makeatletter
-\newcounter{temporalfignum}
-\def\marufigcaption{\renewcommand{\figurename}{}
-\renewcommand{\thefigure}{\Marucounter{figure}}
-\setcounter{temporalfignum}{\value{figure}}
-\setcounter{figure}{0}
-}
-\makeatother
-
-\def\normalfigcaption{\renewcommand{\figurename}{図}
-\renewcommand{\thefigure}{\combinedarabic{figure}}
-\setcounter{figure}{\value{temporalfignum}}
-}
 
 %%%%%%%%%%%大問ごとにリセットする奴%%%%%%%%%%%
 
