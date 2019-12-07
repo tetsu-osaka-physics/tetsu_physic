@@ -1,5 +1,5 @@
 \NeedsTeXFormat{pLaTeX2e}
-\ProvidesPackage{uw}[2019/8/10 created by Hogemura. Visit https://github.com/tetsu-osaka-physics/tetsu_physic for further help!]
+\ProvidesPackage{uw}[2019/12/7 created by Hogemura. Visit https://github.com/tetsu-osaka-physics/tetsu_physic for further help!]
 
 %%%%%%%%%%%パッケージ奴%%%%%%%%%%%
 
@@ -10,6 +10,12 @@
 \makeatletter
 \newif\iff@
 \DeclareOption{f}{\f@true}
+\ProcessOptions\relax
+\makeatother
+
+\makeatletter
+\newif\ifanslabel@
+\DeclareOption{anslabel}{\anslabel@true}
 \ProcessOptions\relax
 \makeatother
 
@@ -40,12 +46,14 @@
   \fi
 \fi
 \iff@
-  \ifmmode
-  \protected@write\@auxout{}%
-  {\string\newlabel{ans\arabic{section}.\theFcntr}{{$#1$}{\thepage}}}%
-  \else
-  \protected@write\@auxout{}%
-  {\string\newlabel{ans\arabic{section}.\theFcntr}{{#1}{\thepage}}}%
+  \ifanslabel@
+    \ifmmode
+    \protected@write\@auxout{}%
+    {\string\newlabel{ans\arabic{section}.\theFcntr}{{$#1$}{\thepage}}}%
+    \else
+    \protected@write\@auxout{}%
+    {\string\newlabel{ans\arabic{section}.\theFcntr}{{#1}{\thepage}}}%
+    \fi
   \fi
 \fi
 }
