@@ -1,5 +1,5 @@
 \NeedsTeXFormat{pLaTeX2e}
-\ProvidesPackage{uw}[2019/12/7 created by Hogemura. Visit https://github.com/tetsu-osaka-physics/tetsu_physic for further help!]
+\ProvidesPackage{uw}[2019/8/10 created by Hogemura. Visit https://github.com/tetsu-osaka-physics/tetsu_physic for further help!]
 
 %%%%%%%%%%%パッケージ奴%%%%%%%%%%%
 
@@ -9,17 +9,15 @@
 
 \makeatletter
 \newif\iff@
-\newif\ifanslabel@
 \DeclareOption{f}{\f@true}
-\DeclareOption{anslabel}{\anslabel@true}
-\ProcessOptions*
+\ProcessOptions\relax
 \makeatother
 
 \makeatletter
 \newdimen\@uwdim
 \def\uw#1{%
 \relax\ifmmode\settowidth{\@uwdim}{$\displaystyle #1$}\else\settowidth{\@uwdim}{#1}\fi
-\ifdim \@uwdim<1em
+\ifdim\@uwdim<1em
   \setlength{\@uwdim}{1em}
   \iff@
     \ifmmode\uwave{\hbox to\@uwdim{\hfil $\displaystyle #1$\hfil}}_\text{\f{}}
@@ -41,8 +39,7 @@
     \fi
   \fi
 \fi
-\relax
-\ifanslabel@
+\iff@
   \ifmmode
   \protected@write\@auxout{}%
   {\string\newlabel{ans\arabic{section}.\theFcntr}{{$#1$}{\thepage}}}%
