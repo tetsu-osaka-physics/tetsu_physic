@@ -9,14 +9,10 @@
 
 \makeatletter
 \newif\iff@
-\DeclareOption{f}{\f@true}
-\ProcessOptions\relax
-\makeatother
-
-\makeatletter
 \newif\ifanslabel@
+\DeclareOption{f}{\f@true}
 \DeclareOption{anslabel}{\anslabel@true}
-\ProcessOptions\relax
+\ProcessOptions*
 \makeatother
 
 \makeatletter
