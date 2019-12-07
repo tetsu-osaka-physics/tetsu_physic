@@ -41,15 +41,13 @@
     \fi
   \fi
 \fi
-\iff@
-  \ifanslabel@
-    \ifmmode
-    \protected@write\@auxout{}%
-    {\string\newlabel{ans\arabic{section}.\theFcntr}{{$#1$}{\thepage}}}%
-    \else
-    \protected@write\@auxout{}%
-    {\string\newlabel{ans\arabic{section}.\theFcntr}{{#1}{\thepage}}}%
-    \fi
+\ifanslabel@
+  \ifmmode
+  \protected@write\@auxout{}%
+  {\string\newlabel{ans\arabic{section}.\theFcntr}{{$#1$}{\thepage}}}%
+  \else
+  \protected@write\@auxout{}%
+  {\string\newlabel{ans\arabic{section}.\theFcntr}{{#1}{\thepage}}}%
   \fi
 \fi
 }
