@@ -19,7 +19,7 @@
 \newdimen\@uwdim
 \def\uw#1{%
 \relax\ifmmode\settowidth{\@uwdim}{$\displaystyle #1$}\else\settowidth{\@uwdim}{#1}\fi
-\ifdim\@uwdim<1em
+\ifdim \@uwdim<1em
   \setlength{\@uwdim}{1em}
   \iff@
     \ifmmode\uwave{\hbox to\@uwdim{\hfil $\displaystyle #1$\hfil}}_\text{\f{}}
@@ -41,6 +41,7 @@
     \fi
   \fi
 \fi
+\relax
 \ifanslabel@
   \ifmmode
   \protected@write\@auxout{}%
