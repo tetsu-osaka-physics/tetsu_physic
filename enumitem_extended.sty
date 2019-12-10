@@ -8,6 +8,18 @@
 \RequirePackage{ifthen}
 \RequirePackage{tikz}
 
+%%%%%%%%%%%オプション奴%%%%%%%%%%%
+\makeatletter
+\newif\ifideographic@
+\DeclareOption{ideographic}{\ideographic@true}
+\ProcessOptions*
+\makeatother
+
+%%%%%%%%%%%全角を予め入れてしまう奴%%%%%%%%%%%
+\makeatletter
+\ifideographic@\def\item{\@inmatherr \item \@ifnextchar [\@item {\@noitemargtrue \@item [\@itemlabel] }\quad\ignorespaces}
+\makeatother
+
 %%%%%%%%%%%新規カウンタ奴%%%%%%%%%%%
 
 \makeatletter
