@@ -1,13 +1,6 @@
 \NeedsTeXFormat{pLaTeX2e}
 \ProvidesPackage{enumitem_extended}
 
-%%%%%%%%%%%パッケージ奴%%%%%%%%%%%
-
-\usepackage[bold]{otf}
-\usepackage[inline]{enumitem}
-\RequirePackage{ifthen}
-\RequirePackage{tikz}
-
 %%%%%%%%%%%オプション奴%%%%%%%%%%%
 \makeatletter
 \newif\ifideographic@
@@ -15,9 +8,16 @@
 \ProcessOptions*
 \makeatother
 
+%%%%%%%%%%%パッケージ奴%%%%%%%%%%%
+
+\usepackage[bold]{otf}
+\usepackage[inline]{enumitem}
+\RequirePackage{ifthen}
+\RequirePackage{tikz}
+
 %%%%%%%%%%%全角を予め入れてしまう奴%%%%%%%%%%%
 \makeatletter
-\ifideographic@\def\item{\@inmatherr \item \@ifnextchar [\@item {\@noitemargtrue \@item [\@itemlabel] }\quad\ignorespaces}
+\ifideographic@\def\item{\@inmatherr \item \@ifnextchar [\@item {\@noitemargtrue \@item [\@itemlabel] }\quad\ignorespaces}\fi
 \makeatother
 
 %%%%%%%%%%%新規カウンタ奴%%%%%%%%%%%
