@@ -1,0 +1,46 @@
+\NeedsTeXFormat{pLaTeX2e}
+\ProvidesPackage{Wdate}
+
+%%%%%%%%%%%新規カウンタ奴%%%%%%%%%%%
+\newcount\Wmonth
+\newcount\Wday
+\newif\ifintercalary
+
+%%%%%%%%%%%定義奴%%%%%%%%%%%
+\def\addWdate{%
+\ifnum\ifnum\Wmonth=1 31\else\ifnum\Wmonth=3 31\else\ifnum\Wmonth=5 31\else%
+\ifnum\Wmonth=7 31\else\ifnum\Wmonth=8 31\else\ifnum\Wmonth=12 31\else0\fi\fi\fi\fi\fi\fi=31%
+  \ifnum\Wday>24%
+    \advance\Wday by -24 % 7 day - 31 days
+    \advance\Wmonth by 1%
+  \else%
+    \advance\Wday by 7%
+  \fi%
+\else%
+  \ifnum\ifnum\Wmonth=4 30\else\ifnum\Wmonth=6 30\else%
+  \ifnum\Wmonth=9 30\else\ifnum\Wmonth=11 30\else0\fi\fi\fi\fi=30%
+    \ifnum\Wday>23%
+      \advance\Wday by -23 % 7 day - 30 days
+      \advance\Wmonth by 1%
+    \else%
+      \advance\Wday by 7%
+    \fi%
+  \else%
+    \ifintercalary % February is 29 days
+      \ifnum\Wday>22%
+        \advance\Wday by -22 % 7 day - 28 days
+        \advance\Wmonth by 1%
+      \else%
+        \advance\Wday by 7%
+      \fi%
+    \else % February is 29 days
+      \ifnum\Wday>21%
+        \advance\Wday by -21 % 7 day - 28 days
+        \advance\Wmonth by 1%
+      \else%
+        \advance\Wday by 7%
+      \fi%
+    \fi%
+  \fi%
+\fi%
+}

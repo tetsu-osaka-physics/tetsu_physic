@@ -1,12 +1,29 @@
 \NeedsTeXFormat{pLaTeX2e}
 \ProvidesPackage{enumitem_extended}
 
-%%%%%%%%%%%パッケージ奴%%%%%%%%%%%
+%%%%%%%%%%%オプション奴%%%%%%%%%%%
+\makeatletter
+\newif\ifideographic@
+\DeclareOption{ideographic}{\ideographic@true}
+\ProcessOptions*
+\makeatother
 
+%%%%%%%%%%%パッケージ奴%%%%%%%%%%%
 \usepackage[bold]{otf}
 \usepackage[inline]{enumitem}
+\usepackage{Wdate}
 \RequirePackage{ifthen}
 \RequirePackage{tikz}
+
+%%%%%%%%%%%全角を予め入れてしまう奴%%%%%%%%%%%
+\makeatletter
+\ifideographic@\def\item{\@inmatherr \item \@ifnextchar [\@item {\@noitemargtrue \@item [\@itemlabel] }\quad\ignorespaces}\fi
+\makeatother
+
+%%%%%%%%%%%itemを呼び出す度に日付を進める奴%%%%%%%%%%%
+\makeatletter
+\def\Wdateitem{\def\item{\@inmatherr \item \@ifnextchar [\@item {\@noitemargtrue \@item [\@itemlabel ] }\addWdate}}
+\makeatother
 
 %%%%%%%%%%%新規カウンタ奴%%%%%%%%%%%
 
@@ -485,6 +502,38 @@
 % \def\Centerarabic#1{\@Centerarabic{\@nameuse{c@#1}}}
 \makeatother
 
+\makeatletter
+\def\@Wdatecounter#1{\ifcase#1\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
+\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
+\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
+\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
+\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
+\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
+\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
+\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
+\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
+\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
+\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
+\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
+\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
+\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
+\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
+\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
+\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
+\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
+\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
+\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
+\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
+\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
+\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
+\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
+\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
+\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
+\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
+\or\the\Wmonth/\the\Wday\addWdate
+\else\@ctrerr\fi\relax}
+\makeatother
+
 %%%%%%%%%%%enumitem環境のカウンタ出力を様々なのにする奴%%%%%%%%%%%
 
 \makeatletter
@@ -588,4 +637,9 @@
 \makeatletter
 \def\Carabic#1{\expandafter\@Centerarabic\csname c@#1\endcsname}
 \AddEnumerateCounter{\Carabic}{\Carabic}{\Centerarabic{99}}
+\makeatother
+
+\makeatletter
+\def\Wdate#1{\expandafter\@Wdatecounter\csname c@#1\endcsname}
+\AddEnumerateCounter{\Wdate}{\@Wdatecounter}{22/22}
 \makeatother

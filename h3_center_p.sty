@@ -6,15 +6,20 @@
 \usepackage{amsmath,amssymb,amsthm,ulem,fancyhdr,fancybox,layout,caption,cases,wrapfig}
 \usepackage[dvipdfmx]{graphicx}
 \usepackage[version=4]{mhchem}
-\usepackage{circle_eqnumber,enumitem_extended,Fcntr,uw}
+\usepackage[ideographic]{enumitem_extended}
+\usepackage{circle_eqnumber,Fcntr,uw}
 
 %%%%%%%%%%%余白奴%%%%%%%%%%%
+
+%%%%%%%%%%%item毎にChoicecntrリセットする奴%%%%%%%%%%%
+\makeatletter
+\def\item{\@inmatherr \item \@ifnextchar [\@item {\@noitemargtrue \@item [\@itemlabel] }\setcounter{Choicecntr}{0}\quad\ignorespaces}
+\makeatother
 
 %%%%%%%%%%%sectionとsubsectionで問題番号を決める奴%%%%%%%%%%%
 
 \renewcommand{\thesection}{第\combinedarabic{section}問}
 \renewcommand{\thesubsection}{\normalsize 問\combinedarabic{subsection}}
-\renewcommand{\headfont}{\mcfamily\rmfamily}
 
 %%%%%%%%%%%大問でカウンタをリセットする奴%%%%%%%%%%%
 
