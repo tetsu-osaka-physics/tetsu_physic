@@ -2,43 +2,45 @@
 \ProvidesPackage{Wdate}
 
 %%%%%%%%%%%新規カウンタ奴%%%%%%%%%%%
-\newcount\Wmonth
-\newcount\Wday
+% \newcount\theWmonth
+\newcounter{Wmonth}
+% \newcount\theWday
+\newcounter{Wday}
 \newif\ifintercalary
 
 %%%%%%%%%%%定義奴%%%%%%%%%%%
 \def\addWdate{%
-\ifnum\ifnum\Wmonth=1 31\else\ifnum\Wmonth=3 31\else\ifnum\Wmonth=5 31\else%
-\ifnum\Wmonth=7 31\else\ifnum\Wmonth=8 31\else\ifnum\Wmonth=12 31\else0\fi\fi\fi\fi\fi\fi=31%
-  \ifnum\Wday>24%
-    \advance\Wday by -24 % 7 day - 31 days
-    \advance\Wmonth by 1%
+\ifnum\ifnum\theWmonth=1 31\else\ifnum\theWmonth=3 31\else\ifnum\theWmonth=5 31\else%
+\ifnum\theWmonth=7 31\else\ifnum\theWmonth=8 31\else\ifnum\theWmonth=12 31\else0\fi\fi\fi\fi\fi\fi=31%
+  \ifnum\theWday>24%
+    \addtocounter{Wday}{-24}%
+    \addtocounter{Wmonth}{1}%
   \else%
-    \advance\Wday by 7%
+    \addtocounter{Wday}{7}%
   \fi%
 \else%
-  \ifnum\ifnum\Wmonth=4 30\else\ifnum\Wmonth=6 30\else%
-  \ifnum\Wmonth=9 30\else\ifnum\Wmonth=11 30\else0\fi\fi\fi\fi=30%
-    \ifnum\Wday>23%
-      \advance\Wday by -23 % 7 day - 30 days
-      \advance\Wmonth by 1%
+  \ifnum\ifnum\theWmonth=4 30\else\ifnum\theWmonth=6 30\else%
+  \ifnum\theWmonth=9 30\else\ifnum\theWmonth=11 30\else0\fi\fi\fi\fi=30%
+    \ifnum\theWday>23%
+      \addtocounter{Wday}{-23}%
+      \addtocounter{Wmonth}{1}%
     \else%
-      \advance\Wday by 7%
+      \addtocounter{Wday}{7}%
     \fi%
   \else%
-    \ifintercalary % February is 29 days
-      \ifnum\Wday>22%
-        \advance\Wday by -22 % 7 day - 28 days
-        \advance\Wmonth by 1%
+    \ifintercalary%
+      \ifnum\theWday>22%
+        \addtocounter{Wday}{-22}%
+        \addtocounter{Wmonth}{1}%
       \else%
-        \advance\Wday by 7%
+        \addtocounter{Wday}{7}%
       \fi%
-    \else % February is 29 days
-      \ifnum\Wday>21%
-        \advance\Wday by -21 % 7 day - 28 days
-        \advance\Wmonth by 1%
+    \else%
+      \ifnum\theWday>21%
+        \addtocounter{Wday}{-21}%
+        \addtocounter{Wmonth}{1}%
       \else%
-        \advance\Wday by 7%
+        \addtocounter{Wday}{7}%
       \fi%
     \fi%
   \fi%

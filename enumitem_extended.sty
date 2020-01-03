@@ -22,13 +22,6 @@
   \@ifnextchar [\@item{\@noitemargtrue \@item[\@itemlabel]}\quad\ignorespaces}\fi
 \makeatother
 
-%%%%%%%%%%%itemを呼び出す度に日付を進める奴%%%%%%%%%%%
-\makeatletter
-\def\Wdateitem{\def\item{%
-  \@inmatherr\item
-  \@ifnextchar [\@item{\@noitemargtrue \@item [\@itemlabel]}\addWdate}}
-\makeatother
-
 %%%%%%%%%%%新規カウンタ奴%%%%%%%%%%%
 
 \makeatletter
@@ -507,34 +500,34 @@
 \makeatother
 
 \makeatletter
-\def\@Wdatecounter#1{\ifcase#1\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
-\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
-\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
-\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
-\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
-\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
-\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
-\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
-\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
-\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
-\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
-\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
-\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
-\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
-\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
-\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
-\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
-\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
-\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
-\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
-\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
-\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
-\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
-\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
-\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
-\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
-\or\the\Wmonth/\the\Wday\addWdate\or\the\Wmonth/\the\Wday\addWdate%
-\or\the\Wmonth/\the\Wday\addWdate
+\def\@Wdatecounter#1{\ifcase#1\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
+\or\theWmonth/\theWday\addWdate%
 \else\@ctrerr\fi\relax}
 \makeatother
 
