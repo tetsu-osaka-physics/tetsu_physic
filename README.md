@@ -17,17 +17,17 @@ GitHubのアカウントを作ってもらいますが，今のところ，各�
 
 を自動で行います．パスワードの入力が必要です．
 ## 初回導入時の設定
-1. GitHubアカウントの設定
+1. GitHubアカウントの設定（やらなくてもいい）
 2. gitの導入
 ```
 brew install git
 ```
-3. gitアカウントの設定
+3. gitアカウントの設定（やらなくてもいい）
 ```
 git config --global user.name="<username>"
 git config --global user.email=<address@mail.com>
 ```
-4. 鍵の生成
+4. 鍵の生成（やらなくてもいい）
 ```
 mkdir ~/.ssh
 cd ~/.ssh
@@ -36,7 +36,7 @@ atom id_rsa.pub
 ```
 で公開鍵をコピペして，自分のGitHubのページで鍵を入れて認証する．
 
-5. tetsuryoku-osaka-physicsに参加する（招待送ります）．
+5. tetsuryoku-osaka-physicsに参加する（招待送ります）．（やらなくてもいい）
 
 6. get-sty.commandを実行します（初期設定で使ったフォルダ消した場合は入れなおす）．ターミナル：
 ```
