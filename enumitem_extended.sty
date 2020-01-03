@@ -17,12 +17,16 @@
 
 %%%%%%%%%%%全角を予め入れてしまう奴%%%%%%%%%%%
 \makeatletter
-\ifideographic@\def\item{\@inmatherr \item \@ifnextchar [\@item {\@noitemargtrue \@item [\@itemlabel] }\quad\ignorespaces}\fi
+\ifideographic@\def\item{%
+  \@inmatherr\item
+  \@ifnextchar [\@item{\@noitemargtrue \@item[\@itemlabel]}\quad\ignorespaces}\fi
 \makeatother
 
 %%%%%%%%%%%itemを呼び出す度に日付を進める奴%%%%%%%%%%%
 \makeatletter
-\def\Wdateitem{\def\item{\@inmatherr \item \@ifnextchar [\@item {\@noitemargtrue \@item [\@itemlabel ] }\addWdate}}
+\def\Wdateitem{\def\item{%
+  \@inmatherr\item
+  \@ifnextchar [\@item{\@noitemargtrue \@item [\@itemlabel]}\addWdate}}
 \makeatother
 
 %%%%%%%%%%%新規カウンタ奴%%%%%%%%%%%
