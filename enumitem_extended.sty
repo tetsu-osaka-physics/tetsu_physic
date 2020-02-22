@@ -18,6 +18,7 @@
 %%%%%%%%%%%全角を予め入れてしまう奴%%%%%%%%%%%
 \makeatletter
 \ifideographic@\def\item{%
+  \settowidth{\parindent}{　}
   \@inmatherr\item
   \@ifnextchar [\@item{\@noitemargtrue \@item[\@itemlabel]}\quad\ignorespaces}\fi
 \makeatother
