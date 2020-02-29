@@ -1,5 +1,7 @@
 \NeedsTeXFormat{pLaTeX2e}
 \ProvidesPackage{uw}
+\PackageInfo{uw}{available global options: \MessageBreak
+[f, anslabel]}
 
 \usepackage{ulem}
 
@@ -26,7 +28,7 @@
   \ifanslabel@
     \ifmmode
     \protected@write\@auxout{}%
-    {\string\newlabel{ans\arabic{section}.\theFcntr}{{$#1$}{\thepage}}}%
+    {\string\newlabel{ans\arabic{section}.\theFcntr}{{$\displaystyle#1$}{\thepage}}}%
     \else
     \protected@write\@auxout{}%
     {\string\newlabel{ans\arabic{section}.\theFcntr}{{#1}{\thepage}}}%

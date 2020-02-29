@@ -1,25 +1,22 @@
 \NeedsTeXFormat{pLaTeX2e}
 \ProvidesPackage{h2b_c_p}
+\PackageInfo{h2b_c_p}{expected global options: \MessageBreak
+[]}
 
-%%%%%%%%%%%パッケージ奴%%%%%%%%%%%
-
-\usepackage{amsmath,amssymb,amsthm,ulem,fancyhdr,fancybox,layout,caption,cases,wrapfig}
-\usepackage[dvipdfmx]{graphicx}
-\usepackage[version=4]{mhchem}
-\usepackage{circle_eqnumber,enumitem_extended,Fcntr,uw}
-
-%%%%%%%%%%%基本コマンド奴%%%%%%%%%%%
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mhchem}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{cases}
+\usepackage{wrapfig}
+\usepackage{circle_eqnumber, enumitem_extended, Fcntr}
 
 \newcommand{\maru}[1]{\ajMaru{#1}}
 
-%%%%%%%%%%%図キャプションを全角にする奴%%%%%%%%%%%
-
-\renewcommand{\thefigure}{\combinedarabic{figure}}
-\renewcommand{\thetable}{\combinedarabic{table}}
+\renewcommand{\thefigure}{\Combarabic{figure}}
+\renewcommand{\thetable}{\Combarabic{table}}
 
 \captionsetup[figure]{font=normalsize}
 % \captionsetup[table]{font=normalsize}
-
-%%%%%%%%%%%ページ番号のスタイル奴%%%%%%%%%%%
 
 \pagestyle{empty}

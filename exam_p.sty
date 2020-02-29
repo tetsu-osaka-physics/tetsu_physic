@@ -1,14 +1,14 @@
 \NeedsTeXFormat{pLaTeX2e}
 \ProvidesPackage{exam_p}
+\PackageInfo{exam_p}{expected global options: \MessageBreak
+[]}
 
-%%%%%%%%%%%パッケージ奴%%%%%%%%%%%
-
-\usepackage{amsmath,amssymb,amsthm,ulem,fancyhdr,fancybox,layout,caption}
-\usepackage[dvipdfmx]{graphicx}
-\usepackage[version=4]{mhchem}
-\usepackage{circle_eqnumber,enumitem_extended,Fcntr,uw}
-
-%%%%%%%%%%%余白奴%%%%%%%%%%%
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mhchem}
+\usepackage{fancyhdr}
+\usepackage{caption}
+\usepackage{graphicx}
+\usepackage{circle_eqnumber, enumitem_extended, Fcntr}
 
 \setlength{\oddsidemargin}{0truept}
 \setlength{\topmargin}{4truept}
@@ -28,33 +28,22 @@
 \setlength{\hoffset}{0truept}
 \setlength{\voffset}{0truept}
 
-%%%%%%%%%%%基本コマンド奴%%%%%%%%%%%
-
 \newcommand{\maru}[1]{\ajMaru{#1}}
 
-%%%%%%%%%%%sectionで問題番号と配点を決めてヘッダに出す奴%%%%%%%%%%%
 \newcounter{dist}
-\renewcommand{\thesection}{{\Large \textrm{第\combinedarabic{section}問}}}
+\renewcommand{\thesection}{{\Large \textrm{第\Combarabic{section}問}}}
 \renewcommand{\section}[1]{\refstepcounter{section}\setcounter{dist}{#1}\lhead{\thesection}\rhead{\thedist}}
 \renewcommand{\thedist}{（\textrm{配点 \arabic{dist}点}）}
 
-%%%%%%%%%%%図キャプションを全角にする奴%%%%%%%%%%%
-
-\renewcommand{\thefigure}{\combinedarabic{figure}}
-\renewcommand{\thetable}{\combinedarabic{table}}
+\renewcommand{\thefigure}{\Combarabic{figure}}
+\renewcommand{\thetable}{\Combarabic{table}}
 
 \captionsetup[figure]{font=normalsize}
 % \captionsetup[table]{font=normalsize}
 
-%%%%%%%%%%%大問ごとにリセットする奴%%%%%%%%%%%
-
-\makeatletter
 \@addtoreset{equation}{section}
 \@addtoreset{figure}{section}
 \@addtoreset{table}{section}
-\makeatother
-
-%%%%%%%%%%%ページ番号のスタイル奴%%%%%%%%%%%
 
 \renewcommand{\headrulewidth}{0.0pt}
 \pagestyle{fancy}
@@ -62,11 +51,8 @@
 % \rhead{\thedist}
 \cfoot{\normalsize{-- \thepage\ --}}
 
-%%%%%%%%%%%計算余白になる奴%%%%%%%%%%%
-
-\newcommand{\emptypage}{
-  \lhead{}
-  \rhead{}
+\newcommand{\emptypage}{\lhead{}%
+  \rhead{}%
   \begin{center}
     （計算余白）
   \end{center}

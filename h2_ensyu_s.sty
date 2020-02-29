@@ -1,43 +1,33 @@
 \NeedsTeXFormat{pLaTeX2e}
 \ProvidesPackage{h2_ensyu_s}
+\PackageInfo{h2_ensyu_s}{expected global options: \MessageBreak
+[]}
 
-%%%%%%%%%%%パッケージ奴%%%%%%%%%%%
-
-\usepackage{amsmath,amssymb,amsthm,ulem,fancyhdr,fancybox,layout,caption,cases,ascmac}
-\usepackage[dvipdfmx]{graphicx}
-\usepackage[version=4]{mhchem}
-\usepackage{circle_eqnumber,enumitem_extended}
-\usepackage[nobox]{Fcntr}
-\usepackage{uw}
-
-%%%%%%%%%%%余白等奴%%%%%%%%%%%
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mhchem}
+\usepackage{fancyhdr}
+\usepackage{caption}
+\usepackage{graphicx}
+\usepackage{cases}
+\usepackage{ascmac}
+\usepackage{circle_eqnumber, enumitem_extended, Fcntr, uw}
 
 \setlength{\columnseprule}{0.4pt}
 
-%%%%%%%%%%%基本コマンド奴%%%%%%%%%%%
-
 \newcommand{\maru}[1]{\ajMaru{#1}}
-
-%%%%%%%%%%%sectionで大問定義する奴%%%%%%%%%%%
 
 \renewcommand{\thesection}{\arabic{section}.}
 \renewcommand{\headfont}{\mcfamily\rmfamily}
 
-%%%%%%%%%%%解答図キャプションを全角にする奴%%%%%%%%%%%
-
 % \renewcommand{\theequation}{\arabic{section}.\arabic{equation}}
 \renewcommand{\thefigure}{\arabic{section}.\arabic{figure}}
 \renewcommand{\thetable}{\arabic{section}.\arabic{table}}
-\makeatletter
 \@addtoreset{equation}{section}
 \@addtoreset{figure}{section}
 \@addtoreset{table}{section}
-\makeatother
 
 % \captionsetup[figure]{font=normalsize}
 \renewcommand{\figurename}{解答図}
 % \captionsetup[table]{font=normalsize}
-
-%%%%%%%%%%%ページ番号のスタイル奴%%%%%%%%%%%
 
 \pagestyle{empty}

@@ -1,32 +1,26 @@
 \NeedsTeXFormat{pLaTeX2e}
 \ProvidesPackage{h2b_c_s}
+\PackageInfo{h2b_c_s}{expected global options: \MessageBreak
+[]}
 
-%%%%%%%%%%%パッケージ奴%%%%%%%%%%%
-
-\usepackage{amsmath,amssymb,amsthm,ulem,fancyhdr,fancybox,layout,caption,titlesec,cases,ascmac}
-\usepackage[dvipdfmx]{graphicx}
-\usepackage[version=4]{mhchem}
-\usepackage{circle_eqnumber,enumitem_extended}
-\usepackage[nobox]{Fcntr}
-\usepackage{uw}
-
-%%%%%%%%%%%余白等奴%%%%%%%%%%%
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{fancyhdr}
+\usepackage{caption}
+\usepackage{cases}
+\usepackage{ascmac}
+\usepackage{graphicx}
+\usepackage{mhchem}
+\usepackage{circle_eqnumber, enumitem_extended, Fcntr, uw}
 
 \setlength{\columnseprule}{0.4pt}
 
-%%%%%%%%%%%基本コマンド奴%%%%%%%%%%%
-
 \newcommand{\maru}[1]{\ajMaru{#1}}
 
-%%%%%%%%%%%解答図キャプションを全角にする奴%%%%%%%%%%%
-
-\renewcommand{\thefigure}{\combinedarabic{figure}}
-\renewcommand{\thetable}{\combinedarabic{table}}
+\renewcommand{\thefigure}{\Combarabic{figure}}
+\renewcommand{\thetable}{\Combarabic{table}}
 
 \captionsetup[figure]{font=normalsize}
 \renewcommand{\figurename}{解答図}
 % \captionsetup[table]{font=normalsize}
-
-%%%%%%%%%%%ページ番号のスタイル奴%%%%%%%%%%%
 
 \pagestyle{empty}

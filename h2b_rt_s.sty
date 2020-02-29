@@ -1,16 +1,16 @@
 \NeedsTeXFormat{pLaTeX2e}
 \ProvidesPackage{h2b_rt_s}
+\PackageInfo{h2b_rt_s}{expected global options: \MessageBreak
+[]}
 
-%%%%%%%%%%%パッケージ奴%%%%%%%%%%%
-
-\usepackage{amsmath,amssymb,amsthm,ulem,fancyhdr,fancybox,layout,caption,titlesec,cases}
-\usepackage[dvipdfmx]{graphicx}
-\usepackage[version=4]{mhchem}
-\usepackage{circle_eqnumber,enumitem_extended}
-\usepackage[nobox]{Fcntr}
-\usepackage{uw}
-
-%%%%%%%%%%%余白等奴%%%%%%%%%%%
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mhchem}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{titlesec}
+\usepackage{cases}
+\usepackage{circle_eqnumber, enumitem_extended, Fcntr, uw}
 
 \newcommand{\tabtopsp}[1]{\vbox{\vbox to#1{}\vbox to 1zw{}}}
 % \renewcommand{\baselinestretch}{1.8}
@@ -28,36 +28,24 @@
 
 \setlength{\columnseprule}{0.4pt}
 
-%%%%%%%%%%%基本コマンド奴%%%%%%%%%%%
-
 \newcommand{\maru}[1]{\ajMaru{#1}}
 
-%%%%%%%%%%%sectionで大問定義する奴%%%%%%%%%%%
-
-\renewcommand{\thesection}{\underline{\large\textgt{第　\combinedarabic{section}　問}}}
+\renewcommand{\thesection}{\underline{\large\textgt{第　\Combarabic{section}　問}}}
 \titleformat{\section}[hang]
 {\Large\gtfamily}
 {\filright\thesection}{.5em}{\filcenter}[]
 \titlespacing{\section}
 {\parindent}{1.5ex plus .1ex minus .2ex}{0pt}
 
-%%%%%%%%%%%解答図キャプションを全角にする奴%%%%%%%%%%%
-
-\renewcommand{\thefigure}{\combinedarabic{figure}}
-\renewcommand{\thetable}{\combinedarabic{table}}
+\renewcommand{\thefigure}{\Combarabic{figure}}
+\renewcommand{\thetable}{\Combarabic{table}}
 
 \captionsetup[figure]{font=normalsize}
 \renewcommand{\figurename}{解答図}
 % \captionsetup[table]{font=normalsize}
 
-%%%%%%%%%%%大問ごとにリセットする奴%%%%%%%%%%%
-
-\makeatletter
 \@addtoreset{equation}{section}
 \@addtoreset{figure}{section}
 \@addtoreset{table}{section}
-\makeatother
-
-%%%%%%%%%%%ページ番号のスタイル奴%%%%%%%%%%%
 
 \pagestyle{empty}
