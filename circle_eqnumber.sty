@@ -1,65 +1,40 @@
 \NeedsTeXFormat{pLaTeX2e}
 \ProvidesPackage{circle_eqnumber}
 
-%%%%%%%%%%%パッケージ奴%%%%%%%%%%%
+\usepackage{amsmath}
+\usepackage{otf}
 
-\usepackage{amsmath,enumitem_extended}
-\usepackage[bold]{otf}
-\usepackage{color}
+\newdimen\@tagdim
+\newdimen\@FWdim
+\settowidth{\@FWdim}{…}
 
-%%%%%%%%%%%式キャプションを丸数字にする奴%%%%%%%%%%%
-
-% \newcounter{ceq}
-% \DeclareRobustCommand*{\eqmaru}[1]{%
-%   \refstepcounter{ceq}%
-%   \ajMaru{\arabic{ceq}}%
-%   \label{#1}}
-% \makeatletter
-
-\def\eqref#1{%
+\renewcommand\eqref[1]{%
   \expandafter\ifx\csname r@#1\endcsname\relax
-    \ref{#1}
+    \ref{#1}%
   \else
-    \protected@edef\@maruref@temp{
+    \protected@edef\@maruref@temp{%
       \expandafter\expandafter\expandafter
       \@firstoftwo\csname r@#1\endcsname\empty\empty}%
-  %      \protected@edef\@maruref@temp{%
-  %        \expandafter\expandafter\expandafter
-  %        \@car\csname r@#1\endcsname\empty\@nil}%
     \ajMaru{\@maruref@temp}%
   \fi}
-\makeatother
 
-\makeatletter
-\newif\iflongequation
-\renewenvironment{align}{
-\let\xatlevel@\@ne
-\maxfields@\m@ne\relax
-  $$%
-  \let\split\insplit@
-  \DN@{\align@\st@rredfalse}
-  \collect@body\next@
-  \checkat@false
+\renewenvironment{align}{%
+  \start@align\@ne\st@rredfalse\m@ne
 }{%
-  \math@cr
-  \noalign{
-      \ifdim\totwidth@>\displaywidth
-          \dimen@\prevdepth
-          \nointerlineskip
-          \vskip-\ht\strutbox@
-          \vskip-\dp\strutbox@
-          \vbox{\noindent\hbox to\displaywidth{\hbox to\totwidth@{\strut@\hfill}}}%
-          \prevdepth\dimen@
-          \longequationtrue
-          \colorbox{black}{\textcolor{white}{式長い！}}
-      \fi
-  }
+  \math@cr \black@\totwidth@
   \egroup
-  $$
+  \ifingather@
+    \restorealignstate@
+    \egroup
+    \nonumber
+    \ifnum0=`{\fi\iffalse}\fi
+  \else
+    $$%
+  \fi
   \ignorespacesafterend
 }
 
-\def\place@tag{%
+\renewcommand\place@tag{%
     \iftagsleft@
         \kern-\tagshift@
         \if1\shift@tag\row@\relax
@@ -74,11 +49,8 @@
         \fi
         \kern\displaywidth@
     \else
-        \iflongequation
-          \kern-\tagshift@
-        \else
-          \qquad\qquad
-        \fi
+        \ifnum\tagshift@>0\kern-\tagshift@\else
+        \qquad\qquad\fi
         \if1\shift@tag\row@\relax
             \llap{\vtop{%
                 \raise@tag
@@ -93,17 +65,11 @@
         \fi
     \fi
 }
-\makeatother
 
-\makeatletter
-\newdimen\@tagdim
-\newdimen\@FWdim
-\settowidth{\@FWdim}{　}
-\def\tagform@#1{\if@eqnsw%
-… \maketag@@@{\ajMaru{#1}} % 9.24683pt
-\else \settowidth{\@tagdim}{#1}
-\advance\@tagdim by-9.24683pt
-\multiply\@tagdim by-1%
-… \maketag@@@{#1\hspace{\the\@tagdim}}
+\renewcommand\tagform@[1]{\if@eqnsw
+… \maketag@@@{\ajMaru{#1}}%
+\else \settowidth{\@tagdim}{#1}%
+\advance\@tagdim by -\@FWdim%
+\multiply\@tagdim by \m@ne%
+… \maketag@@@{#1\hspace\@tagdim}%
 \fi}
-\makeatother

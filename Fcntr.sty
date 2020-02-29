@@ -1,36 +1,25 @@
 \NeedsTeXFormat{pLaTeX2e}
 \ProvidesPackage{Fcntr}
 
-%%%%%%%%%%%パッケージ奴%%%%%%%%%%%
-
 \usepackage{enumitem_extended}
 \usepackage{fancybox}
 
-%%%%%%%%%%%基本コマンド奴%%%%%%%%%%%
-
 \newtoks\fstyle
+\newtoks\fstyle@
 \newcounter{Fcntr}
-\setcounter{Fcntr}{0}
 \newcounter{fref}
 \newcounter{ffref}
-
-%%%%%%%%%%%大問でカウンタをリセットする奴%%%%%%%%%%%
-
-\makeatletter
-\@addtoreset{Fcntr}{section}
-\makeatother
-
-%%%%%%%%%%%fの定義奴%%%%%%%%%%%
-
-\makeatletter
+\newcounter{tempor@lfignum}
+\newcounter{Fcntr@}
 \newif\ifnobox@
+
 \nobox@false
 \DeclareOption{nobox}{\nobox@true}
 \ProcessOptions\relax
-\makeatother
+\setcounter{Fcntr}{0}
+\@addtoreset{Fcntr}{section}
 
-\makeatletter
-\def\f#1{
+\newcommand\f[1]{
 \if#1{}\def\ARG{{#1}}\else\def\ARG{#1}\fi
 \ifnobox@
   \if\ARG　{#1}
@@ -46,30 +35,28 @@
     \else\setcounter{fref}{#1}\framebox[1.2cm]{\csname\the\fstyle\endcsname{fref}}
     \fi
   \fi
-\fi
-}
-\makeatother
+\fi}
 
-%%%%%%%%%%%ffの定義奴%%%%%%%%%%%
 
-\def\ff#1{
+\newcommand\ff[1]{
 \if#1{}\def\ARG{{#1}}\else\def\ARG{#1}\fi
 \if\ARG　\doublebox{\hspace{.7zw}　\hspace{.7zw}}
 \else\setcounter{ffref}{#1}\doublebox{\hspace{.7zw}\csname\the\fstyle\endcsname{ffref}\hspace{.7zw}}
-\fi
-}
+\fi}
 
-%%%%%%%%%%%図キャプション変える奴の定義奴%%%%%%%%%%%
+\newcommand\setfigcapstyle[1]{\renewcommand{\figurename}{}%
+\renewcommand{\thefigure}{\csname#1\endcsname{figure}}%
+\setcounter{tempor@lfignum}{\value{figure}}%
+\setcounter{figure}{0}}
 
-\newcounter{temporalfignum}
+\newcommand\normalfigcaption{\renewcommand{\figurename}{図}%
+\renewcommand{\thefigure}{\combinedarabic{figure}}%
+\setcounter{figure}{\value{tempor@lfignum}}}
 
-\def\setfigcapstyle#1{\renewcommand{\figurename}{}
-\renewcommand{\thefigure}{\csname#1\endcsname{figure}}
-\setcounter{temporalfignum}{\value{figure}}
-\setcounter{figure}{0}
-}
+\newcommand\fnest[1]{\fstyle@\fstyle
+\fstyle{#1}%
+\setcounter{Fcntr@}{\theFcntr}%
+\setcounter{Fcntr}{0}}
 
-\def\normalfigcaption{\renewcommand{\figurename}{図}
-\renewcommand{\thefigure}{\combinedarabic{figure}}
-\setcounter{figure}{\value{temporalfignum}}
-}
+\newcommand\funnest{\fstyle\fstyle@
+\setcounter{Fcntr}{\theFcntr@}}

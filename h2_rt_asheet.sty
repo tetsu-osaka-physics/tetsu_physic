@@ -1,0 +1,17 @@
+\NeedsTeXFormat{pLaTeX2e}
+\ProvidesPackage{h2_asheet}
+\usepackage{ansframe}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\setlength{\oddsidemargin}{-5truemm}
+\setlength{\topmargin}{-10truemm}
+\setlength{\textwidth}{168truemm}
+\setlength{\textheight}{250truemm}
+\pagestyle{empty}
+\renewcommand{\thesection}{{\large\textgt{第\combinedarabic{section}問}}}
+\renewcommand{\section}[1]{\stepcounter{section}\thesection\vspace{2zw}\par}
+
+\newcommand\score[1]{\vfill
+\begin{flushright}%
+  \framebox(45,30){　　/#1}%
+\end{flushright}}

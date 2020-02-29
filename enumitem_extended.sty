@@ -1,48 +1,32 @@
 \NeedsTeXFormat{pLaTeX2e}
 \ProvidesPackage{enumitem_extended}
 
-%%%%%%%%%%%オプション奴%%%%%%%%%%%
-\makeatletter
 \newif\ifideographic@
 \DeclareOption{ideographic}{\ideographic@true}
 \ProcessOptions*
-\makeatother
 
-%%%%%%%%%%%パッケージ奴%%%%%%%%%%%
-\usepackage[bold]{otf}
-\usepackage[inline]{enumitem}
+\usepackage{otf}
+\usepackage{enumitem}
 \usepackage{Wdate}
 \RequirePackage{ifthen}
 \RequirePackage{tikz}
 
-%%%%%%%%%%%全角を予め入れてしまう奴%%%%%%%%%%%
-\makeatletter
 \ifideographic@\def\item{%
-  \settowidth{\parindent}{　}
+  \settowidth{\parindent}{　}%
   \@inmatherr\item
-  \@ifnextchar [\@item{\@noitemargtrue \@item[\@itemlabel]}\quad\ignorespaces}\fi
-\makeatother
+  \@ifnextchar [\@item{\@noitemargtrue \@item[\@itemlabel]}\quad\ignorespaces}\fi%
 
-%%%%%%%%%%%新規カウンタ奴%%%%%%%%%%%
-
-\makeatletter
-\def\@ajRomancounter#1{\ifcase#1\or \CID{7575}\or \CID{7576}\or \CID{7577}\or \CID{7578}\or \CID{7579}%
+\def\@Roman#1{\ifcase#1\or \CID{7575}\or \CID{7576}\or \CID{7577}\or \CID{7578}\or \CID{7579}%
 \or \CID{7580}\or \CID{7581}\or \CID{7582}\or \CID{7583}\or \CID{7584}%
 \or \CID{8225}\or \CID{8226}\or \CID{8295}\or \CID{8296}\or \CID{8297}%
 \else\@ctrerr\fi\relax}
-\def\ajRomancounter#1{\@ajRomancounter{\@nameuse{c@#1}}}
-\makeatother
 
-\makeatletter
-\def\@ajromancounter#1{\ifcase#1\or \CID{8092}\or \CID{8093}\or \CID{8094}\or \CID{8095}\or \CID{8096}%
+\def\@roman#1{\ifcase#1\or \CID{8092}\or \CID{8093}\or \CID{8094}\or \CID{8095}\or \CID{8096}%
 \or \CID{8097}\or \CID{8098}\or \CID{8099}\or \CID{8100}\or \CID{8101}%
 \or \CID{8298}\or \CID{8299}\or \CID{8300}\or \CID{8301}\or \CID{8302}%
 \else\@ctrerr\fi\relax}
-\def\ajromancounter#1{\@ajromancounter{\@nameuse{c@#1}}}
-\makeatother
 
-\makeatletter
-\def\@ajKakkocounter#1{\ifcase#1\or \CID{8071}\or \CID{8072}\or \CID{8073}\or \CID{8074}\or \CID{8075}%
+\def\@Kakko#1{\ifcase#1\or \CID{8071}\or \CID{8072}\or \CID{8073}\or \CID{8074}\or \CID{8075}%
 \or \CID{8076}\or \CID{8077}\or \CID{8078}\or \CID{8079}\or \CID{8080}%
 \or \CID{8081}\or \CID{8082}\or \CID{8083}\or \CID{8084}\or \CID{8085}%
 \or \CID{8086}\or \CID{8087}\or \CID{8088}\or \CID{8089}\or \CID{8090}%
@@ -51,49 +35,34 @@
 \or \CID{9904}\or \CID{9905}\or \CID{9906}\or \CID{9907}\or \CID{9908}%
 \or \CID{9909}\or \CID{9910}\or \CID{9911}\or \CID{9912}\or \CID{9913}%
 \else\@ctrerr\fi\relax}
-\def\ajKakkocounter#1{\@ajKakkocounter{\@nameuse{c@#1}}}
-\makeatother
 
-\makeatletter
-\def\@ajKakkoAlphcounter#1{\ifcase#1\or \CID{10004}\or \CID{10005}\or \CID{10006}\or \CID{10007}\or \CID{10008}%
+\def\@KAlpha#1{\ifcase#1\or \CID{10004}\or \CID{10005}\or \CID{10006}\or \CID{10007}\or \CID{10008}%
 \or \CID{10009}\or \CID{10010}\or \CID{10011}\or \CID{10012}\or \CID{10013}%
 \or \CID{10014}\or \CID{10015}\or \CID{10016}\or \CID{10017}\or \CID{10018}%
 \or \CID{10019}\or \CID{10020}\or \CID{10021}\or \CID{10022}\or \CID{10023}%
 \or \CID{10024}\or \CID{10025}\or \CID{10026}\or \CID{10027}\or \CID{10028}%
 \or \CID{10029}%
 \else\@ctrerr\fi\relax}
-\def\ajKakkoAlphcounter#1{\@ajKakkoAlphcounter{\@nameuse{c@#1}}}
-\makeatother
 
-\makeatletter
-\def\@ajKakkoalphcounter#1{\ifcase#1\or \CID{8112}\or \CID{8113}\or \CID{8114}\or \CID{8115}\or \CID{8116}%
+\def\@Kalpha#1{\ifcase#1\or \CID{8112}\or \CID{8113}\or \CID{8114}\or \CID{8115}\or \CID{8116}%
 \or \CID{8117}\or \CID{8118}\or \CID{8119}\or \CID{8120}\or \CID{8121}%
 \or \CID{8122}\or \CID{8123}\or \CID{8124}\or \CID{8125}\or \CID{8126}%
 \or \CID{8127}\or \CID{8128}\or \CID{8129}\or \CID{8130}\or \CID{8131}%
 \or \CID{8132}\or \CID{8133}\or \CID{8134}\or \CID{8135}\or \CID{8136}%
 \or \CID{8137}%
 \else\@ctrerr\fi\relax}
-\def\ajKakkoalphcounter#1{\@ajKakkoalphcounter{\@nameuse{c@#1}}}
-\makeatother
 
-\makeatletter
-\def\@ajKakkoRomancounter#1{\ifcase#1\or \CID{9989}\or \CID{9990}\or \CID{9991}\or \CID{9992}\or \CID{9993}%
+\def\@KRoman#1{\ifcase#1\or \CID{9989}\or \CID{9990}\or \CID{9991}\or \CID{9992}\or \CID{9993}%
 \or \CID{9994}\or \CID{9995}\or \CID{9996}\or \CID{9997}\or \CID{9998}%
 \or \CID{9999}\or \CID{10000}\or \CID{10001}\or \CID{10002}\or \CID{10003}%
 \else\@ctrerr\fi\relax}
-\def\ajKakkoRomancounter#1{\@ajKakkoRomancounter{\@nameuse{c@#1}}}
-\makeatother
 
-\makeatletter
-\def\@ajKakkoromancounter#1{\ifcase#1\or \CID{9974}\or \CID{9975}\or \CID{9976}\or \CID{9977}\or \CID{9978}%
+\def\@Kroman#1{\ifcase#1\or \CID{9974}\or \CID{9975}\or \CID{9976}\or \CID{9977}\or \CID{9978}%
 \or \CID{9979}\or \CID{9980}\or \CID{9981}\or \CID{9982}\or \CID{9983}%
 \or \CID{9984}\or \CID{9985}\or \CID{9986}\or \CID{9987}\or \CID{9988}%
 \else\@ctrerr\fi\relax}
-\def\ajKakkoromancounter#1{\@ajKakkoromancounter{\@nameuse{c@#1}}}
-\makeatother
 
-\makeatletter
-\def\@Marucounter#1{\ifcase#1\or \CID{7555}\or \CID{7556}\or \CID{7557}\or \CID{7558}\or \CID{7559}%
+\def\@Maru#1{\ifcase#1\or \CID{7555}\or \CID{7556}\or \CID{7557}\or \CID{7558}\or \CID{7559}%
 \or \CID{7560}\or \CID{7561}\or \CID{7562}\or \CID{7563}\or \CID{7564}%
 \or \CID{7565}\or \CID{7566}\or \CID{7567}\or \CID{7568}\or \CID{7569}%
 \or \CID{7570}\or \CID{7571}\or \CID{7572}\or \CID{7573}\or \CID{7574}%
@@ -102,11 +71,8 @@
 \or \CID{10244}\or \CID{10245}\or \CID{10246}\or \CID{10247}\or \CID{10248}%
 \or \CID{10249}\or \CID{10250}\or \CID{10251}\or \CID{10252}\or \CID{10253}%
 \else\@ctrerr\fi\relax}
-\def\Marucounter#1{\@Marucounter{\@nameuse{c@#1}}}
-\makeatother
 
-\makeatletter
-\def\@ajKakkoHiracounter#1{\ifcase#1\or \CID{10030}\or \CID{10031}\or \CID{10032}\or \CID{10033}\or \CID{10034}%
+\def\@KHira#1{\ifcase#1\or \CID{10030}\or \CID{10031}\or \CID{10032}\or \CID{10033}\or \CID{10034}%
 \or \CID{10035}\or \CID{10036}\or \CID{10037}\or \CID{10038}\or \CID{10039}%
 \or \CID{10040}\or \CID{10041}\or \CID{10042}\or \CID{10043}\or \CID{10044}%
 \or \CID{10045}\or \CID{10046}\or \CID{10047}\or \CID{10048}\or \CID{10049}%
@@ -117,11 +83,8 @@
 \or \CID{10070}\or \CID{10071}\or \CID{10072}\or \CID{10073}\or \CID{10074}%
 \or \CID{10075}\or \CID{10076}\or \CID{10077}%
 \else\@ctrerr\fi\relax}
-\def\ajKakkoHiracounter#1{\@ajKakkoHiracounter{\@nameuse{c@#1}}}
-\makeatother
 
-\makeatletter
-\def\@ajKakkoKatacounter#1{\ifcase#1\or \CID{10078}\or \CID{10079}\or \CID{10080}\or \CID{10081}\or \CID{10082}%
+\def\@KKata#1{\ifcase#1\or \CID{10078}\or \CID{10079}\or \CID{10080}\or \CID{10081}\or \CID{10082}%
 \or \CID{10083}\or \CID{10084}\or \CID{10085}\or \CID{10086}\or \CID{10087}%
 \or \CID{10088}\or \CID{10089}\or \CID{10090}\or \CID{10091}\or \CID{10092}%
 \or \CID{10093}\or \CID{10094}\or \CID{10095}\or \CID{10096}\or \CID{10097}%
@@ -132,11 +95,8 @@
 \or \CID{10118}\or \CID{10119}\or \CID{10120}\or \CID{10121}\or \CID{10122}%
 \or \CID{10123}\or \CID{10124}\or \CID{10125}%
 \else\@ctrerr\fi\relax}
-\def\ajKakkoKatacounter#1{\@ajKakkoKatacounter{\@nameuse{c@#1}}}
-\makeatother
 
-\makeatletter
-\def\@kansuji#1{\ifcase#1\or 一\or 二\or 三\or 四\or 五\or 六\or 七%
+\def\@ksuji#1{\ifcase#1\or 一\or 二\or 三\or 四\or 五\or 六\or 七%
 \or 八\or 九\or 十%
 \or 十一\or 十二\or 十三\or 十四\or 十五\or 十六\or 十七%
 \or 十八\or 十九\or 二十%
@@ -145,51 +105,27 @@
 \or 丗一\or 丗二\or 丗三\or 丗四\or 丗五\or 丗六\or 丗七%
 \or 丗八\or 丗九\or 四十%
 \else\@ctrerr\fi\relax}
-\def\kansuji#1{\@kansuji{\@nameuse{c@#1}}}
-\makeatother
 
-\makeatletter
-\def\fullwidtharabic#1{\expandafter\@fullwidtharabic\csname c@#1\endcsname}
-\def\@fullwidtharabic#1{\expandafter\@@fullwidtharabic\number#1@}
-\def\@@fullwidtharabic#1{%
-\if#1@\else
-\ifcase#1\or １\or ２\or ３\or ４\or ５\or ６\or ７\or ８\or ９\or ０\fi
-\expandafter\@@fullwidtharabic
-\fi}
-\makeatother
+\def\@Combarabic#1{\ifnum#1<10\ifcase#1 ０\or １\or ２\or ３\or ４\or ５\or ６%
+\or ７\or ８\or ９\or\fi\else\@arabic{#1}\fi}
 
-% fullwidth: no spaces FIGURE nospace
-% arabic: nospace FIGURE space
-
-\def\combinedarabic#1{%
-\ifnum \value{#1}<10 \fullwidtharabic{#1}%
-  \else\arabic{#1}%
-  \fi}
-
-\makeatletter
-\def\@irohaHira#1{\ifcase#1\or い\or ろ\or は\or に\or ほ\or へ\or と%
+\def\@iHira#1{\ifcase#1\or い\or ろ\or は\or に\or ほ\or へ\or と%
 \or ち\or り\or ぬ\or る\or を\or わ\or か\or よ%
 \or た\or れ\or そ\or つ\or ね\or な\or ら\or む%
 \or う\or ゐ\or の\or お\or く\or や\or ま%
 \or け\or ふ\or こ\or え\or て%
 \or あ\or さ\or き\or ゆ\or め\or み\or し\or ゑ\or ひ\or も\or せ\or す%
 \or ん\else\@ctrerr\fi\relax}
-\def\irohaHira#1{\@irohaHira{\@nameuse{c@#1}}}
-\makeatother
 
-\makeatletter
-\def\@irohaKata#1{\ifcase#1\or イ\or ロ\or ハ\or ニ\or ホ\or ヘ\or ト%
+\def\@iKata#1{\ifcase#1\or イ\or ロ\or ハ\or ニ\or ホ\or ヘ\or ト%
 \or チ\or リ\or ヌ\or ル\or ヲ\or ワ\or カ\or ヨ%
 \or タ\or レ\or ソ\or ツ\or ネ\or ナ\or ラ\or ム%
 \or ウ\or ヰ\or ノ\or オ\or ク\or ヤ\or マ%
 \or ケ\or フ\or コ\or エ\or テ%
 \or ア\or サ\or キ\or ユ\or メ\or ミ\or シ\or ヱ\or ヒ\or モ\or セ\or ス%
 \or ン\else\@ctrerr\fi\relax}
-\def\irohaKata#1{\@irohaKata{\@nameuse{c@#1}}}
-\makeatother
 
-\makeatletter
-\def\@aiuHira#1{\ifcase#1\or あ\or い\or う\or え\or お%
+\def\@Hira#1{\ifcase#1\or あ\or い\or う\or え\or お%
 \or か\or き\or く\or け\or こ%
 \or さ\or し\or す\or せ\or そ%
 \or た\or ち\or つ\or て\or と%
@@ -199,11 +135,8 @@
 \or や\or ゐ\or ゆ\or ゑ\or よ%
 \or わ\or を\or ん
 \else\@ctrerr\fi\relax}
-\def\aiuHira#1{\@aiuHira{\@nameuse{c@#1}}}
-\makeatother
 
-\makeatletter
-\def\@aiuKata#1{\ifcase#1\or ア\or イ\or ウ\or エ\or オ%
+\def\@Kata#1{\ifcase#1\or ア\or イ\or ウ\or エ\or オ%
 \or カ\or キ\or ク\or ケ\or コ%
 \or サ\or シ\or ス\or セ\or ソ%
 \or タ\or チ\or ツ\or テ\or ト%
@@ -213,28 +146,20 @@
 \or ヤ\or ヰ\or ユ\or ヱ\or ヨ%
 \or ワ\or ヲ\or ン%
 \else\@ctrerr\fi\relax}
-\def\aiuKata#1{\@aiuKata{\@nameuse{c@#1}}}
-\makeatother
 
-\makeatletter
-\def\@KakkoHirairoha#1{\ifcase#1\or \ajKakkoHira{2}\or \ajKakkoHira{43}\or \ajKakkoHira{26}\or \ajKakkoHira{22}\or \ajKakkoHira{30}%
+\def\@KHiroha#1{\ifcase#1\or \ajKakkoHira{2}\or \ajKakkoHira{43}\or \ajKakkoHira{26}\or \ajKakkoHira{22}\or \ajKakkoHira{30}%
 \or \ajKakkoHira{29}\or \ajKakkoHira{20}\or \ajKakkoHira{17}\or \ajKakkoHira{40}\or \ajKakkoHira{23}%
 \or \ajKakkoHira{41}\or \ajKakkoHira{47}\or \ajKakkoHira{44}\or \ajKakkoHira{6}\or \ajKakkoHira{38}%
 \or \ajKakkoHira{16}\or \ajKakkoHira{42}\or \ajKakkoHira{15}\or \ajKakkoHira{18}\or \ajKakkoHira{24}%
 \else\@ctrerr\fi\relax}
-\def\KakkoHirairoha#1{\@KakkoHirairoha{\@nameuse{c@#1}}}
-\makeatother
 
-\makeatletter
-\def\@KakkoKatairoha#1{\ifcase#1\or \ajKakkoKata{2}\or \ajKakkoKata{43}\or \ajKakkoKata{26}\or \ajKakkoKata{22}\or \ajKakkoKata{30}%
+\def\@KKiroha#1{\ifcase#1\or \ajKakkoKata{2}\or \ajKakkoKata{43}\or \ajKakkoKata{26}\or \ajKakkoKata{22}\or \ajKakkoKata{30}%
 \or \ajKakkoKata{29}\or \ajKakkoKata{20}\or \ajKakkoKata{17}\or \ajKakkoKata{40}\or \ajKakkoKata{23}%
 \or \ajKakkoKata{41}\or \ajKakkoKata{47}\or \ajKakkoKata{44}\or \ajKakkoKata{6}\or \ajKakkoKata{38}%
 \or \ajKakkoKata{16}\or \ajKakkoKata{42}\or \ajKakkoKata{15}\or \ajKakkoKata{18}\or \ajKakkoKata{24}%
 \else\@ctrerr\fi\relax}
-\def\KakkoKatairoha#1{\@KakkoKatairoha{\@nameuse{c@#1}}}
-\makeatother
 
-\newcommand{\Centerarabiccounter}[1]{%
+\newcommand{\Centerarabic}[1]{%
 \newif\ifunknowncharacter
 \unknowncharactertrue
 \ifthenelse{\equal{#1}{0}}{\unknowncharacterfalse%
@@ -486,158 +411,103 @@
 }\fi
 }
 
-\makeatletter
-\def\@Centerarabic#1{\ifcase#1\or \protect\Centerarabiccounter{1}\or%
-\protect\Centerarabiccounter{2}\or \protect\Centerarabiccounter{3}\or%
-\protect\Centerarabiccounter{4}\or \protect\Centerarabiccounter{5}\or%
-\protect\Centerarabiccounter{6}\or \protect\Centerarabiccounter{7}\or%
-\protect\Centerarabiccounter{8}\or \protect\Centerarabiccounter{9}\or%
-\protect\Centerarabiccounter{0}\or \protect\Centerarabiccounter{a}\or%
-\protect\Centerarabiccounter{b}\or \protect\Centerarabiccounter{c}\or%
-\protect\Centerarabiccounter{d}\or \protect\Centerarabiccounter{-}\or%
-\protect\Centerarabiccounter{\pm}\or%
+\def\@Carabic#1{\ifcase#1\or \protect\Centerarabic{1}\or
+\protect\Centerarabic{2}\or \protect\Centerarabic{3}\or
+\protect\Centerarabic{4}\or \protect\Centerarabic{5}\or
+\protect\Centerarabic{6}\or \protect\Centerarabic{7}\or
+\protect\Centerarabic{8}\or \protect\Centerarabic{9}\or
+\protect\Centerarabic{0}\or \protect\Centerarabic{a}\or
+\protect\Centerarabic{b}\or \protect\Centerarabic{c}\or
+\protect\Centerarabic{d}\or \protect\Centerarabic{-}\or
+\protect\Centerarabic{\pm}\or
 \else\@ctrerr\fi\relax}
-% \def\Centerarabic#1{\@Centerarabic{\@nameuse{c@#1}}}
-\makeatother
 
-\makeatletter
-\def\@Wdatecounter#1{\ifcase#1\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
-\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
-\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
-\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
-\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
-\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
-\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
-\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
-\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
-\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
-\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
-\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
-\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
-\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
-\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
-\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
-\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
-\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
-\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
-\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
-\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
-\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
-\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
-\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
-\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
-\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
-\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate%
-\or\theWmonth/\theWday\addWdate%
+\def\@Wdate#1{\ifcase#1\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate
 \else\@ctrerr\fi\relax}
-\makeatother
 
-%%%%%%%%%%%enumitem環境のカウンタ出力を様々なのにする奴%%%%%%%%%%%
+\def\Roman#1{\expandafter\@Roman\csname c@#1\endcsname}
+\AddEnumerateCounter{\Roman}{\@Roman}{\ajRoman{99}}
 
-\makeatletter
-\def\Roman#1{\expandafter\@ajRomancounter\csname c@#1\endcsname}
-\AddEnumerateCounter{\Roman}{\Roman}{\ajRomancounter{99}}
-\makeatother
+\def\roman#1{\expandafter\@roman\csname c@#1\endcsname}
+\AddEnumerateCounter{\roman}{\@roman}{\ajroman{99}}
 
-\makeatletter
-\def\roman#1{\expandafter\@ajromancounter\csname c@#1\endcsname}
-\AddEnumerateCounter{\roman}{\roman}{\ajromancounter{99}}
-\makeatother
+\def\Kakko#1{\expandafter\@Kakko\csname c@#1\endcsname}
+\AddEnumerateCounter{\Kakko}{\@Kakko}{\ajKakko{99}}
 
-\makeatletter
-\def\Kakko#1{\expandafter\@ajKakkocounter\csname c@#1\endcsname}
-\AddEnumerateCounter{\Kakko}{\Kakko}{\ajKakkocounter{99}}
-\makeatother
+\def\KAlpha#1{\expandafter\@KAlpha\csname c@#1\endcsname}
+\AddEnumerateCounter{\KAlpha}{\@KAlpha}{\ajKakkoAlph{99}}
 
-\makeatletter
-\def\KAlpha#1{\expandafter\@ajKakkoAlphcounter\csname c@#1\endcsname}
-\AddEnumerateCounter{\KAlpha}{\KAlpha}{\ajKakkoAlphcounter{99}}
-\makeatother
+\def\Kalpha#1{\expandafter\@Kalpha\csname c@#1\endcsname}
+\AddEnumerateCounter{\Kalpha}{\@Kalpha}{\ajKakkoalph{99}}
 
-\makeatletter
-\def\Kalpha#1{\expandafter\@ajKakkoalphcounter\csname c@#1\endcsname}
-\AddEnumerateCounter{\Kalpha}{\Kalpha}{\ajKakkoalphcounter{99}}
-\makeatother
+\def\KRoman#1{\expandafter\@KRoman\csname c@#1\endcsname}
+\AddEnumerateCounter{\KRoman}{\@KRoman}{\ajKakkoRoman{99}}
 
-\makeatletter
-\def\KRoman#1{\expandafter\@ajKakkoRomancounter\csname c@#1\endcsname}
-\AddEnumerateCounter{\KRoman}{\KRoman}{\ajKakkoRomancounter{99}}
-\makeatother
+\def\Kroman#1{\expandafter\@Kroman\csname c@#1\endcsname}
+\AddEnumerateCounter{\Kroman}{\@Kroman}{\ajKakkoroman{99}}
 
-\makeatletter
-\def\Kroman#1{\expandafter\@ajKakkoromancounter\csname c@#1\endcsname}
-\AddEnumerateCounter{\Kroman}{\Kroman}{\ajKakkoromancounter{99}}
-\makeatother
+\def\Maru#1{\expandafter\@Maru\csname c@#1\endcsname}
+\AddEnumerateCounter{\Maru}{\@Maru}{\ajMaru{99}}
 
-\makeatletter
-\def\Maru#1{\expandafter\@Marucounter\csname c@#1\endcsname}
-\AddEnumerateCounter{\Maru}{\Maru}{\Marucounter{99}}
-\makeatother
+\def\KHira#1{\expandafter\@KHira\csname c@#1\endcsname}
+\AddEnumerateCounter{\KHira}{\@KHira}{\ajKakkoHira{99}}
 
-\makeatletter
-\def\KHira#1{\expandafter\@ajKakkoHiracounter\csname c@#1\endcsname}
-\AddEnumerateCounter{\KHira}{\KHira}{\ajKakkoHiracounter{99}}
-\makeatother
+\def\KKata#1{\expandafter\@KKata\csname c@#1\endcsname}
+\AddEnumerateCounter{\KKata}{\@KKata}{\ajKakkoKata{99}}
 
-\makeatletter
-\def\KKata#1{\expandafter\@ajKakkoKatacounter\csname c@#1\endcsname}
-\AddEnumerateCounter{\KKata}{\KKata}{\ajKakkoKatacounter{99}}
-\makeatother
+\def\ksuji#1{\expandafter\@ksuji\csname c@#1\endcsname}
+\AddEnumerateCounter{\ksuji}{\@ksuji}{\kansuji{99}}
 
-\makeatletter
-\def\ksuji#1{\expandafter\@kansuji\csname c@#1\endcsname}
-\AddEnumerateCounter{\ksuji}{\ksuji}{\kansuji{99}}
-\makeatother
+\def\Combarabic#1{\expandafter\@Combarabic\csname c@#1\endcsname}
+\AddEnumerateCounter{\Combarabic}{\@Combarabic}{\@Combarabic{0}}
 
-%%% 多分，２桁の時は半角にする（Combarabicを使う）ので，このカウンタは不要 %%%
+\def\iHira#1{\expandafter\@iHira\csname c@#1\endcsname}
+\AddEnumerateCounter{\iHira}{\@iHira}{\@iHira{1}}
 
-% \makeatletter
-% \def\FWarabic#1{\expandafter\@FWarabic\csname c@#1\endcsname}
-% \def\@FWarabic#1{\protect\@fullwidtharabic{#1}}
-% \AddEnumerateCounter{\FWarabic}{\FWarabic}{\@fullwidtharabic{99}}
-% \makeatother
+\def\iKata#1{\expandafter\@iKata\csname c@#1\endcsname}
+\AddEnumerateCounter{\iKata}{\@iKata}{\@iKata{1}}
 
-\makeatletter
-\def\Combarabic#1{\expandafter\combinedarabic{#1}}
-\AddEnumerateCounter{\Combarabic}{\Combarabic}{\combinedarabic{99}}
-\makeatother
+\def\Hira#1{\expandafter\@Hira\csname c@#1\endcsname}
+\AddEnumerateCounter{\Hira}{\@Hira}{\@Hira{1}}
 
-\makeatletter
-\def\iHira#1{\expandafter\@irohaHira\csname c@#1\endcsname}
-\AddEnumerateCounter{\iHira}{\iHira}{\irohaHira{99}}
-\makeatother
+\def\Kata#1{\expandafter\@Kata\csname c@#1\endcsname}
+\AddEnumerateCounter{\Kata}{\@Kata}{\@Kata{1}}
 
-\makeatletter
-\def\iKata#1{\expandafter\@irohaKata\csname c@#1\endcsname}
-\AddEnumerateCounter{\iKata}{\iKata}{\irohaKata{99}}
-\makeatother
+\def\KHiroha#1{\expandafter\@KHiroha\csname c@#1\endcsname}
+\AddEnumerateCounter{\KHiroha}{\@KHiroha}{\@KHiroha{1}}
 
-\makeatletter
-\def\Hira#1{\expandafter\@aiuHira\csname c@#1\endcsname}
-\AddEnumerateCounter{\Hira}{\Hira}{\aiuHira{99}}
-\makeatother
+\def\KKiroha#1{\expandafter\@KKiroha\csname c@#1\endcsname}
+\AddEnumerateCounter{\KKiroha}{\@KKiroha}{\@KKiroha{1}}
 
-\makeatletter
-\def\Kata#1{\expandafter\@aiuKata\csname c@#1\endcsname}
-\AddEnumerateCounter{\Kata}{\Kata}{\aiuKata{99}}
-\makeatother
+\def\Carabic#1{\expandafter\@Carabic\csname c@#1\endcsname}
+\AddEnumerateCounter{\Carabic}{\@Carabic}{\@Carabic{1}}
 
-\makeatletter
-\def\KHiroha#1{\expandafter\@KakkoHirairoha\csname c@#1\endcsname}
-\AddEnumerateCounter{\KHiroha}{\KHiroha}{\KakkoHirairoha{99}}
-\makeatother
-
-\makeatletter
-\def\KKiroha#1{\expandafter\@KakkoKatairoha\csname c@#1\endcsname}
-\AddEnumerateCounter{\KKiroha}{\KKiroha}{\KakkoKatairoha{99}}
-\makeatother
-
-\makeatletter
-\def\Carabic#1{\expandafter\@Centerarabic\csname c@#1\endcsname}
-\AddEnumerateCounter{\Carabic}{\Carabic}{\Centerarabic{99}}
-\makeatother
-
-\makeatletter
-\def\Wdate#1{\expandafter\@Wdatecounter\csname c@#1\endcsname}
-\AddEnumerateCounter{\Wdate}{\@Wdatecounter}{22/22}
-\makeatother
+\def\Wdate#1{\expandafter\@Wdate\csname c@#1\endcsname}
+\AddEnumerateCounter{\Wdate}{\@Wdate}{22/22}
