@@ -3,48 +3,32 @@
 
 %%%%%%%%%%%パッケージ奴%%%%%%%%%%%
 
-\usepackage{amsmath,amssymb,amsthm,ulem,fancyhdr,fancybox,layout,caption,cases,wrapfig}
-\usepackage[dvipdfmx]{graphicx}
-\usepackage[version=4]{mhchem}
-\usepackage[ideographic]{enumitem_extended}
-\usepackage{circle_eqnumber,Fcntr,uw}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{fancyhdr}
+\usepackage{caption}
+\usepackage{cases}
+\usepackage{wrapfig}
+\usepackage{graphicx}
+\usepackage{mhchem}
+\usepackage{enumitem_extended, circle_eqnumber, Fcntr}
 
-%%%%%%%%%%%余白奴%%%%%%%%%%%
-
-%%%%%%%%%%%item毎にChoicecntrリセットする奴%%%%%%%%%%%
-\makeatletter
 \def\item{\@inmatherr \item \@ifnextchar [\@item {\@noitemargtrue \@item [\@itemlabel] }\setcounter{Choicecntr}{0}\quad\ignorespaces}
-\makeatother
 
-%%%%%%%%%%%sectionとsubsectionで問題番号を決める奴%%%%%%%%%%%
+\renewcommand{\thesection}{第\Combarabic{section}問}
+\renewcommand{\thesubsection}{\normalsize 問\Combarabic{subsection}}
 
-\renewcommand{\thesection}{第\combinedarabic{section}問}
-\renewcommand{\thesubsection}{\normalsize 問\combinedarabic{subsection}}
-
-%%%%%%%%%%%大問でカウンタをリセットする奴%%%%%%%%%%%
-
-\makeatletter
 \@addtoreset{Choicecntr}{subsection}
-\makeatother
-
-%%%%%%%%%%%新しいカウンタ奴%%%%%%%%%%%
 
 \newcounter{Choicecntr}
 \setcounter{Choicecntr}{0}
 
-%%%%%%%%%%%自動で選択肢番号出す奴%%%%%%%%%%%
-
 \def\choice{\addtocounter{Choicecntr}{1}\Carabic{Choicecntr}}
 
-%%%%%%%%%%%図キャプションを全角にしたりする奴%%%%%%%%%%%
-
-\renewcommand{\thefigure}{\combinedarabic{figure}}
-\renewcommand{\thetable}{\combinedarabic{table}}
+\renewcommand{\thefigure}{\Combarabic{figure}}
+\renewcommand{\thetable}{\Combarabic{table}}
 
 \captionsetup[figure]{font=normalsize}
 % \captionsetup[table]{font=normalsize}
-
-%%%%%%%%%%%大問ごとにリセットする奴%%%%%%%%%%%
 
 \makeatletter
 \@addtoreset{equation}{subsection}
@@ -54,7 +38,5 @@
 \@addtoreset{figure}{section}
 \@addtoreset{table}{section}
 \makeatother
-
-%%%%%%%%%%%ページ番号のスタイル奴%%%%%%%%%%%
 
 \pagestyle{empty}

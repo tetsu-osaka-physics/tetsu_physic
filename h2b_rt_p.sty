@@ -1,14 +1,16 @@
 \NeedsTeXFormat{pLaTeX2e}
 \ProvidesPackage{h2b_rt_p}
+\PackageInfo{h2b_rt_p}{expected global options: \MessageBreak
+[]}
 
-%%%%%%%%%%%パッケージ奴%%%%%%%%%%%
-
-\usepackage{amsmath,amssymb,amsthm,ulem,fancyhdr,fancybox,layout,caption,cases,wrapfig}
-\usepackage[dvipdfmx]{graphicx}
-\usepackage[version=4]{mhchem}
-\usepackage{circle_eqnumber,enumitem_extended,Fcntr,uw}
-
-%%%%%%%%%%%余白奴%%%%%%%%%%%
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mhchem}
+\usepackage{fancyhdr}
+\usepackage{caption}
+\usepackage{cases}
+\usepackage{wrapfig}
+\usepackage{graphicx}
+\usepackage{circle_eqnumber, enumitem_extended, Fcntr}
 
 \setlength{\oddsidemargin}{0pt}
 \setlength{\topmargin}{4pt}
@@ -28,39 +30,55 @@
 \setlength{\hoffset}{0pt}
 \setlength{\voffset}{0pt}
 
-%%%%%%%%%%%基本コマンド奴%%%%%%%%%%%
-
 \newcommand{\maru}[1]{\ajMaru{#1}}
 
-%%%%%%%%%%%sectionで問題番号と配点を決めてヘッダに出す奴%%%%%%%%%%%
 \newcounter{dist}
-\renewcommand{\thesection}{{\large \textgt{第\combinedarabic{section}問}}}
-\renewcommand{\section}[1]{
-
-\vspace{5zw}
-\stepcounter{section}\setcounter{dist}{#1}\thesection\hfill\thedist
-\vspace{1zw}
-
-}
+\renewcommand{\thesection}{{\large 第\Combarabic{section}問}}
+\def\@sect#1#2#3#4#5#6[#7]#8{%
+  \ifnum #2>\c@secnumdepth
+    \let\@svsec\@empty
+  \else
+    \refstepcounter{#1}%
+    \protected@edef\@svsec{\@seccntformat{#1}\relax}%
+  \fi
+  \@tempskipa #5\relax
+  \ifdim \@tempskipa<\z@
+    \def\@svsechd{%
+      #6{\hskip #3\relax
+      \@svsec #8 }%
+      \csname #1mark\endcsname{#7}%
+      \addcontentsline{toc}{#1}{%
+        \ifnum #2>\c@secnumdepth \else
+          \protect\numberline{\csname the#1\endcsname}%
+        \fi
+        #7}}% 目次にフルネームを載せるなら #8
+  \else
+    \begingroup
+      \interlinepenalty \@M % 下から移動
+      #6{%
+        \@hangfrom{\hskip #3\relax\@svsec}%
+        \setcounter{dist}{#8}\hfill{\normalsize\thedist}% #8
+         \@@par}%
+    \endgroup
+    \csname #1mark\endcsname{#7}%
+    \addcontentsline{toc}{#1}{%
+      \ifnum #2>\c@secnumdepth \else
+        \protect\numberline{\csname the#1\endcsname}%
+      \fi
+      #7}% 目次にフルネームを載せるならここは #8
+  \fi
+  \@xsect{#5}}
 
 \renewcommand{\thedist}{\textrm{（配点 \arabic{dist}点）}}
 
-%%%%%%%%%%%図キャプションを全角にしたりする奴%%%%%%%%%%%
-
-\renewcommand{\thefigure}{\combinedarabic{figure}}
-\renewcommand{\thetable}{\combinedarabic{table}}
+\renewcommand{\thefigure}{\Combarabic{figure}}
+\renewcommand{\thetable}{\Combarabic{table}}
 
 \captionsetup[figure]{font=normalsize}
 % \captionsetup[table]{font=normalsize}
 
-%%%%%%%%%%%大問ごとにリセットする奴%%%%%%%%%%%
-
-\makeatletter
 \@addtoreset{equation}{section}
 \@addtoreset{figure}{section}
 \@addtoreset{table}{section}
-\makeatother
-
-%%%%%%%%%%%ページ番号のスタイル奴%%%%%%%%%%%
 
 \pagestyle{empty}

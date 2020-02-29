@@ -1,0 +1,19 @@
+\NeedsTeXFormat{pLaTeX2e}
+\ProvidesPackage{h2_rt_asheet}
+\PackageInfo{h2_rt_asheet}{expected global options: \MessageBreak
+[]}
+
+\usepackage{ansframe}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\setlength{\oddsidemargin}{-5truemm}
+\setlength{\topmargin}{-10truemm}
+\setlength{\textwidth}{168truemm}
+\setlength{\textheight}{250truemm}
+\pagestyle{empty}
+\renewcommand{\thesection}{{\large 第\Combarabic{section}問}}
+
+\newcommand\score[1]{\vfill
+\begin{flushright}%
+  \framebox(45,30){　　/#1}%
+\end{flushright}}

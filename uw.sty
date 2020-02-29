@@ -1,67 +1,41 @@
 \NeedsTeXFormat{pLaTeX2e}
 \ProvidesPackage{uw}
-
-%%%%%%%%%%%パッケージ奴%%%%%%%%%%%
+\PackageInfo{uw}{available global options: \MessageBreak
+[f, anslabel]}
 
 \usepackage{ulem}
 
-%%%%%%%%%%%uwの定義奴%%%%%%%%%%%
-
-\makeatletter
 \newif\iff@
-\DeclareOption{f}{\f@true}
 \newif\ifanslabel@
+\newdimen\@uwdim
+
+\DeclareOption{f}{\f@true}
 \DeclareOption{anslabel}{\anslabel@true}
 \ProcessOptions*
-\makeatother
 
-\makeatletter
-\newdimen\@uwdim
-\def\uw#1{%
-\relax\ifmmode\settowidth{\@uwdim}{$\displaystyle #1$}\else\settowidth{\@uwdim}{#1}\fi
-\ifdim\@uwdim<1em
-  \setlength{\@uwdim}{1em}
-  \iff@
-    \ifmmode\uwave{\hbox to\@uwdim{\hfil $\displaystyle #1$\hfil}}_\text{\f{}}
-    \else$\uwave{\hbox to\@uwdim{\hfil #1\hfil}}_\text{\f{}}$
-    \fi
-  \else
-    \ifmmode\uwave{\hbox to\@uwdim{\hfil $\displaystyle #1$\hfil}}
-    \else\uwave{\hbox to\@uwdim{\hfil #1\hfil}}
-    \fi
+\newcommand\uw[1]{\relax\ifmmode\settowidth{\@uwdim}{$\displaystyle #1$}\else\settowidth{\@uwdim}{#1}\fi
+\ifdim\@uwdim<1em\@uwdim1em\else\advance\@uwdim by .5em\fi
+\iff@
+  \ifmmode\uwave{\hbox to \@uwdim{\hfil $\displaystyle #1$\hfil}}_\text{\f{}}%
+  \else$\uwave{\hbox to \@uwdim{\hfil #1\hfil}}_\text{\f{}}$
   \fi
 \else
-  \iff@
-    \ifmmode\uwave{\displaystyle #1}_\text{\f{}}
-    \else\uwave{#1}$_\text{\f{}}$
-    \fi
-  \else
-    \ifmmode\uwave{\displaystyle #1}
-    \else\uwave{#1}
-    \fi
+  \ifmmode\uwave{\hbox to\@uwdim{\hfil $\displaystyle #1$\hfil}}%
+  \else\uwave{\hbox to\@uwdim{\hfil #1\hfil}}%
   \fi
 \fi
 \iff@
   \ifanslabel@
     \ifmmode
     \protected@write\@auxout{}%
-    {\string\newlabel{ans\arabic{section}.\theFcntr}{{$#1$}{\thepage}}}%
+    {\string\newlabel{ans\arabic{section}.\theFcntr}{{$\displaystyle#1$}{\thepage}}}%
     \else
     \protected@write\@auxout{}%
     {\string\newlabel{ans\arabic{section}.\theFcntr}{{#1}{\thepage}}}%
     \fi
   \fi
-\fi
-}
-\makeatother
+\fi}
 
-%%%%%%%%%%%ansの定義奴%%%%%%%%%%%
+\newcommand\ans{\f{}　\ref{ans\arabic{section}.\theFcntr}}
 
-\def\ans{%
-\f{}　\ref{ans\arabic{section}.\theFcntr}
-}
-
-\def\ansskip{%
-\f{}
-（略）
-}
+\newcommand\ansskip{\f{}（略）}

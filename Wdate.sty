@@ -1,48 +1,45 @@
 \NeedsTeXFormat{pLaTeX2e}
 \ProvidesPackage{Wdate}
+\PackageInfo{Wdate}{available global options: \MessageBreak
+[intercalary]}
 
-%%%%%%%%%%%新規カウンタ奴%%%%%%%%%%%
-% \newcount\theWmonth
 \newcounter{Wmonth}
-% \newcount\theWday
 \newcounter{Wday}
 \newif\ifintercalary
 
-%%%%%%%%%%%定義奴%%%%%%%%%%%
-\def\addWdate{%
-\ifnum\ifnum\theWmonth=1 31\else\ifnum\theWmonth=3 31\else\ifnum\theWmonth=5 31\else%
+\newcommand\addWdate{%
+\ifnum\ifnum\theWmonth=1 31\else\ifnum\theWmonth=3 31\else\ifnum\theWmonth=5 31\else
 \ifnum\theWmonth=7 31\else\ifnum\theWmonth=8 31\else\ifnum\theWmonth=12 31\else0\fi\fi\fi\fi\fi\fi=31%
   \ifnum\theWday>24%
     \addtocounter{Wday}{-24}%
     \addtocounter{Wmonth}{1}%
-  \else%
+  \else
     \addtocounter{Wday}{7}%
-  \fi%
-\else%
-  \ifnum\ifnum\theWmonth=4 30\else\ifnum\theWmonth=6 30\else%
+  \fi
+\else
+  \ifnum\ifnum\theWmonth=4 30\else\ifnum\theWmonth=6 30\else
   \ifnum\theWmonth=9 30\else\ifnum\theWmonth=11 30\else0\fi\fi\fi\fi=30%
     \ifnum\theWday>23%
       \addtocounter{Wday}{-23}%
       \addtocounter{Wmonth}{1}%
-    \else%
+    \else
       \addtocounter{Wday}{7}%
-    \fi%
-  \else%
-    \ifintercalary%
+    \fi
+  \else
+    \ifintercalary
       \ifnum\theWday>22%
         \addtocounter{Wday}{-22}%
         \addtocounter{Wmonth}{1}%
-      \else%
+      \else
         \addtocounter{Wday}{7}%
-      \fi%
-    \else%
+      \fi
+    \else
       \ifnum\theWday>21%
         \addtocounter{Wday}{-21}%
         \addtocounter{Wmonth}{1}%
-      \else%
+      \else
         \addtocounter{Wday}{7}%
-      \fi%
-    \fi%
-  \fi%
-\fi%
-}
+      \fi
+    \fi
+  \fi
+\fi}

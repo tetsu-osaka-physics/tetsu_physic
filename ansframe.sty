@@ -1,0 +1,161 @@
+\NeedsTeXFormat{pLaTeX2e}
+\ProvidesPackage{ansframe}
+\usepackage{tikz}
+\usetikzlibrary{intersections, calc}
+\usepackage{Fcntr}
+
+\newdimen\fr@meheight
+\newdimen\fr@melen
+\newdimen\fr@meXposition
+\newdimen\fr@meYposition
+\newdimen\fr@meDivelen
+\newdimen\fr@meMaxheight
+\newcount\fr@menum
+\newcount\fr@meDivnum
+\newdimen\wh@lelen
+\newcount\l@belcall
+\newif\ifl@beldraw
+
+\newdimen\defaultheight
+\newdimen\indexlen
+\newdimen\frameXinterval
+\newdimen\frameYinterval
+
+\parindent=0truept
+
+\defaultheight=40truept
+\indexlen=30truept
+\frameXinterval=10truept
+\frameYinterval=20truept
+
+\newcommand\singleframe{\@ifstar{\@@singleframe}{\@singleframe}}
+
+\newcommand\@singleframe[2][\defaultheight]{\fr@meheight#1%
+\fr@melen#2%
+\drawlabel[\fr@meheight]%
+\drawframe[\fr@meheight]{\fr@melen}}
+
+\newcommand\drawlabel[1][\defaultheight]{\fr@meheight#1%
+\draw [thick] (\fr@meXposition+\indexlen,\fr@meYposition)--(\fr@meXposition,\fr@meYposition)--(\fr@meXposition,\fr@meYposition-\fr@meheight)--(\fr@meXposition+\indexlen,\fr@meYposition-\fr@meheight);%
+\draw (\fr@meXposition+\indexlen/2,\fr@meYposition-\fr@meheight/2)node{\normalseize\f{}};}
+
+\newcommand\drawframe[2][\defaultheight]{\fr@meheight#1%
+\fr@melen#2%
+\draw (\fr@meXposition+\indexlen,\fr@meYposition)--(\fr@meXposition+\indexlen,\fr@meYposition-\fr@meheight);%
+\draw [thick] (\fr@meXposition+\indexlen,\fr@meYposition)--(\fr@meXposition+\fr@melen+\indexlen,\fr@meYposition)--(\fr@meXposition+\fr@melen+\indexlen,\fr@meYposition-\fr@meheight)--(\fr@meXposition+\indexlen,\fr@meYposition-\fr@meheight);%
+\advance\fr@meXposition by \fr@melen
+\advance\fr@meXposition by \indexlen
+\advance\fr@meXposition by \frameXinterval
+\ifdim\fr@meheight>\fr@meMaxheight
+\fr@meMaxheight=\fr@meheight\fi}
+
+\newcommand\@@singleframe{\@ifstar{\@@@@singleframe}{\@@@singleframe}}
+
+\newcommand\@@@singleframe[3][\defaultheight]{\fr@meheight#1%
+\fr@melen#2%
+\settowidth\@tempdima{\pgfinterruptpicture #3\endpgfinterruptpicture}%
+\draw (\fr@meXposition+\indexlen+\@tempdima/2+5,\fr@meYposition-\fr@meheight/2)node{#3};%
+\@singleframe[\fr@meheight]{\fr@melen}}
+
+\newcommand\@@@@singleframe[3][\defaultheight]{\fr@meheight#1%
+\fr@melen#2%
+\settowidth\@tempdima{\pgfinterruptpicture #3\endpgfinterruptpicture}%
+\draw (\fr@meXposition+\indexlen+\fr@melen-\@tempdima/2-5,\fr@meYposition-\fr@meheight/2)node{#3};%
+\@singleframe[\fr@meheight]{\fr@melen}}
+
+\newcommand\ansframes[2][\defaultheight]{\fr@meheight#1%
+\fr@menum#2%
+\fr@melen\textwidth
+\divide\fr@melen by \fr@menum
+\advance\fr@melen by -\indexlen
+\advance\fr@melen by -\frameXinterval
+%
+\@tempcnta=\z@
+\loop\ifnum\@tempcnta<\fr@menum
+\@singleframe[\fr@meheight]{\fr@melen}%
+\advance\@tempcnta by 1\repeat
+%
+\fr@meXposition=0truept%
+\advance\fr@meYposition by -\fr@meheight
+\advance\fr@meYposition by -\frameYinterval
+\fr@meMaxheight=\defaultheight}
+
+\newcommand\divideframes[3][\defaultheight]{\fr@meDivelen#3%
+\divide\fr@meDivelen by #2%
+\fr@meheight#1%
+\fr@meDivnum#2%
+\advance\fr@meDivnum by -1%
+\@tempcnta\z@
+\@tempdima\fr@meXposition
+\loop\ifnum\@tempcnta<\fr@meDivnum
+\draw [dashed] (\fr@meXposition+\indexlen+\fr@meDivelen,\fr@meYposition)--(\fr@meXposition+\indexlen+\fr@meDivelen,\fr@meYposition-\fr@meheight);%
+\advance\fr@meXposition by \fr@meDivelen
+\advance\@tempcnta by 1\repeat
+\fr@meXposition\@tempdima
+\@singleframe[\defaultheight]{#3}}
+
+\newcommand\setputparam{\@ifstar{\@@setputparam}{\@setputparam}}
+
+\newcommand\@setputparam[3][\defaultheight]{\global\fr@meheight#1%
+\global\fr@meDivnum#2%
+\global\wh@lelen#3%
+\global\l@belcall\@ne
+\global\l@beldrawtrue}
+
+\newcommand\@@setputparam[3][\defaultheight]{\global\fr@meheight#1%
+\global\fr@meDivnum#2%
+\global\wh@lelen#3%
+\global\l@belcall\@ne
+\global\l@beldrawfalse}
+
+\newcommand\putlabel{\@ifstar{\@@putlabel}{\@putlabel}}
+
+\newcommand\@putlabel[2]{\@tempdima#1%
+\settowidth\@tempdimb{\pgfinterruptpicture\small #2\endpgfinterruptpicture}%
+\ifnum\l@belcall>\@ne
+\draw [dashed] (\fr@meXposition+\indexlen,\fr@meYposition)--(\fr@meXposition+\indexlen,\fr@meYposition-\fr@meheight);\fi
+\draw (\fr@meXposition+\indexlen+1.2+\@tempdimb/2,\fr@meYposition-5)node{\footnotesize #2};%
+\advance\fr@meXposition by \@tempdima
+\ifnum\l@belcall=\fr@meDivnum
+\advance\fr@meXposition by -\wh@lelen
+\ifl@beldraw\@singleframe[\fr@meheight]{\wh@lelen}\else
+\drawframe[\fr@meheight]{\wh@lelen}\fi\fi
+\advance\l@belcall by \@ne}
+
+\newcommand\@@putlabel{\@ifstar{\@@@@putlabel}{\@@@putlabel}}
+
+\newcommand\@@@putlabel[3]{\@tempdima#1%
+\settowidth\@tempdimb{\pgfinterruptpicture\small #2\endpgfinterruptpicture}%
+\settowidth\@tempdimc{\pgfinterruptpicture #3\endpgfinterruptpicture}%
+\ifnum\l@belcall>\@ne
+\draw [dashed] (\fr@meXposition+\indexlen,\fr@meYposition)--(\fr@meXposition+\indexlen,\fr@meYposition-\fr@meheight);\fi
+\draw (\fr@meXposition+\indexlen+1.2+\@tempdimb/2,\fr@meYposition-5)node{\footnotesize #2};%
+\draw (\fr@meXposition+\indexlen+\@tempdimc/2+5,\fr@meYposition-\fr@meheight/2-5)node{#3};
+\advance\fr@meXposition by \@tempdima
+\ifnum\l@belcall=\fr@meDivnum
+\advance\fr@meXposition by -\wh@lelen
+\ifl@beldraw\@singleframe[\fr@meheight]{\wh@lelen}\else
+\drawframe[\fr@meheight]{\wh@lelen}\fi\fi
+\advance\l@belcall by \@ne}
+
+\newcommand\@@@@putlabel[3]{\@tempdima#1%
+\settowidth\@tempdimb{\pgfinterruptpicture\small #2\endpgfinterruptpicture}%
+\settowidth\@tempdimc{\pgfinterruptpicture #3\endpgfinterruptpicture}%
+\ifnum\l@belcall>1%
+\draw [dashed] (\fr@meXposition+\indexlen,\fr@meYposition)--(\fr@meXposition+\indexlen,\fr@meYposition-\fr@meheight);\fi
+\draw (\fr@meXposition+\indexlen+1.2+\@tempdimb/2,\fr@meYposition-5)node{\footnotesize #2};%
+\draw (\fr@meXposition+\indexlen+\@tempdima-\@tempdimc/2-5,\fr@meYposition-\fr@meheight/2-5)node{#3};%
+\advance\fr@meXposition by \@tempdima
+\ifnum\l@belcall=\fr@meDivnum
+\advance\fr@meXposition by -\wh@lelen
+\ifl@beldraw\@singleframe[\fr@meheight]{\wh@lelen}\else
+\drawframe[\fr@meheight]{\wh@lelen}\fi\fi
+\advance\l@belcall by \@ne}
+
+\newcommand\flushframe{\fr@meXposition=0truept
+\advance\fr@meYposition by -\fr@meMaxheight
+\advance\fr@meYposition by -\frameYinterval
+\fr@meMaxheight=\defaultheight}
+
+\fr@meXposition=0truept
+\fr@meYposition=0truept
