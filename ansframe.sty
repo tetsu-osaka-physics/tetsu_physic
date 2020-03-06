@@ -15,6 +15,7 @@
 \newdimen\wh@lelen
 \newcount\l@belcall
 \newif\ifl@beldraw
+\newif\ifl@belnest
 
 \newdimen\defaultheight
 \newdimen\indexlen
@@ -66,6 +67,7 @@
 \newcommand\ansframes[2][\defaultheight]{\fr@meheight#1%
 \fr@menum#2%
 \fr@melen\textwidth
+\ifl@belnest\advance\fr@melen by -\indexlen\fi
 \divide\fr@melen by \fr@menum
 \advance\fr@melen by -\indexlen
 \advance\fr@melen by -\frameXinterval
@@ -75,7 +77,7 @@
 \@singleframe[\fr@meheight]{\fr@melen}%
 \advance\@tempcnta by 1\repeat
 %
-\fr@meXposition=0truept%
+\ifl@belnest\fr@meXposition=\indexlen\else\fr@meXposition=0truept\fi
 \advance\fr@meYposition by -\fr@meheight
 \advance\fr@meYposition by -\frameYinterval
 \fr@meMaxheight=\defaultheight}
@@ -152,10 +154,19 @@
 \drawframe[\fr@meheight]{\wh@lelen}\fi\fi
 \advance\l@belcall by \@ne}
 
-\newcommand\flushframe{\fr@meXposition=0truept
+\newcommand\flushframe{\ifl@belnest\fr@meXposition=\indexlen\else
+\fr@meXposition=0truept\fi
 \advance\fr@meYposition by -\fr@meMaxheight
 \advance\fr@meYposition by -\frameYinterval
 \fr@meMaxheight=\defaultheight}
+
+\newcommand\ansfnest[1]{\draw (\fr@meXposition+\indexlen/2,\fr@meYposition-\fr@meheight/3)node{\normalsize\f{}};
+\fr@meXposition=\indexlen
+\advance\fr@meYposition by -\fr@meMaxheight
+\fr@meMaxheight=\defaultheight
+\fnest{#1}\l@belnesttrue}
+
+\newcommand\ansfunnest{\funnest\l@belnestfalse\fr@meXposition=0truept}
 
 \fr@meXposition=0truept
 \fr@meYposition=0truept
