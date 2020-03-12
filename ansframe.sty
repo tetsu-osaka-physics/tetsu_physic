@@ -160,9 +160,8 @@
 \advance\fr@meYposition by -\frameYinterval
 \fr@meMaxheight=\defaultheight}
 
-\newcommand\ansfnest[1]{\draw (\fr@meXposition+\indexlen/2,\fr@meYposition-\fr@meheight/3)node{\normalsize\f{}};
+\newcommand\ansfnest[1]{\draw (\fr@meXposition+\indexlen/2,\fr@meYposition-\defaultheight/2)node{\normalsize\f{}};
 \fr@meXposition=\indexlen
-\advance\fr@meYposition by -\fr@meMaxheight
 \fr@meMaxheight=\defaultheight
 \fnest{#1}\l@belnesttrue}
 
