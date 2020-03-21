@@ -1,7 +1,7 @@
 \NeedsTeXFormat{pLaTeX2e}
 \ProvidesPackage{h2_rt_asheet}
 \PackageInfo{h2_rt_asheet}{expected global options: \MessageBreak
-[]}
+[a4paper, papersize, 12pt, dvipdfmx, nobox, bold]}
 
 \usepackage{amsmath, amssymb, amsthm}
 \usepackage{ansframe}
@@ -14,7 +14,14 @@
 \pagestyle{empty}
 \renewcommand{\thesection}{{\large 第\Combarabic{section}問}}
 
-\newcommand\score[1]{\vfill
+\newcommand\score{\@ifstar{\score@@}{\score@}}
+
+\newcommand\score@[1]{\vfill
+\begin{flushright}%
+  \framebox(45,30){　　/#1}%
+\end{flushright}}
+
+\newcommand\score@@[1]{\bigskip
 \begin{flushright}%
   \framebox(45,30){　　/#1}%
 \end{flushright}}
