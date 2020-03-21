@@ -126,7 +126,7 @@
 
 \newcommand\@@putlabel{\@ifstar{\@@@@putlabel}{\@@@putlabel}}
 
-\renewcommand\@@@putlabel[3]{\@tempdima#1%
+\newcommand\@@@putlabel[3]{\@tempdima#1%
 \settowidth\@tempdimb{\pgfinterruptpicture\small #2\endpgfinterruptpicture}%
 \settowidth\@tempdimc{\pgfinterruptpicture #3\endpgfinterruptpicture}%
 \ifnum\l@belcall>\@ne
@@ -141,7 +141,7 @@
 \drawframe[\fr@meheight]{\wh@lelen}\fi\fi
 \advance\l@belcall by \@ne}
 
-\renewcommand\@@@@putlabel[3]{\@tempdima#1%
+\newcommand\@@@@putlabel[3]{\@tempdima#1%
 \settowidth\@tempdimb{\pgfinterruptpicture\small #2\endpgfinterruptpicture}%
 \settowidth\@tempdimc{\pgfinterruptpicture #3\endpgfinterruptpicture}%
 \ifnum\l@belcall>1%
