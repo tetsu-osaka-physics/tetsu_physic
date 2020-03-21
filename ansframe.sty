@@ -126,13 +126,14 @@
 
 \newcommand\@@putlabel{\@ifstar{\@@@@putlabel}{\@@@putlabel}}
 
-\newcommand\@@@putlabel[3]{\@tempdima#1%
+\renewcommand\@@@putlabel[3]{\@tempdima#1%
 \settowidth\@tempdimb{\pgfinterruptpicture\small #2\endpgfinterruptpicture}%
 \settowidth\@tempdimc{\pgfinterruptpicture #3\endpgfinterruptpicture}%
 \ifnum\l@belcall>\@ne
 \draw [dashed] (\fr@meXposition+\indexlen,\fr@meYposition)--(\fr@meXposition+\indexlen,\fr@meYposition-\fr@meheight);\fi
 \draw (\fr@meXposition+\indexlen+1.2+\@tempdimb/2,\fr@meYposition-5)node{\footnotesize #2};%
-\draw (\fr@meXposition+\indexlen+\@tempdimc/2+5,\fr@meYposition-\fr@meheight/2-5)node{#3};
+\ifx#2""\draw (\fr@meXposition+\indexlen+\@tempdimc/2+5,\fr@meYposition-\fr@meheight/2)node{#3};\else
+\draw (\fr@meXposition+\indexlen+\@tempdimc/2+5,\fr@meYposition-\fr@meheight/2-5)node{#3};\fi
 \advance\fr@meXposition by \@tempdima
 \ifnum\l@belcall=\fr@meDivnum
 \advance\fr@meXposition by -\wh@lelen
@@ -140,13 +141,14 @@
 \drawframe[\fr@meheight]{\wh@lelen}\fi\fi
 \advance\l@belcall by \@ne}
 
-\newcommand\@@@@putlabel[3]{\@tempdima#1%
+\renewcommand\@@@@putlabel[3]{\@tempdima#1%
 \settowidth\@tempdimb{\pgfinterruptpicture\small #2\endpgfinterruptpicture}%
 \settowidth\@tempdimc{\pgfinterruptpicture #3\endpgfinterruptpicture}%
 \ifnum\l@belcall>1%
 \draw [dashed] (\fr@meXposition+\indexlen,\fr@meYposition)--(\fr@meXposition+\indexlen,\fr@meYposition-\fr@meheight);\fi
 \draw (\fr@meXposition+\indexlen+1.2+\@tempdimb/2,\fr@meYposition-5)node{\footnotesize #2};%
-\draw (\fr@meXposition+\indexlen+\@tempdima-\@tempdimc/2-5,\fr@meYposition-\fr@meheight/2-5)node{#3};%
+\ifx#2""\draw (\fr@meXposition+\indexlen+\@tempdima-\@tempdimc/2-5,\fr@meYposition-\fr@meheight/2)node{#3};\else
+\draw (\fr@meXposition+\indexlen+\@tempdima-\@tempdimc/2-5,\fr@meYposition-\fr@meheight/2-5)node{#3};\fi
 \advance\fr@meXposition by \@tempdima
 \ifnum\l@belcall=\fr@meDivnum
 \advance\fr@meXposition by -\wh@lelen
