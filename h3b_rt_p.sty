@@ -1,57 +1,35 @@
 \NeedsTeXFormat{pLaTeX2e}
-\ProvidesPackage{h2b_rt_p}
+\ProvidesPackage{h3b_rt_p}
+\PackageInfo{h3b_rt_p}{expected global options: \MessageBreak
+[a4paper, papersize, dvipdfmx, fleqn, bold, 12pt]}
 
-%%%%%%%%%%%パッケージ奴%%%%%%%%%%%
-
-\usepackage{amsmath,amssymb,amsthm,ulem,fancyhdr,fancybox,layout,caption,cases,wrapfig}
-\usepackage[dvipdfmx]{graphicx}
+\usepackage{amsmath, amssymb, amsthm}
 \usepackage[version=4]{mhchem}
-\usepackage{circle_eqnumber,enumitem_extended,Fcntr}
-\usepackage{uw}
-
-%%%%%%%%%%%余白奴%%%%%%%%%%%
+\usepackage{fancyhdr}
+\usepackage{caption}
+\usepackage{cases}
+\usepackage{wrapfig}
+\usepackage{graphicx}
+\usepackage{circle_eqnumber, enumitem_extended, Fcntr}
 
 \setlength{\columnsep}{3zw}
 \setlength{\columnseprule}{0.4pt}
 \setlength{\fboxsep}{0.5mm}
 
-%%%%%%%%%%%基本コマンド奴%%%%%%%%%%%
-
 \newcommand{\maru}[1]{\ajMaru{#1}}
 
-%%%%%%%%%%%sectionで問題番号と配点を決めてヘッダに出す奴%%%%%%%%%%%
+\renewcommand{\thesection}{{\large \textgt{第\Combarabic{section}問}}}
 
-% H2Bの原本はsty化してない（ただ，余白とかのレイアウトは設定した）．多分，2020年度から変える．
-% ここの設定もH2Bのまま．
-
-\newcounter{dist}
-\renewcommand{\thesection}{{\large \textgt{第\fullwidtharabic{section}問}}}
-\renewcommand{\section}[1]{
-
-\vspace{5zw}
-\stepcounter{section}\setcounter{dist}{#1}\thesection\hfill\thedist
-\vspace{1zw}
-
-}
-
-\renewcommand{\thedist}{\textrm{（配点 \arabic{dist}点）}}
-
-%%%%%%%%%%%図キャプションを全角にする奴%%%%%%%%%%%
-
-\renewcommand{\thefigure}{\fullwidtharabic{figure}}
-\renewcommand{\thetable}{\fullwidtharabic{table}}
+\renewcommand{\thefigure}{\Combarabic{figure}}
+\renewcommand{\thetable}{\Combarabic{table}}
 
 \captionsetup[figure]{font=normalsize}
 % \captionsetup[table]{font=normalsize}
-
-%%%%%%%%%%%大問ごとにリセットする奴%%%%%%%%%%%
 
 \makeatletter
 \@addtoreset{equation}{section}
 \@addtoreset{figure}{section}
 \@addtoreset{table}{section}
 \makeatother
-
-%%%%%%%%%%%ページ番号のスタイル奴%%%%%%%%%%%
 
 \pagestyle{empty}
