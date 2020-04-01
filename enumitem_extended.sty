@@ -7,7 +7,8 @@
 \DeclareOption{ideographic}{\ideographic@true}
 \ProcessOptions*
 
-\DeclareFontSeriesChangeRule {m}{b}  {bx}  {bx} %<-----
+\@ifundefined{DeclareFontSeriesChangeRule}{\relax}%
+{\DeclareFontSeriesChangeRule {m}{b}  {bx}  {bx}} % undefined @ texlive 2018
 
 \usepackage{otf}
 \usepackage[inline]{enumitem}

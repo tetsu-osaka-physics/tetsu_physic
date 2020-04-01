@@ -1,5 +1,7 @@
 \NeedsTeXFormat{pLaTeX2e}
-\ProvidesPackage{h2b_rt_s}
+\ProvidesPackage{h3b_rt_s}
+\PackageInfo{h3b_rt_s}{expected global options: \MessageBreak
+[]}
 
 %%%%%%%%%%%パッケージ奴%%%%%%%%%%%
 
@@ -55,7 +57,7 @@
 % H３Bの原本はsty化してない（ただ，余白とかのレイアウトは設定した）．多分，2020年度から変える．
 % ここの設定もH2Bのまま．
 
-\renewcommand{\thesection}{\underline{\large\textgt{第　\combinedarabicwidtharabic{section}　問}}}
+\renewcommand{\thesection}{\underline{\large\textgt{第　\Combarabic{section}　問}}}
 \titleformat{\section}[hang]
 {\Large\gtfamily}
 {\filright\thesection}{.5em}{\filcenter}[]
@@ -64,8 +66,8 @@
 
 %%%%%%%%%%%解答図キャプションを全角にする奴%%%%%%%%%%%
 
-\renewcommand{\thefigure}{\combinedarabic{figure}}
-\renewcommand{\thetable}{\combinedarabic{table}}
+\renewcommand{\thefigure}{\Combarabic{figure}}
+\renewcommand{\thetable}{\Combarabic{table}}
 
 \captionsetup[figure]{font=normalsize}
 \renewcommand{\figurename}{解答図}
