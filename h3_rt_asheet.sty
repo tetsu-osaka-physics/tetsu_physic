@@ -1,0 +1,57 @@
+\NeedsTeXFormat{pLaTeX2e}
+\ProvidesPackage{h3_rt_asheet}
+\PackageInfo{h3_rt_asheet}{expected global options: \MessageBreak
+[b4paper, papersize, 12pt, dvipdfmx]}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{graphicx}
+\usepackage{otf}
+\usepackage[version=4]{mhchem}
+\usepackage{tikz}
+\usetikzlibrary{intersections, calc}
+
+\pagestyle{empty}
+\setlength\hoffset{-40pt}
+\setlength\voffset{-80pt}
+\setlength\textwidth{545pt}
+\setlength\textheight{800pt}
+\parindent=0truept
+\newtoks\testnum
+\newtoks\acyear
+\newtoks\classname
+\newtoks\testname
+
+\newcommand\fullframe[1]{%
+\draw (0, 0)node[below, scale=1.2]{\the\acyear 年度};%
+\draw (5, 0)node[below, scale=1.2]{高３物理\the\classname \the\testname No.\,\the\testnum};%
+\draw (3.85, -1.6)node[above, scale=1.5]{解答用紙};%
+\draw[thick](9, 0)--(18, 0)--(18, -1.6)--(9, -1.6)--cycle;%
+\draw (9.25, -0.85)node[above, scale=0.7]{志望};%
+\draw (9.25, -0.75)node[below, scale=0.7]{学部};%
+\draw[thick](9.5, 0)--(9.5, -1.6);%
+\draw[thick](13, 0)--(13, -1.6);%
+\draw (13.25, -0.8)node[scale=0.7]{名前};%
+\draw[thick](13.5, 0)--(13.5, -1.6);%
+\draw[thick](-1, -2.5)--(18, -2.5)--(18, -28)--(-1, -28)--cycle;%
+\draw[thick](-1, -3.5)--(0.6, -3.5)--(0.6, -2.5);%
+\draw (-0.2, -3)node[scale=0.8]{第{\LARGE #1}問};%
+\draw[thick](18, -26)--(15.4, -26)--(15.4, -28);%
+\draw[thick](16, -26)--(16, -28);%
+\draw (15.7, -27)node[above, scale=0.6]{第#1問};%
+\draw (15.7, -27)node[below, scale=0.6]{点数};%
+}
+
+\newcommand\putfig[3][6]{\ifcase#1\or
+\draw (0, -4)node[scale=1.0]{#2};%
+\draw (0, -4)node[below right]{#3};\or
+\draw (9.5, -4)node[scale=1.0]{#2};%
+\draw (9.5, -4)node[below right]{#3};\or
+\draw (0, -11.5)node[scale=1.0]{#2};%
+\draw (0, -11.5)node[below right]{#3};\or
+\draw (9.5, -11.5)node[scale=1.0]{#2};%
+\draw (9.5, -11.5)node[below right]{#3};\or
+\draw (0, -20)node[scale=1.0]{#2};%
+\draw (0, -20)node[below right]{#3};\or
+\draw (9.5, -18)node[scale=1.0]{#2};%
+\draw (9.5, -18)node[below right]{#3};\or
+\fi\relax}
