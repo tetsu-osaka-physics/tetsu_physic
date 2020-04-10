@@ -1,8 +1,8 @@
 # tetsu_physic（教材のアレな設定）
 ## 内容
 それぞれのstyファイルの詳しい情報は[wiki](https://github.com/tetsu-osaka-physics/tetsu_physic/wiki)を参照．
-* `circle_eqnumber.sty`：`align`環境での数式番号を丸数字にする．
 * `enumitem_extended.sty`：`enumerate`環境のラベルの種類を増やす．
+* `eqnumber_extended.sty`：`align`環境での数式番号の種類を増やす．
 * `Fcntr.sty`：穴埋めの四角枠を作る．
 * `uw.sty`：波線を引く．
 
