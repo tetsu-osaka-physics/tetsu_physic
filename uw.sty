@@ -5,17 +5,17 @@
 
 \usepackage{ulem}
 
-\newif\iff@
+\newif\iff
 \newif\ifanslabel@
 \newdimen\@uwdim
 
-\DeclareOption{f}{\f@true}
+\DeclareOption{f}{\ftrue}
 \DeclareOption{anslabel}{\anslabel@true}
 \ProcessOptions*
 
 \newcommand\uw[1]{\relax\ifmmode\settowidth{\@uwdim}{$\displaystyle #1$}\else\settowidth{\@uwdim}{#1}\fi
 \ifdim\@uwdim<1em\@uwdim1em\else\advance\@uwdim by .5em\fi
-\iff@
+\iff
   \ifmmode\uwave{\hbox to \@uwdim{\hfil $\displaystyle #1$\hfil}}_\text{\f{}}%
   \else$\uwave{\hbox to \@uwdim{\hfil #1\hfil}}_\text{\f{}}$
   \fi
@@ -24,7 +24,7 @@
   \else\uwave{\hbox to\@uwdim{\hfil #1\hfil}}%
   \fi
 \fi
-\iff@
+\iff
   \ifanslabel@
     \ifmmode
     \protected@write\@auxout{}%
