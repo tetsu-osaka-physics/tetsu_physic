@@ -1,12 +1,14 @@
 \NeedsTeXFormat{pLaTeX2e}
-\ProvidesPackage{circle_eqnumber}
+\ProvidesPackage{eqnum_extended}
 
 \usepackage{amsmath}
-\usepackage{otf}
+\usepackage{enumitem_extended}
 
+\newtoks\eqnumsty
 \newdimen\@tagdim
 \newdimen\@FWdim
 \settowidth{\@FWdim}{…}
+\eqnumsty{Maru}
 
 \renewcommand\eqref[1]{%
   \expandafter\ifx\csname r@#1\endcsname\relax
@@ -15,7 +17,7 @@
     \protected@edef\@maruref@temp{%
       \expandafter\expandafter\expandafter
       \@firstoftwo\csname r@#1\endcsname\empty\empty}%
-    \ajMaru{\@maruref@temp}%
+    \csname @\the\eqnumsty\endcsname{\@maruref@temp}
   \fi}
 
 \renewenvironment{align}{%
@@ -67,7 +69,7 @@
 }
 
 \renewcommand\tagform@[1]{\if@eqnsw
-… \maketag@@@{\ajMaru{#1}}%
+… \maketag@@@{\csname @\the\eqnumsty\endcsname{#1}}%
 \else \settowidth{\@tagdim}{#1}%
 \advance\@tagdim by -\@FWdim%
 \multiply\@tagdim by \m@ne%
