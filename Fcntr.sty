@@ -32,17 +32,20 @@
 \else
   \if\ARG　\framebox[1.2cm]{#1}
   \else
-    \if\ARG""\addtocounter{Fcntr}{1}\framebox[1.2cm]{\csname\the\fstyle\endcsname{Fcntr}}
-    \else\setcounter{fref}{#1}\framebox[1.2cm]{\csname\the\fstyle\endcsname{fref}}
-    \fi
+    \if\ARG""\ifmmode\mathop{\addtocounter{Fcntr}{1}\framebox[1.2cm]{\csname\the\fstyle\endcsname{Fcntr}}}\else
+    \addtocounter{Fcntr}{1}\framebox[1.2cm]{\csname\the\fstyle\endcsname{Fcntr}}
+    \fi\else\ifmmode\mathop{\setcounter{fref}{#1}\framebox[1.2cm]{\csname\the\fstyle\endcsname{fref}}}\else
+    \setcounter{fref}{#1}\framebox[1.2cm]{\csname\the\fstyle\endcsname{fref}}
+    \fi\fi
   \fi
 \fi}
 
 \newcommand\ff[1]{
 \if#1{}\def\ARG{{#1}}\else\def\ARG{#1}\fi
 \if\ARG　\doublebox{\hspace{.7zw}　\hspace{.7zw}}
-\else\setcounter{ffref}{#1}\doublebox{\hspace{.7zw}\csname\the\fstyle\endcsname{ffref}\hspace{.7zw}}
-\fi}
+\else\setcounter{ffref}{#1}\ifmmode\mathop{\doublebox{\hspace{.7zw}\csname\the\fstyle\endcsname{ffref}\hspace{.7zw}}}\else
+\doublebox{\hspace{.7zw}\csname\the\fstyle\endcsname{ffref}\hspace{.7zw}}
+\fi\fi}
 
 \newcommand\fnest[1]{\fstyle@\fstyle
 \fstyle{#1}%
