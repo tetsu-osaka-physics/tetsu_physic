@@ -12,17 +12,19 @@
 \newcounter{fref}
 \newcounter{ffref}
 \newcounter{Fcntr@}
-\newif\ifnobox@
+\newif\ifnobox
 
-\nobox@false
-\DeclareOption{nobox}{\nobox@true}
+\noboxfalse
+\DeclareOption{nobox}{\noboxtrue}
 \ProcessOptions\relax
 \setcounter{Fcntr}{0}
 \@addtoreset{Fcntr}{section}
 
-\newcommand\f[1]{
+\newcommand\f{\@ifstar{\@@f}{\@f}}
+
+\newcommand\@f[1]{
 \if#1{}\def\ARG{{#1}}\else\def\ARG{#1}\fi
-\ifnobox@
+\ifnobox
   \if\ARG　{#1}
   \else
     \if\ARG""\addtocounter{Fcntr}{1}{\csname\the\fstyle\endcsname{Fcntr}}
@@ -37,6 +39,15 @@
     \fi\else\ifmmode\mathop{\setcounter{fref}{#1}\framebox[1.2cm]{\csname\the\fstyle\endcsname{fref}}}\else
     \setcounter{fref}{#1}\framebox[1.2cm]{\csname\the\fstyle\endcsname{fref}}
     \fi\fi
+  \fi
+\fi}
+
+\newcommand\@@f[1]{%
+\if#1{}\def\ARG{{#1}}\else\def\ARG{#1}\fi
+\if\ARG　{#1}
+\else
+  \if\ARG""\addtocounter{Fcntr}{1}{\csname\the\fstyle\endcsname{Fcntr}}%
+  \else\setcounter{fref}{#1}{\csname\the\fstyle\endcsname{fref}}%
   \fi
 \fi}
 
