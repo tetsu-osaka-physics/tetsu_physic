@@ -11,9 +11,12 @@
 \usepackage{wrapfig}
 \usepackage{eqnum_extended, enumitem_extended, Fcntr, figcap_ext}
 
-\setlength{\columnsep}{3zw}
-\setlength{\columnseprule}{0.4pt}
-\setlength{\fboxsep}{0.5mm}
+\setlength{\topmargin}{0truept}
+
+\setlength{\headheight}{0truept}
+\setlength{\headsep}{0truept}
+
+\setlength{\textheight}{700truept}
 
 \newcommand{\maru}[1]{\ajMaru{#1}}
 
@@ -25,10 +28,8 @@
 \captionsetup[figure]{font=normalsize}
 % \captionsetup[table]{font=normalsize}
 
-\makeatletter
 \@addtoreset{equation}{section}
 \@addtoreset{figure}{section}
 \@addtoreset{table}{section}
-\makeatother
 
 \pagestyle{empty}
