@@ -1,7 +1,7 @@
 \NeedsTeXFormat{pLaTeX2e}
 \ProvidesPackage{h2_ensyu_p}
 \PackageInfo{h2_ensyu_p}{expected global options: \MessageBreak
-[]}
+[12pt, a4paper, papersize, dvipdfmx, fleqn, bold]}
 
 \usepackage{amsmath, amssymb, amsthm}
 \usepackage[version=4]{mhchem}
@@ -12,7 +12,12 @@
 \usepackage{setspace}
 \usepackage{eqnum_extended, enumitem_extended, Fcntr, figcap_ext}
 
-\setlength{\leftmargini}{1zw}
+\setlength{\topmargin}{10truept}
+
+\setlength{\headheight}{0truept}
+\setlength{\headsep}{0truept}
+
+\setlength{\textheight}{700truept}
 
 \newcommand{\maru}[1]{\ajMaru{#1}}
 

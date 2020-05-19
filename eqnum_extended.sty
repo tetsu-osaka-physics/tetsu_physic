@@ -17,7 +17,7 @@
     \protected@edef\@maruref@temp{%
       \expandafter\expandafter\expandafter
       \@firstoftwo\csname r@#1\endcsname\empty\empty}%
-    \csname @\the\eqnumsty\endcsname{\@maruref@temp}
+    \csname @\the\eqnumsty\endcsname{\@maruref@temp}%
   \fi}
 
 \renewenvironment{align}{%
@@ -71,7 +71,7 @@
 \renewcommand\tagform@[1]{\if@eqnsw
 … \maketag@@@{\csname @\the\eqnumsty\endcsname{#1}}%
 \else \settowidth{\@tagdim}{#1}%
-\advance\@tagdim by -\@FWdim%
-\multiply\@tagdim by \m@ne%
+\advance\@tagdim by -\@FWdim
+\multiply\@tagdim by \m@ne
 … \maketag@@@{#1\hspace\@tagdim}%
 \fi}
