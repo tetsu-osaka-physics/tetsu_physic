@@ -17,7 +17,7 @@
 \ifdim\@uwdim<1em\@uwdim1em\else\advance\@uwdim by .5em\fi
 \iff
   \ifmmode\uwave{\hbox to \@uwdim{\hfil $\displaystyle #1$\hfil}}_\text{\f{}}%
-  \else$\uwave{\hbox to \@uwdim{\hfil #1\hfil}}_\text{\f{}}$
+  \else$\uwave{\hbox to \@uwdim{\hfil #1\hfil}}_\text{\f{}}$%
   \fi
 \else
   \ifmmode\uwave{\hbox to\@uwdim{\hfil $\displaystyle #1$\hfil}}%
