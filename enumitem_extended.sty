@@ -16,10 +16,16 @@
 \RequirePackage{ifthen}
 \RequirePackage{tikz}
 
-\ifideographic@\def\item{%
+\newif\ifinlin@
+
+\ifideographic@\def\item{\ifinlin@\@inmatherr \item \@ifnextchar [\@item {\@noitemargtrue \@item [\@itemlabel ]}\else
   \settowidth{\parindent}{　}%
   \@inmatherr\item
-  \@ifnextchar [\@item{\@noitemargtrue \@item[\@itemlabel]}\quad\ignorespaces}\fi%
+  \@ifnextchar [\@item{\@noitemargtrue \@item[\@itemlabel]}　\ignorespaces\fi}\fi
+
+\renewenvironment{enumerate*}[1][]%
+     {\@nameuse{enit@enumerate*}\enitdp@enumerate{enum}\thr@@{#1}\global\inlin@true}%
+     {\@nameuse{enit@endenumerate*}\global\inlin@false}%
 
 \def\@Roman#1{\ifcase#1\or \CID{7575}\or \CID{7576}\or \CID{7577}\or \CID{7578}\or \CID{7579}%
 \or \CID{7580}\or \CID{7581}\or \CID{7582}\or \CID{7583}\or \CID{7584}%
