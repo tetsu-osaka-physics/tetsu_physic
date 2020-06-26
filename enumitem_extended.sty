@@ -3,6 +3,7 @@
 \PackageInfo{enumitem_extended}{availabel global options: \MessageBreak
 [ideographic]}
 
+\newif\ifinlin@
 \newif\ifideographic@
 \DeclareOption{ideographic}{\ideographic@true}
 \ProcessOptions*
@@ -11,19 +12,78 @@
 {\DeclareFontSeriesChangeRule {m}{b}  {bx}  {bx}} % undefined @ texlive 2018
 
 \usepackage{otf}
-\usepackage[inline]{enumitem}
+\usepackage{enumitem}
 \usepackage{Wdate}
 \RequirePackage{ifthen}
 \RequirePackage{tikz}
 
-\newif\ifinlin@
+\def\@item[#1]{%
+  \if@noparitem
+    \@donoparitem
+  \else
+    \if@inlabel
+      \indent \par
+    \fi
+    \ifhmode
+      \unskip\unskip \par
+    \fi
+    \if@newlist
+      \if@nobreak
+        \@nbitem
+      \else
+        \addpenalty\@beginparpenalty
+        \addvspace\@topsep
+        \addvspace{-\parskip}%
+      \fi
+    \else
+      \addpenalty\@itempenalty
+      \addvspace\itemsep
+    \fi
+    \global\@inlabeltrue
+  \fi
+  \everypar{%
+    \@minipagefalse
+    \global\@newlistfalse
+    \if@inlabel
+      \global\@inlabelfalse
+      {\setbox\z@\lastbox
+       \ifvoid\z@
+         \kern-\itemindent
+       \fi}%
+      \box\@labels
+      \penalty\z@
+    \fi
+    \if@nobreak
+      \@nobreakfalse
+      \clubpenalty \@M
+    \else
+      \clubpenalty \@clubpenalty
+      \everypar{}%
+    \fi}%
+  \if@noitemarg
+    \@noitemargfalse
+    \if@nmbrlist
+      \refstepcounter\@listctr
+    \fi
+  \fi
+  \sbox\@tempboxa{\makelabel{#1}}%
+  \global\setbox\@labels\hbox{%
+    \unhbox\@labels
+    \hskip \itemindent
+    \hskip -\labelwidth
+    \hskip -\labelsep
+    \ifdim \wd\@tempboxa >\labelwidth
+      \box\@tempboxa
+    \else
+      \hbox to\labelwidth {\unhbox\@tempboxa}%
+    \fi
+    \hskip \labelsep}%
+  \ifideographic@\ifinlin@\else
+    \hskip 1zw%
+    \settowidth{\parindent}{　}\fi\fi
+  \ignorespaces}
 
-\ifideographic@\def\item{\ifinlin@\@inmatherr \item \@ifnextchar [\@item {\@noitemargtrue \@item [\@itemlabel ]}\else
-  \settowidth{\parindent}{　}%
-  \@inmatherr\item
-  \@ifnextchar [\@item{\@noitemargtrue \@item[\@itemlabel]}　\ignorespaces\fi}\fi
-
-\renewenvironment{enumerate*}[1][]%
+\newenvironment{enumerate*}[1][]%
      {\@nameuse{enit@enumerate*}\enitdp@enumerate{enum}\thr@@{#1}\global\inlin@true}%
      {\@nameuse{enit@endenumerate*}\global\inlin@false}%
 
