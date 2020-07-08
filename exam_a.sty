@@ -16,20 +16,16 @@
 \setlength\textwidth{400pt}
 
 \defaultheight=60truept
-\indexlen=20truept % 30
-\frameXinterval=30truept % 10
-\frameYinterval=40truept % 20
+\indexlen=20truept % 30truept
+\frameXinterval=30truept % 10truept
+\frameYinterval=40truept % 20truept
 
 \newcommand\testtitile[2]{{\Large 20{#1}年度　第{#2}回　高２校内模試　物理　解答用紙}}
-
 \newcommand\testname{\addtocounter{combpage}{1}%
 \uline{英語　　数学　　物理　　　受験番号　　　　氏名\hfill}\par
 \hfill （\Combarabic{combpage}枚目/\ref{combpage}枚中）}
 
-\AtEndDocument{\protected@write\@auxout{}{\string\newlabel{combpage}{\Combarabic{combpage}}}}
-
 \renewcommand\thesection{{\Large \textrm{第\Combarabic{section}問}}　　{\normalsize ※解答欄の書き間違いに注意すること。}}
-
 \renewcommand\thesubsection{\textrm{［\Alph{subsection}］}}
 
 \newcommand\score{\@ifstar{\score@@}{\score@}}
@@ -52,5 +48,7 @@
   \draw (-2.7, 1.75)node{\Combarabic{section}};%
   \draw (-2.2, 1.75)node{［\Alph{subsection}］};%
 \end{tikzpicture}}
+
+\AtEndDocument{\protected@write\@auxout{}{\string\newlabel{combpage}{\Combarabic{combpage}}}}
 
 \pagestyle{empty}

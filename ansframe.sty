@@ -33,7 +33,15 @@
 \newcommand\singleframe{\@ifstar{\@@singleframe}{\@singleframe}}
 
 \newcommand\@singleframe[2][\defaultheight]{\fr@meheight#1%
-\fr@melen#2%
+\if/\@car#2\@nil
+  \fr@menum\@cdr#2\@nil
+  \fr@melen\textwidth
+  \ifl@belnest\advance\fr@melen by -\indexlen\fi
+  \divide\fr@melen by \fr@menum
+  \advance\fr@melen by -\indexlen
+  \advance\fr@melen by -\frameXinterval
+\else\fr@melen#2\fi
+% \fr@melen#2%
 \drawlabel[\fr@meheight]%
 \drawframe[\fr@meheight]{\fr@melen}}
 
@@ -54,19 +62,43 @@
 \newcommand\@@singleframe{\@ifstar{\@@@@singleframe}{\@@@singleframe}}
 
 \newcommand\@@@singleframe[3][\defaultheight]{\fr@meheight#1%
-\fr@melen#2%
+\if/\@car#2\@nil
+  \fr@menum\@cdr#2\@nil
+  \fr@melen\textwidth
+  \ifl@belnest\advance\fr@melen by -\indexlen\fi
+  \divide\fr@melen by \fr@menum
+  \advance\fr@melen by -\indexlen
+  \advance\fr@melen by -\frameXinterval
+\else\fr@melen#2\fi
+% \fr@melen#2%
 \settowidth\@tempdima{\pgfinterruptpicture #3\endpgfinterruptpicture}%
 \draw (\fr@meXposition+\indexlen+\@tempdima/2+5,\fr@meYposition-\fr@meheight/2)node{#3};%
 \@singleframe[\fr@meheight]{\fr@melen}}
 
 \newcommand\@@@@singleframe[3][\defaultheight]{\fr@meheight#1%
-\fr@melen#2%
+\if/\@car#2\@nil
+  \fr@menum\@cdr#2\@nil
+  \fr@melen\textwidth
+  \ifl@belnest\advance\fr@melen by -\indexlen\fi
+  \divide\fr@melen by \fr@menum
+  \advance\fr@melen by -\indexlen
+  \advance\fr@melen by -\frameXinterval
+\else\fr@melen#2\fi
+% \fr@melen#2%
 \settowidth\@tempdima{\pgfinterruptpicture #3\endpgfinterruptpicture}%
 \draw (\fr@meXposition+\indexlen+\fr@melen-\@tempdima/2-5,\fr@meYposition-\fr@meheight/2)node{#3};%
 \@singleframe[\fr@meheight]{\fr@melen}}
 
 \newcommand\singlescoreframe[4][\defaultheight]{\fr@meheight#1%
-\fr@melen#2%
+\if/\@car#2\@nil
+  \fr@menum\@cdr#2\@nil
+  \fr@melen\textwidth
+  \ifl@belnest\advance\fr@melen by -\indexlen\fi
+  \divide\fr@melen by \fr@menum
+  \advance\fr@melen by -\indexlen
+  \advance\fr@melen by -\frameXinterval
+\else\fr@melen#2\fi
+% \fr@melen#2%
 \settowidth\@tempdima{\pgfinterruptpicture #4\endpgfinterruptpicture}%
 \draw (\fr@meXposition+\indexlen+\fr@melen/2-\@tempdima/2,\fr@meYposition-\fr@meheight/2)node{\large #3};%
 \ifx#4""\else\draw (\fr@meXposition+\indexlen+\fr@melen,\fr@meYposition-\fr@meheight)[above left]node{\textbf{#4点}};\fi
