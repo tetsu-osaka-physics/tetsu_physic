@@ -1,7 +1,7 @@
 \NeedsTeXFormat{pLaTeX2e}
 \ProvidesPackage{exam_p}
 \PackageInfo{exam_p}{expected global options: \MessageBreak
-[]}
+[a4paper, papersize, dvipdfmx, 12pt, fleqn, bold, ideographic]}
 
 \usepackage{amsmath, amssymb, amsthm}
 \usepackage[version=4]{mhchem}
@@ -31,6 +31,7 @@
 
 \newcounter{dist}
 \renewcommand{\thesection}{{\Large \textrm{第\Combarabic{section}問}}}
+\renewcommand\thesubsection{{\normalsize\textrm{［\Alph{subsection}］}}}
 \renewcommand{\section}[1]{\refstepcounter{section}\setcounter{dist}{#1}\lhead{\thesection}\rhead{\thedist}}
 \renewcommand{\thedist}{（\textrm{配点 \arabic{dist}点}）}
 
