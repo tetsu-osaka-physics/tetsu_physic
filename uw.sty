@@ -36,6 +36,10 @@
   \fi
 \fi}
 
-\newcommand\ans{\f*{}　\ref{ans\arabic{section}.\theFcntr}}
+\newcommand\ans{\@ifstar{\@ns}{\@@ns}}
+\newcommand\@ns{\@tempcnta=\theFcntr
+\advance\@tempcnta by 1%
+\noexpand\ref{ans\arabic{section}.\the\@tempcnta}}
+\newcommand\@@ns{\f*{}　\ref{ans\arabic{section}.\theFcntr}}
 
 \newcommand\ansskip{\f*{}　（略）}
