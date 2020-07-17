@@ -14,28 +14,32 @@
 \ProcessOptions*
 
 \newcommand\uw[1]{\relax\ifmmode\settowidth{\@uwdim}{$\displaystyle #1$}\else\settowidth{\@uwdim}{#1}\fi
-\ifdim\@uwdim<1em\@uwdim1em\else\advance\@uwdim by .5em\fi
-\iff
-  \ifmmode\uwave{\hbox to \@uwdim{\hfil $\displaystyle #1$\hfil}}_\text{\f{}}%
-  \else$\uwave{\hbox to \@uwdim{\hfil #1\hfil}}_\text{\f{}}$%
-  \fi
-\else
-  \ifmmode\uwave{\hbox to\@uwdim{\hfil $\displaystyle #1$\hfil}}%
-  \else\uwave{\hbox to\@uwdim{\hfil #1\hfil}}%
-  \fi
-\fi
-\iff
-  \ifanslabel@
-    \ifmmode
-    \protected@write\@auxout{}%
-    {\string\newlabel{ans\arabic{section}.\theFcntr}{{$\displaystyle#1$}{\thepage}}}%
-    \else
-    \protected@write\@auxout{}%
-    {\string\newlabel{ans\arabic{section}.\theFcntr}{{#1}{\thepage}}}%
+  \ifdim\@uwdim<1em\@uwdim1em\else\advance\@uwdim by .5em\fi
+  \iff
+    \ifmmode\uwave{\hbox to \@uwdim{\hfil $\displaystyle #1$\hfil}}_\text{\f{}}%
+    \else$\uwave{\hbox to \@uwdim{\hfil #1\hfil}}_\text{\f{}}$%
+    \fi
+  \else
+    \ifmmode\uwave{\hbox to\@uwdim{\hfil $\displaystyle #1$\hfil}}%
+    \else\uwave{\hbox to\@uwdim{\hfil #1\hfil}}%
     \fi
   \fi
-\fi}
+  \iff
+    \ifanslabel@
+      \ifmmode
+      \protected@write\@auxout{}%
+      {\string\newlabel{ans\arabic{section}.\theFcntr}{{$\displaystyle#1$}{\thepage}}}%
+      \else
+      \protected@write\@auxout{}%
+      {\string\newlabel{ans\arabic{section}.\theFcntr}{{#1}{\thepage}}}%
+      \fi
+    \fi
+  \fi}
 
-\newcommand\ans{\f*{}　\ref{ans\arabic{section}.\theFcntr}}
+\newcommand\ans{\@ifstar{\@ns}{\@@ns}}
+\newcommand\@ns{\@tempcnta=\theFcntr
+  \advance\@tempcnta by 1%
+  \noexpand\ref{ans\arabic{section}.\the\@tempcnta}}
+\newcommand\@@ns{\f*{}　\ref{ans\arabic{section}.\theFcntr}}
 
 \newcommand\ansskip{\f*{}　（略）}
