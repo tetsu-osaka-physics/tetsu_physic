@@ -4,12 +4,13 @@
 \usetikzlibrary{intersections, calc}
 \usepackage{Fcntr}
 % いくつかの部分はtempdimとか使ってるが，nodeの機能[above left]とかを使った方が良さげ --2020/4/10
+% 末尾の奴にも\frameXintervalが設定されるのが微妙かな．修正するかも --2020/7/22
 
 \newdimen\fr@meheight
 \newdimen\fr@melen
 \newdimen\fr@meXposition
 \newdimen\fr@meYposition
-\newdimen\fr@meDivelen
+\newdimen\fr@meDivlen
 \newdimen\fr@meMaxheight
 \newcount\fr@menum
 \newcount\fr@meDivnum
@@ -33,7 +34,7 @@
 \newcommand\singleframe{\@ifstar{\@@singleframe}{\@singleframe}}
 
 \newcommand\@singleframe[2][\defaultheight]{\fr@meheight#1%
-\ifx/#2%
+\if\@car#2\@nil/
   \fr@menum\@cdr#2\@nil
   \fr@melen\textwidth
   \ifl@belnest\advance\fr@melen by -\indexlen\fi
@@ -41,7 +42,6 @@
   \advance\fr@melen by -\indexlen
   \advance\fr@melen by -\frameXinterval
 \else\fr@melen#2\fi
-% \fr@melen#2%
 \drawlabel[\fr@meheight]%
 \drawframe[\fr@meheight]{\fr@melen}}
 
@@ -62,7 +62,7 @@
 \newcommand\@@singleframe{\@ifstar{\@@@@singleframe}{\@@@singleframe}}
 
 \newcommand\@@@singleframe[3][\defaultheight]{\fr@meheight#1%
-\ifx/#2%
+\if\@car#2\@nil/
   \fr@menum\@cdr#2\@nil
   \fr@melen\textwidth
   \ifl@belnest\advance\fr@melen by -\indexlen\fi
@@ -70,13 +70,12 @@
   \advance\fr@melen by -\indexlen
   \advance\fr@melen by -\frameXinterval
 \else\fr@melen#2\fi
-% \fr@melen#2%
 \settowidth\@tempdima{\pgfinterruptpicture #3\endpgfinterruptpicture}%
 \draw (\fr@meXposition+\indexlen+\@tempdima/2+5,\fr@meYposition-\fr@meheight/2)node{#3};%
 \@singleframe[\fr@meheight]{\fr@melen}}
 
 \newcommand\@@@@singleframe[3][\defaultheight]{\fr@meheight#1%
-\ifx/#2%
+\if\@car#2\@nil/
   \fr@menum\@cdr#2\@nil
   \fr@melen\textwidth
   \ifl@belnest\advance\fr@melen by -\indexlen\fi
@@ -84,13 +83,12 @@
   \advance\fr@melen by -\indexlen
   \advance\fr@melen by -\frameXinterval
 \else\fr@melen#2\fi
-% \fr@melen#2%
 \settowidth\@tempdima{\pgfinterruptpicture #3\endpgfinterruptpicture}%
 \draw (\fr@meXposition+\indexlen+\fr@melen-\@tempdima/2-5,\fr@meYposition-\fr@meheight/2)node{#3};%
 \@singleframe[\fr@meheight]{\fr@melen}}
 
 \newcommand\singlescoreframe[4][\defaultheight]{\fr@meheight#1%
-\ifx/#2%
+\if\@car#2\@nil/
   \fr@menum\@cdr#2\@nil
   \fr@melen\textwidth
   \ifl@belnest\advance\fr@melen by -\indexlen\fi
@@ -98,7 +96,6 @@
   \advance\fr@melen by -\indexlen
   \advance\fr@melen by -\frameXinterval
 \else\fr@melen#2\fi
-% \fr@melen#2%
 \settowidth\@tempdima{\pgfinterruptpicture #4\endpgfinterruptpicture}%
 \draw (\fr@meXposition+\indexlen+\fr@melen/2-\@tempdima/2,\fr@meYposition-\fr@meheight/2)node{\large #3};%
 \ifx#4""\else\draw (\fr@meXposition+\indexlen+\fr@melen,\fr@meYposition-\fr@meheight)[above left]node{\textbf{#4点}};\fi
@@ -122,16 +119,23 @@
 \advance\fr@meYposition by -\frameYinterval
 \fr@meMaxheight=\defaultheight}
 
-\newcommand\divideframes[3][\defaultheight]{\fr@meDivelen#3%
-\divide\fr@meDivelen by #2%
+\newcommand\divideframes[3][\defaultheight]{\ifx/#3%
+  \fr@menum\@cdr#3\@nil
+  \fr@meDivlen\textwidth
+  \ifl@belnest\advance\fr@meDivlen by -\indexlen\fi
+  \divide\fr@meDivlen by \fr@menum
+  \advance\fr@meDivlen by -\indexlen
+  \advance\fr@meDivlen by -\frameXinterval
+\else\fr@meDivlen#3\fi
+\divide\fr@meDivlen by #2%
 \fr@meheight#1%
 \fr@meDivnum#2%
 \advance\fr@meDivnum by -1%
 \@tempcnta\z@
 \@tempdima\fr@meXposition
 \loop\ifnum\@tempcnta<\fr@meDivnum
-\draw [dashed] (\fr@meXposition+\indexlen+\fr@meDivelen,\fr@meYposition)--(\fr@meXposition+\indexlen+\fr@meDivelen,\fr@meYposition-\fr@meheight);%
-\advance\fr@meXposition by \fr@meDivelen
+\draw [dashed] (\fr@meXposition+\indexlen+\fr@meDivlen,\fr@meYposition)--(\fr@meXposition+\indexlen+\fr@meDivlen,\fr@meYposition-\fr@meheight);%
+\advance\fr@meXposition by \fr@meDivlen
 \advance\@tempcnta by 1\repeat
 \fr@meXposition\@tempdima
 \@singleframe[\defaultheight]{#3}}
@@ -140,24 +144,42 @@
 
 \newcommand\@setputparam[3][\defaultheight]{\global\fr@meheight#1%
 \global\fr@meDivnum#2%
-\global\wh@lelen#3%
+\if/\@car#3\@nil%
+  \fr@menum\@cdr#3\@nil
+  \wh@lelen\textwidth
+  \ifl@belnest\advance\wh@lelen by -\indexlen\fi
+  \divide\wh@lelen by \fr@menum
+  \advance\wh@lelen by -\indexlen
+  \global\advance\wh@lelen by -\frameXinterval
+\else\global\wh@lelen#3\fi
 \global\l@belcall\@ne
 \global\l@beldrawtrue}
 
 \newcommand\@@setputparam[3][\defaultheight]{\global\fr@meheight#1%
 \global\fr@meDivnum#2%
-\global\wh@lelen#3%
+\if/\@car#3\@nil%
+  \fr@menum\@cdr#3\@nil
+  \wh@lelen\textwidth
+  \ifl@belnest\advance\wh@lelen by -\indexlen\fi
+  \divide\wh@lelen by \fr@menum
+  \advance\wh@lelen by -\indexlen
+  \global\advance\wh@lelen by -\frameXinterval
+\else\global\wh@lelen#3\fi
 \global\l@belcall\@ne
 \global\l@beldrawfalse}
 
 \newcommand\putlabel{\@ifstar{\@@putlabel}{\@putlabel}}
 
-\newcommand\@putlabel[2]{\@tempdima#1%
+\newcommand\@putlabel[2]{\if\@car#1\@nil/
+  \fr@menum\@cdr#1\@nil
+  \fr@meDivlen\wh@lelen
+  \divide\fr@meDivlen by \fr@menum
+\else\fr@meDivlen#1\fi
 \settowidth\@tempdimb{\pgfinterruptpicture\small #2\endpgfinterruptpicture}%
 \ifnum\l@belcall>\@ne
 \draw [dashed] (\fr@meXposition+\indexlen,\fr@meYposition)--(\fr@meXposition+\indexlen,\fr@meYposition-\fr@meheight);\fi
 \draw (\fr@meXposition+\indexlen+1.2+\@tempdimb/2,\fr@meYposition-5)node{\footnotesize #2};%
-\advance\fr@meXposition by \@tempdima
+\advance\fr@meXposition by \fr@meDivlen
 \ifnum\l@belcall=\fr@meDivnum
 \advance\fr@meXposition by -\wh@lelen
 \ifl@beldraw\@singleframe[\fr@meheight]{\wh@lelen}\else
@@ -166,7 +188,11 @@
 
 \newcommand\@@putlabel{\@ifstar{\@@@@putlabel}{\@@@putlabel}}
 
-\newcommand\@@@putlabel[3]{\@tempdima#1%
+\newcommand\@@@putlabel[3]{\if\@car#1\@nil/
+  \fr@menum\@cdr#1\@nil
+  \fr@meDivlen\wh@lelen
+  \divide\fr@meDivlen by \fr@menum
+\else\fr@meDivlen#1\fi
 \settowidth\@tempdimb{\pgfinterruptpicture\small #2\endpgfinterruptpicture}%
 \settowidth\@tempdimc{\pgfinterruptpicture #3\endpgfinterruptpicture}%
 \ifnum\l@belcall>\@ne
@@ -174,38 +200,46 @@
 \draw (\fr@meXposition+\indexlen+1.2+\@tempdimb/2,\fr@meYposition-5)node{\footnotesize #2};%
 \ifx#2""\draw (\fr@meXposition+\indexlen+\@tempdimc/2+5,\fr@meYposition-\fr@meheight/2)node{#3};\else
 \draw (\fr@meXposition+\indexlen+\@tempdimc/2+5,\fr@meYposition-\fr@meheight/2-5)node{#3};\fi
-\advance\fr@meXposition by \@tempdima
+\advance\fr@meXposition by \fr@meDivlen
 \ifnum\l@belcall=\fr@meDivnum
 \advance\fr@meXposition by -\wh@lelen
 \ifl@beldraw\@singleframe[\fr@meheight]{\wh@lelen}\else
 \drawframe[\fr@meheight]{\wh@lelen}\fi\fi
 \advance\l@belcall by \@ne}
 
-\newcommand\@@@@putlabel[3]{\@tempdima#1%
+\newcommand\@@@@putlabel[3]{\if\@car#1\@nil/
+  \fr@menum\@cdr#1\@nil
+  \fr@meDivlen\wh@lelen
+  \divide\fr@meDivlen by \fr@menum
+\else\fr@meDivlen#1\fi
 \settowidth\@tempdimb{\pgfinterruptpicture\small #2\endpgfinterruptpicture}%
 \settowidth\@tempdimc{\pgfinterruptpicture #3\endpgfinterruptpicture}%
 \ifnum\l@belcall>1%
 \draw [dashed] (\fr@meXposition+\indexlen,\fr@meYposition)--(\fr@meXposition+\indexlen,\fr@meYposition-\fr@meheight);\fi
 \draw (\fr@meXposition+\indexlen+1.2+\@tempdimb/2,\fr@meYposition-5)node{\footnotesize #2};%
-\ifx#2""\draw (\fr@meXposition+\indexlen+\@tempdima-\@tempdimc/2-5,\fr@meYposition-\fr@meheight/2)node{#3};\else
-\draw (\fr@meXposition+\indexlen+\@tempdima-\@tempdimc/2-5,\fr@meYposition-\fr@meheight/2-5)node{#3};\fi
-\advance\fr@meXposition by \@tempdima
+\ifx#2""\draw (\fr@meXposition+\indexlen+\fr@meDivlen-\@tempdimc/2-5,\fr@meYposition-\fr@meheight/2)node{#3};\else
+\draw (\fr@meXposition+\indexlen+\fr@meDivlen-\@tempdimc/2-5,\fr@meYposition-\fr@meheight/2-5)node{#3};\fi
+\advance\fr@meXposition by \fr@meDivlen
 \ifnum\l@belcall=\fr@meDivnum
 \advance\fr@meXposition by -\wh@lelen
 \ifl@beldraw\@singleframe[\fr@meheight]{\wh@lelen}\else
 \drawframe[\fr@meheight]{\wh@lelen}\fi\fi
 \advance\l@belcall by \@ne}
 
-\newcommand\putscorelabel[4]{\@tempdima#1%
+\newcommand\putscorelabel[4]{\if\@car#1\@nil/
+  \fr@menum\@cdr#1\@nil
+  \fr@meDivlen\wh@lelen
+  \divide\fr@meDivlen by \fr@menum
+\else\fr@meDivlen#1\fi
 \settowidth\@tempdimb{\pgfinterruptpicture\small #2\endpgfinterruptpicture}%
 \settowidth\@tempdimc{\pgfinterruptpicture #4\endpgfinterruptpicture}%
 \ifnum\l@belcall>1%
 \draw [dashed] (\fr@meXposition+\indexlen,\fr@meYposition)--(\fr@meXposition+\indexlen,\fr@meYposition-\fr@meheight);\fi
 \draw (\fr@meXposition+\indexlen+1.2+\@tempdimb/2,\fr@meYposition-5)node{\footnotesize #2};%
-\ifx#2""\draw (\fr@meXposition+\indexlen+\@tempdima/2-\@tempdimc/2,\fr@meYposition-\fr@meheight/2)node{#3};\else
-\draw (\fr@meXposition+\indexlen+\@tempdima/2-\@tempdimc/2,\fr@meYposition-\fr@meheight/2-5)node{\large #3};\fi
-\if#4""\else\draw (\fr@meXposition+\indexlen+\@tempdima,\fr@meYposition-\fr@meheight)[above left]node{\textbf{#4点}};\fi
-\advance\fr@meXposition by \@tempdima
+\ifx#2""\draw (\fr@meXposition+\indexlen+\fr@meDivlen/2-\@tempdimc/2,\fr@meYposition-\fr@meheight/2)node{#3};\else
+\draw (\fr@meXposition+\indexlen+\fr@meDivlen/2-\@tempdimc/2,\fr@meYposition-\fr@meheight/2-5)node{\large #3};\fi
+\if#4""\else\draw (\fr@meXposition+\indexlen+\fr@meDivlen,\fr@meYposition-\fr@meheight)[above left]node{\textbf{#4点}};\fi
+\advance\fr@meXposition by \fr@meDivlen
 \ifnum\l@belcall=\fr@meDivnum
 \advance\fr@meXposition by -\wh@lelen
 \ifl@beldraw\@singleframe[\fr@meheight]{\wh@lelen}\else
@@ -218,8 +252,7 @@
 \advance\fr@meYposition by -\frameYinterval
 \fr@meMaxheight=\defaultheight}
 
-\newcommand\ansfnest[2][\defaultheight]{%\draw (\fr@meXposition+\indexlen/2,\fr@meYposition-\defaultheight/2)node{\normalsize\f{}};
-\drawlabel[#1]%
+\newcommand\ansfnest[2][\defaultheight]{\drawlabel[#1]%
 \fr@meXposition=\indexlen
 \fr@meMaxheight=#1
 \fnest{#2}\l@belnesttrue}
