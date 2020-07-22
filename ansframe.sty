@@ -33,7 +33,7 @@
 \newcommand\singleframe{\@ifstar{\@@singleframe}{\@singleframe}}
 
 \newcommand\@singleframe[2][\defaultheight]{\fr@meheight#1%
-\if/\@car#2\@nil
+\ifx/#2%
   \fr@menum\@cdr#2\@nil
   \fr@melen\textwidth
   \ifl@belnest\advance\fr@melen by -\indexlen\fi
@@ -62,7 +62,7 @@
 \newcommand\@@singleframe{\@ifstar{\@@@@singleframe}{\@@@singleframe}}
 
 \newcommand\@@@singleframe[3][\defaultheight]{\fr@meheight#1%
-\if/\@car#2\@nil
+\ifx/#2%
   \fr@menum\@cdr#2\@nil
   \fr@melen\textwidth
   \ifl@belnest\advance\fr@melen by -\indexlen\fi
@@ -76,7 +76,7 @@
 \@singleframe[\fr@meheight]{\fr@melen}}
 
 \newcommand\@@@@singleframe[3][\defaultheight]{\fr@meheight#1%
-\if/\@car#2\@nil
+\ifx/#2%
   \fr@menum\@cdr#2\@nil
   \fr@melen\textwidth
   \ifl@belnest\advance\fr@melen by -\indexlen\fi
@@ -90,7 +90,7 @@
 \@singleframe[\fr@meheight]{\fr@melen}}
 
 \newcommand\singlescoreframe[4][\defaultheight]{\fr@meheight#1%
-\if/\@car#2\@nil
+\ifx/#2%
   \fr@menum\@cdr#2\@nil
   \fr@melen\textwidth
   \ifl@belnest\advance\fr@melen by -\indexlen\fi
