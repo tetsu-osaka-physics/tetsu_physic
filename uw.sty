@@ -8,6 +8,7 @@
 \newif\iff
 \newif\ifanslabel@
 \newdimen\@uwdim
+\newtoks\@nsref
 
 \DeclareOption{f}{\ftrue}
 \DeclareOption{anslabel}{\anslabel@true}
@@ -24,22 +25,21 @@
     \else\uwave{\hbox to\@uwdim{\hfil #1\hfil}}%
     \fi
   \fi
-  \iff
-    \ifanslabel@
-      \ifmmode
-      \protected@write\@auxout{}%
-      {\string\newlabel{ans\arabic{section}.\theFcntr}{{$\displaystyle#1$}{\thepage}}}%
-      \else
-      \protected@write\@auxout{}%
-      {\string\newlabel{ans\arabic{section}.\theFcntr}{{#1}{\thepage}}}%
-      \fi
+  \ifanslabel@
+    \ifmmode
+    \protected@write\@auxout{}%
+    {\string\newlabel{ans\arabic{section}.\theFcntr}{{$\displaystyle#1$}{\thepage}}}%
+    \else
+    \protected@write\@auxout{}%
+    {\string\newlabel{ans\arabic{section}.\theFcntr}{{#1}{\thepage}}}%
     \fi
   \fi}
 
 \newcommand\ans{\@ifstar{\@ns}{\@@ns}}
 \newcommand\@ns{\@tempcnta=\theFcntr
   \advance\@tempcnta by 1%
-  \noexpand\ref{ans\arabic{section}.\the\@tempcnta}}
+  \@nsref{ans\arabic{section}.\the\@tempcnta}%
+  \ref{\the\@nsref}}
 \newcommand\@@ns{\f*{}　\ref{ans\arabic{section}.\theFcntr}}
 
 \newcommand\ansskip{\f*{}　（略）}
