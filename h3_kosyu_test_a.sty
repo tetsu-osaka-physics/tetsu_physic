@@ -13,6 +13,7 @@
 \setlength\textwidth{545pt}
 \setlength\textheight{750pt}
 \parindent=0truept
+\defaultheight=80truept
 \setlength\marginparsep{0pt}
 \setlength\marginparwidth{0pt}
 
@@ -24,7 +25,7 @@
 \newtoks\testname
 \newtoks\secsty
 
-\usepackage{fancyhdr} % load after setlength !
+\usepackage{fancyhdr} % load after \setlength !
 \pagestyle{fancy}
 \chead{\testtitles}\rhead{}
 
@@ -85,7 +86,7 @@
 
 \newcommand\testtitles{\ifnum\thepage=\@ne{\LARGE\the\testname No.\,\the\testnum}\\[1zw]\fi
   \ifodd\thepage\addtocounter{DuplexPage}{1}\fi
-  {\Large 物　理　解　答　用　紙　\theDuplexPage}}
+  {\Large 物　理　解　答　用　紙　\Combarabic{DuplexPage}}}
 
 \newcommand\score{\@ifstar{\score@@}{\score@}}
 
