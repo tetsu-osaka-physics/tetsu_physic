@@ -26,14 +26,16 @@
 \newcommand\@fstyle[1]{\fstyle@current{#1}
   \global\fst@redfalse
   \gdef\Fcntr@@@fstyle{\csname #1\endcsname{Fcntr}}%
-  \gdef\fref@@@fstyle{\csname #1\endcsname{fref}}}
+  \gdef\fref@@@fstyle{\csname #1\endcsname{fref}}
+  \gdef\ffref@@@fstyle{\csname #1\endcsname{ffref}}}
 
 \def\thr@@st@r#1*#2*#3*{#1{#3}#2}
 
 \newcommand\@@fstyle[1]{\fstyle@current{#1}
   \global\fst@redtrue
   \gdef\Fcntr@@@fstyle{\expandafter\thr@@st@r\relax#1\relax*Fcntr*}%
-  \gdef\fref@@@fstyle{\expandafter\thr@@st@r\relax#1\relax*fref*}}
+  \gdef\fref@@@fstyle{\expandafter\thr@@st@r\relax#1\relax*fref*}
+  \gdef\ffref@@@fstyle{\expandafter\thr@@st@r\relax#1\relax*ffref*}}
 
 \newcommand\f{\@ifstar{\@@f}{\@f}}
 
@@ -69,8 +71,8 @@
 \newcommand\ff[1]{
   \if#1{}\def\ARG{{#1}}\else\def\ARG{#1}\fi
   \if\ARG　\doublebox{\hspace{.7zw}　\hspace{.7zw}}
-  \else\setcounter{ffref}{#1}\ifmmode\mathop{\doublebox{\hspace{.7zw}\csname\the\fstyle\endcsname{ffref}\hspace{.7zw}}}\else
-  \doublebox{\hspace{.7zw}\csname\the\fstyle\endcsname{ffref}\hspace{.7zw}}
+  \else\setcounter{ffref}{#1}\ifmmode\mathop{\doublebox{\hspace{.7zw}\ffref@@@fstyle\hspace{.7zw}}}\else
+  \doublebox{\hspace{.7zw}\ffref@@@fstyle\hspace{.7zw}}
   \fi\fi}
 
 \newcommand\fnest{\@ifstar{\@@fnest}{\@fnest}}
@@ -78,19 +80,23 @@
 \newcommand\@fnest[1]{\fstyle@temp\fstyle@current
   \gdef\Fcntr@@@fstyle{\csname #1\endcsname{Fcntr}}%
   \gdef\fref@@@fstyle{\csname #1\endcsname{fref}}%
+  \gdef\ffref@@@fstyle{\csname #1\endcsname{ffref}}%
   \setcounter{Fcntr@}{\theFcntr}%
   \setcounter{Fcntr}{0}}
 
 \newcommand\@@fnest[1]{\fstyle@temp\fstyle@current
   \gdef\Fcntr@@@fstyle{\expandafter\thr@@st@r\relax#1\relax*Fcntr*}%
   \gdef\fref@@@fstyle{\expandafter\thr@@st@r\relax#1\relax*fref*}%
+  \gdef\ffref@@@fstyle{\expandafter\thr@@st@r\relax#1\relax*ffref*}%
   \setcounter{Fcntr@}{\theFcntr}%
   \setcounter{Fcntr}{0}}
 
 \newcommand\funnest{\fstyle@current\fstyle@temp
-  \iffst@red\edef\f@rg@Fcntr{\relax\the\fstyle@temp\relax*Fcntr*}
-    \edef\f@rg@fref{\relax\the\fstyle@temp\relax*fref*}
+  \iffst@red\edef\f@rg@Fcntr{\relax\the\fstyle@temp\relax*Fcntr*}%
+    \edef\f@rg@fref{\relax\the\fstyle@temp\relax*fref*}%
+    \edef\f@rg@ffref{\relax\the\fstyle@temp\relax*ffref*}%
     \gdef\Fcntr@@@fstyle{\expandafter\thr@@st@r\f@rg@Fcntr}%
-    \gdef\fref@@@fstyle{\expandafter\thr@@st@r\f@rg@fref}
+    \gdef\fref@@@fstyle{\expandafter\thr@@st@r\f@rg@fref}%
+    \gdef\ffref@@@fstyle{\expandafter\thr@@st@r\f@rg@ffref}%
   \else\expandafter\fstyle{\the\fstyle@temp}\fi
   \setcounter{Fcntr}{\theFcntr@}}
