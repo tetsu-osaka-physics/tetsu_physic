@@ -107,7 +107,7 @@
 \or \CID{9909}\or \CID{9910}\or \CID{9911}\or \CID{9912}\or \CID{9913}%
 \else\@ctrerr\fi\relax}
 
-\def\@KAlpha#1{\ifcase#1\or \CID{10004}\or \CID{10005}\or \CID{10006}\or \CID{10007}\or \CID{10008}%
+\def\@KAlph#1{\ifcase#1\or \CID{10004}\or \CID{10005}\or \CID{10006}\or \CID{10007}\or \CID{10008}%
 \or \CID{10009}\or \CID{10010}\or \CID{10011}\or \CID{10012}\or \CID{10013}%
 \or \CID{10014}\or \CID{10015}\or \CID{10016}\or \CID{10017}\or \CID{10018}%
 \or \CID{10019}\or \CID{10020}\or \CID{10021}\or \CID{10022}\or \CID{10023}%
@@ -115,7 +115,7 @@
 \or \CID{10029}%
 \else\@ctrerr\fi\relax}
 
-\def\@Kalpha#1{\ifcase#1\or \CID{8112}\or \CID{8113}\or \CID{8114}\or \CID{8115}\or \CID{8116}%
+\def\@Kalph#1{\ifcase#1\or \CID{8112}\or \CID{8113}\or \CID{8114}\or \CID{8115}\or \CID{8116}%
 \or \CID{8117}\or \CID{8118}\or \CID{8119}\or \CID{8120}\or \CID{8121}%
 \or \CID{8122}\or \CID{8123}\or \CID{8124}\or \CID{8125}\or \CID{8126}%
 \or \CID{8127}\or \CID{8128}\or \CID{8129}\or \CID{8130}\or \CID{8131}%
@@ -532,11 +532,13 @@
 \def\Kakko#1{\expandafter\@Kakko\csname c@#1\endcsname}
 \AddEnumerateCounter{\Kakko}{\@Kakko}{\ajKakko{99}}
 
-\def\KAlpha#1{\expandafter\@KAlpha\csname c@#1\endcsname}
-\AddEnumerateCounter{\KAlpha}{\@KAlpha}{\ajKakkoAlph{99}}
+\def\KAlph#1{\expandafter\@KAlph\csname c@#1\endcsname}
+\AddEnumerateCounter{\KAlph}{\@KAlph}{\ajKakkoAlph{99}}
+\def\KAlpha{\KAlph}
 
-\def\Kalpha#1{\expandafter\@Kalpha\csname c@#1\endcsname}
-\AddEnumerateCounter{\Kalpha}{\@Kalpha}{\ajKakkoalph{99}}
+\def\Kalph#1{\expandafter\@Kalph\csname c@#1\endcsname}
+\AddEnumerateCounter{\Kalph}{\@Kalph}{\ajKakkoalph{99}}
+\def\Kalpha{\Kalph}
 
 \def\KRoman#1{\expandafter\@KRoman\csname c@#1\endcsname}
 \AddEnumerateCounter{\KRoman}{\@KRoman}{\ajKakkoRoman{99}}
