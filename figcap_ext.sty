@@ -2,17 +2,19 @@
 \ProvidesPackage{figcap_ext}
 
 \newcounter{tempor@lfignum}
+\newtoks\normalfigcapsty
+\normalfigcapsty{Combarabic}
 
 \usepackage{enumitem_extended}
 \usepackage{graphicx}
 
 \newcommand\setfigcapstyle[1]{\renewcommand{\figurename}{}%
-\renewcommand{\thefigure}{\csname#1\endcsname{figure}}%
-\setcounter{tempor@lfignum}{\value{figure}}%
-\setcounter{figure}{0}}
+  \renewcommand{\thefigure}{\csname#1\endcsname{figure}}%
+  \setcounter{tempor@lfignum}{\value{figure}}%
+  \setcounter{figure}{0}}
 
 \newcommand\normalfigcaption{\renewcommand{\figurename}{図}%
-\renewcommand{\thefigure}{\Combarabic{figure}}%
+\renewcommand{\thefigure}{\expandafter\csname\the\normalfigcapsty\endcsname{figure}}%
 \setcounter{figure}{\value{tempor@lfignum}}}
 
 \def\Lcaption{%
