@@ -257,15 +257,15 @@
 
 \newcommand\@ansfnest[2][\defaultheight]{\drawlabel[#1]%
   \fr@meXposition=\indexlen
-  \fr@meMaxheight=#1
-  \fnest{#2}\l@belnesttrue}
+  \fr@meMaxheight=#1%
+  \fnest{#2}\l@belnesttrue\relax}
 
 \newcommand\@@ansfnest[2][\defaultheight]{\drawlabel[#1]%
   \fr@meXposition=\indexlen
-  \fr@meMaxheight=#1
-  \fnest*{#2}\l@belnesttrue}
+  \fr@meMaxheight=#1%
+  \fnest*{#2}\l@belnesttrue\relax}
 
-\newcommand\ansfunnest{\funnest\l@belnestfalse\fr@meXposition=0truept}
+\newcommand\ansfunnest{\funnest\l@belnestfalse\fr@meXposition=0truept\relax}
 
 \fr@meXposition=0truept
 \fr@meYposition=0truept
