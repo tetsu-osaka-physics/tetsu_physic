@@ -128,3 +128,30 @@
       \draw (0,1.5)--(9.5,1.5);%
     \end{tikzpicture}%
   \end{center}}
+
+\newcommand\scores[3]{\vfill
+  \begin{center}%
+    \begin{tikzpicture}%
+      \draw [very thick] (0,0) rectangle (16, 2);%
+      \draw (0.75,1.75)node{クラス};%
+      \draw (1.5,0)--(1.5,2);%
+      \draw (2.75,1.75)node{学校名};%
+      \draw (4,0)--(4,2);%
+      \draw (6.75,1.75)node{氏　　名};%
+      \draw (9.5,0)--(9.5,2);%
+      \draw (10.5,1.75)node{計};%
+      \draw (11.5,0)--(11.5,2);%
+      \draw (12.25,1.75)node{\expandafter\@@secsty\the\secsty\relax*framesec*};%
+      \draw (12.25,0.75)node{#1};%
+      \addtocounter{framesec}{1}%
+      \draw (13,0)--(13,2);%
+      \draw (13.75,1.75)node{\expandafter\@@secsty\the\secsty\relax*framesec*};%
+      \draw (13.75,0.75)node{#2};%
+      \addtocounter{framesec}{1}%
+      \draw (14.5,0)--(14.5,2);%
+      \draw (15.25,1.75)node{\expandafter\@@secsty\the\secsty\relax*framesec*};%
+      \draw (15.25,0.75)node{#3};%
+      \addtocounter{framesec}{1}%
+      \draw (0,1.5)--(16,1.5);%
+    \end{tikzpicture}%
+  \end{center}}
