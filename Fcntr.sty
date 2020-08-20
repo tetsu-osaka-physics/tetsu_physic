@@ -12,6 +12,7 @@
 \newcounter{fref}
 \newcounter{ffref}
 \newcounter{Fcntr@}
+\newcounter{l@stFcntr}
 \newif\ifnobox
 
 \noboxfalse
@@ -62,10 +63,18 @@
   \doublebox{\hspace{.7zw}\csname\the\fstyle\endcsname{ffref}\hspace{.7zw}}
   \fi\fi}
 
-\newcommand\fnest[1]{\fstyle@\fstyle
+\newcommand\fnest{\@ifstar{\@@fnest}{\@fnest}}
+
+\newcommand\@fnest[1]{\fstyle@\fstyle
   \fstyle{#1}%
   \setcounter{Fcntr@}{\theFcntr}%
   \setcounter{Fcntr}{0}}
 
+\newcommand\@@fnest[1]{\fstyle@\fstyle
+  \fstyle{#1}%
+  \setcounter{Fcntr@}{\theFcntr}%
+  \setcounter{Fcntr}{\thel@stFcntr}}
+
 \newcommand\funnest{\fstyle\fstyle@
+  \setcounter{l@stFcntr}{\theFcntr}%
   \setcounter{Fcntr}{\theFcntr@}}
