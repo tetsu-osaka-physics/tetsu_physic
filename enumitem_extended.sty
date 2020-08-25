@@ -17,6 +17,12 @@
 \RequirePackage{ifthen}
 \RequirePackage{tikz}
 
+\def\item{\@ifstar{{\ideographic@false\st@ritem}}{\st@ritem}}
+
+\def\st@ritem{%
+  \@inmatherr\item
+  \@ifnextchar [\@item{\@noitemargtrue \@item[\@itemlabel]}}
+
 \def\@item[#1]{%
   \if@noparitem
     \@donoparitem
