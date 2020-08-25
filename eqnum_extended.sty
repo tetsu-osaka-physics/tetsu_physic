@@ -7,6 +7,7 @@
 \newtoks\eqnumsty
 \newdimen\@tagdim
 \newdimen\@FWdim
+\newcounter{@qnum}
 \settowidth{\@FWdim}{…}
 \eqnumsty{Maru}
 
@@ -68,10 +69,23 @@
     \fi
 }
 
+% \renewcommand\tagform@[1]{\if@eqnsw
+% … \maketag@@@{\csname @\the\eqnumsty\endcsname{#1}}%
+% \else \settowidth{\@tagdim}{#1}%
+% \advance\@tagdim by -\@FWdim
+% \multiply\@tagdim by \m@ne
+% … \maketag@@@{#1\hspace\@tagdim}%
+% \fi}
+
 \renewcommand\tagform@[1]{\if@eqnsw
-… \maketag@@@{\csname @\the\eqnumsty\endcsname{#1}}%
-\else \settowidth{\@tagdim}{#1}%
-\advance\@tagdim by -\@FWdim
-\multiply\@tagdim by \m@ne
-… \maketag@@@{#1\hspace\@tagdim}%
-\fi}
+  \@ifundefined{@\the\eqnumsty}{\setcounter{@qnum}{#1}%
+  \settowidth{\@tagdim}{\csname\the\eqnumsty\endcsname{@qnum}}%
+  \multiply\@tagdim by \m@ne
+  \advance\@tagdim by \@FWdim
+  … \expandafter\maketag@@@{\csname\the\eqnumsty\endcsname{@qnum}\hspace\@tagdim}}{%
+  … \maketag@@@{\csname @\the\eqnumsty\endcsname{#1}}}\relax
+  \else \settowidth{\@tagdim}{#1}%
+  \multiply\@tagdim by \m@ne
+  \advance\@tagdim by \@FWdim
+  … \maketag@@@{#1\hspace\@tagdim}%
+  \fi}
