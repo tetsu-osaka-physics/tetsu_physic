@@ -22,8 +22,7 @@
 \@addtoreset{Fcntr}{section}
 
 \def\@defstyle#1#2*#3*{\@ifundefined{#1}{\@namedef{#1}##1{#2{##1}#3}}{\@latex@warning{Package Fcntr Warning: #1 is already defined. I'll ignore this. Choose another name.}\relax}}
-\newcommand\defstyle[2]{\@defstyle{#1}#2\relax*%
-  \fstyle{#1}}
+\newcommand\defstyle[2]{\@defstyle{#1}#2\relax*}
 
 \newcommand\f{\@ifstar{\@@f}{\@f}}
 
