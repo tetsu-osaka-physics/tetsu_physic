@@ -1,7 +1,7 @@
 \NeedsTeXFormat{pLaTeX2e}
 \ProvidesPackage{todai_p}
 \PackageInfo{todai_p}{expected global options: \MessageBreak
-[b5paper, papersize, fleqn, 11pt, dvipdfmx, bold, ideographic, nodots]}
+[b5paper, papersize, fleqn, 11pt, dvipdfmx, bold, nodots]}
 
 \usepackage{tetsu_physics}
 \usepackage{txfonts}
@@ -103,9 +103,11 @@
     \fi
   \fi}
 
-\setlist{leftmargin=1.5zw, labelsep=0zw, itemsep=2zw, topsep=2zw}
 \defstyle{varEq}{（式\Combarabic*）}
 \eqnumsty{varEq}
+
+\setlist[1]{leftmargin=2zw, topsep=2zw, listparindent=1zw, labelsep=1zw}
+\setlist[2]{leftmargin=1zw, itemsep=2zw, listparindent=1zw, labelsep=1zw, itemindent=1zw}
 
 \AtBeginDocument{%
   \abovedisplayskip     =0.5\abovedisplayskip
