@@ -10,6 +10,7 @@
 \newdimen\@tagdim
 \newdimen\@FWdim
 \newcounter{@qnum}
+\newcounter{r@qnum}
 \settowidth{\@FWdim}{…}
 \eqnumsty{Maru}
 
@@ -24,8 +25,22 @@
     \protected@edef\@maruref@temp{%
       \expandafter\expandafter\expandafter
       \@firstoftwo\csname r@#1\endcsname\empty\empty}%
-    \csname @\the\eqnumsty\endcsname{\@maruref@temp}%
+    \@ifundefined{@\the\eqnumsty}{%
+    \edef\ungr@uped{\csname r@#1\endcsname}%
+    \def\ungr@@uped{\expandafter\@firstoftwo\ungr@uped}%
+    \setcounter{r@qnum}{\ungr@@uped}{\csname\the\eqnumsty\endcsname{r@qnum}}}%
+    {\csname @\the\eqnumsty\endcsname{\@maruref@temp}}%
   \fi}
+
+% \renewcommand\eqref[1]{%
+%   \expandafter\ifx\csname r@#1\endcsname\relax
+%     \ref{#1}%
+%   \else
+%     \protected@edef\@maruref@temp{%
+%       \expandafter\expandafter\expandafter
+%       \@firstoftwo\csname r@#1\endcsname\empty\empty}%
+%     \csname @\the\eqnumsty\endcsname{\@maruref@temp}%
+%   \fi}
 
 \renewenvironment{align}{%
   \start@align\@ne\st@rredfalse\m@ne
