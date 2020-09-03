@@ -103,6 +103,12 @@
     \fi
   \fi}
 
-\setlist{leftmargin=1.5zw, labelsep=0zw, itemsep=2zw}
+\setlist{leftmargin=1.5zw, labelsep=0zw, itemsep=2zw, topsep=2zw}
 \defstyle{varEq}{（式\Combarabic*）}
 \eqnumsty{varEq}
+
+\AtBeginDocument{%
+  \abovedisplayskip     =0.5\abovedisplayskip
+  \abovedisplayshortskip=0.5\abovedisplayshortskip
+  \belowdisplayskip     =0.5\belowdisplayskip
+  \belowdisplayshortskip=0.5\belowdisplayshortskip}
