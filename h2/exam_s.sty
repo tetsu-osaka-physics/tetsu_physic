@@ -1,15 +1,13 @@
 \NeedsTeXFormat{pLaTeX2e}
 \ProvidesPackage{exam_s}
 \PackageInfo{exam_s}{expected global options: \MessageBreak
-[a4paper, papersize, dvipdfmx, fleqn, f, nobox, anslabel, bold, ideographic]}
+[a4paper, papersize, dvipdfmx, fleqn, f, nobox, anslabel, bold]}
 
 \usepackage{amsmath, amssymb, amsthm}
 \usepackage[version=4]{mhchem}
 \usepackage{fancyhdr}
 \usepackage{caption}
 \usepackage{eqnum_extended, enumitem_extended, Fcntr, uw, figcap_ext}
-
-% don't load in tetsu_physics.sty
 \usepackage{titlesec}
 
 \newcommand{\tabtopsp}[1]{\vbox{\vbox to#1{}\vbox to 1zw{}}}
@@ -57,3 +55,5 @@
 \def\style{\setcounter{page}{1}%
 \pagenumbering{arabic}%
 \pagestyle{pg}}
+
+% \setlist{leftmargin=2zw, topsep=2zw, listparindent=1zw, labelsep=1zw}
