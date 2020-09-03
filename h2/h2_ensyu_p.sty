@@ -1,0 +1,52 @@
+\NeedsTeXFormat{pLaTeX2e}
+\ProvidesPackage{h2_ensyu_p}
+\PackageInfo{h2_ensyu_p}{expected global options: \MessageBreak
+[12pt, a4paper, papersize, dvipdfmx, fleqn, bold]}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage[version=4]{mhchem}
+\usepackage{fancyhdr}
+\usepackage{caption}
+\usepackage{cases}
+\usepackage{wrapfig}
+\usepackage{eqnum_extended, enumitem_extended, Fcntr, figcap_ext}
+
+% don't load in tetsu_physics.sty
+\usepackage{setspace}
+
+\setlength{\topmargin}{10truept}
+
+\setlength{\headheight}{0truept}
+\setlength{\headsep}{0truept}
+
+\setlength{\textheight}{700truept}
+
+\newcommand{\maru}[1]{\ajMaru{#1}}
+
+\renewcommand\l@section[2]{\@dottedtocline{1}{2em}{1.5em}{\headfont #1}{#2}}
+
+\renewcommand{\section}
+{\if@slide\clearpage\fi
+\@startsection{section}{1}{\z@}
+{0\Cvs \@plus.5\Cdp \@minus.2\Cdp}
+{1.5\Cvs \@plus.3\Cdp}
+{\normalfont\Large\headfont\raggedright}}
+
+\renewcommand{\thesection}{\Combarabic{section}.}
+\renewcommand{\headfont}{\mcfamily\rmfamily}
+
+% \renewcommand{\theequation}{\arabic{section}.\arabic{equation}}
+\renewcommand{\thefigure}{\arabic{section}.\arabic{figure}}
+\renewcommand{\thetable}{\arabic{section}.\arabic{table}}
+
+\@addtoreset{equation}{section}
+\@addtoreset{figure}{section}
+\@addtoreset{table}{section}
+
+\fancypagestyle{pg}
+{
+\lhead{}
+\rhead{}
+\cfoot{-- \thepage\ --}
+\renewcommand{\headrulewidth}{0.0pt}
+}

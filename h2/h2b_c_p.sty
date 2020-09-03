@@ -1,0 +1,22 @@
+\NeedsTeXFormat{pLaTeX2e}
+\ProvidesPackage{h2b_c_p}
+\PackageInfo{h2b_c_p}{expected global options: \MessageBreak
+[a4paper, papersize, dvipdfmx, bold]}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage[version=4]{mhchem}
+\usepackage{fancyhdr}
+\usepackage{caption}
+\usepackage{cases}
+\usepackage{wrapfig}
+\usepackage{eqnum_extended, enumitem_extended, Fcntr, figcap_ext}
+
+\newcommand{\maru}[1]{\ajMaru{#1}}
+
+\renewcommand{\thefigure}{\Combarabic{figure}}
+\renewcommand{\thetable}{\Combarabic{table}}
+
+\captionsetup[figure]{font=normalsize}
+% \captionsetup[table]{font=normalsize}
+
+\pagestyle{empty}

@@ -1,0 +1,108 @@
+\NeedsTeXFormat{pLaTeX2e}
+\ProvidesPackage{todai_p}
+\PackageInfo{todai_p}{expected global options: \MessageBreak
+[b5paper, papersize, fleqn, 11pt, dvipdfmx, bold, ideographic, nodots]}
+
+\usepackage{tetsu_physics}
+\usepackage{txfonts}
+
+\setlength{\oddsidemargin}{6truept}
+\setlength{\topmargin}{4truept}
+
+\setlength{\headheight}{6truept}
+\setlength{\headsep}{12truept}
+
+\setlength{\textheight}{546truept}
+\setlength{\textwidth}{375truept}
+
+\setlength{\marginparsep}{18truept}
+\setlength{\marginparwidth}{18truept}
+
+\setlength{\footskip}{28truept}
+\setlength{\marginparpush}{16truept}
+
+\setlength{\hoffset}{0truept}
+\setlength{\voffset}{0truept}
+
+\setlength{\fboxrule}{1pt}
+
+\pagestyle{fancy}
+\rhead{}
+\lhead{}
+\cfoot{--- \thepage\ ---}
+\renewcommand{\headrulewidth}{0pt}
+
+\graphicspath{{./fig/}}
+
+\renewcommand{\thefigure}{\Combarabic{section}---\Combarabic{figure}}
+\renewcommand{\thetable}{\Combarabic{section}---\Combarabic{table}}
+
+\captionsetup[figure]{font=normalsize}
+\captionsetup[table]{font=normalsize}
+
+\@addtoreset{equation}{section}
+\@addtoreset{figure}{section}
+\@addtoreset{table}{section}
+
+\renewcommand{\section}{%\setlength{\oddsidemargin}{0zw}%
+  \if@slide\clearpage\fi
+  \@startsection{section}{1}{\z@}%
+  {\Cvs \@plus.5\Cdp \@minus.2\Cdp}% 前アキ
+  {\z@}% 後アキ
+  {\hskip -1zw\relax\headfont\raggedright}}
+
+\def\@sect#1#2#3#4#5#6[#7]#8{%
+  \ifnum #2>\c@secnumdepth
+    \let\@svsec\@empty
+  \else
+    \refstepcounter{#1}%
+    \protected@edef\@svsec{\@seccntformat{#1}\relax}%
+  \fi
+  \ifdim \@tempskipa<\z@
+    \def\@svsechd{%
+      #6{\hskip #3\relax
+      \@svsec #8}%
+      \csname #1mark\endcsname{#7}%
+      \addcontentsline{toc}{#1}{%
+        \ifnum #2>\c@secnumdepth \else
+          \protect\numberline{\csname the#1\endcsname}%
+        \fi
+        #7}}% 目次にフルネームを載せるなら #8
+  \else
+    \begingroup
+      \interlinepenalty \@M % 下から移動
+      #6{\@svsec}%
+    \endgroup
+    \csname #1mark\endcsname{#7}%
+    \addcontentsline{toc}{#1}{%
+      \ifnum #2>\c@secnumdepth \else
+        \protect\numberline{\csname the#1\endcsname}%
+      \fi
+      #7}% 目次にフルネームを載せるならここは #8
+  \fi}
+
+\renewcommand\thesection{第\Combarabic{section}問}
+
+\renewcommand\@f[1]{
+  \if#1{}\def\ARG{{#1}}\else\def\ARG{#1}\fi
+  \ifnobox
+    \if\ARG　{#1}
+    \else
+      \if\ARG""\addtocounter{Fcntr}{1}{\csname\the\fstyle\endcsname{Fcntr}}
+      \else\setcounter{fref}{#1}{\csname\the\fstyle\endcsname{fref}}
+      \fi
+    \fi
+  \else
+    \if\ARG　\framebox[4zw]{#1}
+    \else
+      \if\ARG""\ifmmode\mathop{\addtocounter{Fcntr}{1}\framebox[4zw]{\csname\the\fstyle\endcsname{Fcntr}}}\else
+      \addtocounter{Fcntr}{1}\framebox[4zw]{\csname\the\fstyle\endcsname{Fcntr}}
+      \fi\else\ifmmode\mathop{\setcounter{fref}{#1}\framebox[4zw]{\csname\the\fstyle\endcsname{fref}}}\else
+      \setcounter{fref}{#1}\framebox[4zw]{\csname\the\fstyle\endcsname{fref}}
+      \fi\fi
+    \fi
+  \fi}
+
+\setlist{leftmargin=1.5zw, labelsep=0zw, itemsep=2zw}
+\defstyle{varEq}{（式\Combarabic*）}
+\eqnumsty{varEq}

@@ -1,0 +1,53 @@
+\NeedsTeXFormat{pLaTeX2e}
+\ProvidesPackage{figcap_ext}
+
+\newcounter{tempor@lfignum}
+\newtoks\normalfigcapsty
+\normalfigcapsty{Combarabic}
+
+\usepackage{enumitem_extended}
+\usepackage{graphicx}
+
+\newcommand\setfigcapstyle[1]{\renewcommand{\figurename}{}%
+  \renewcommand{\thefigure}{\csname#1\endcsname{figure}}%
+  \setcounter{tempor@lfignum}{\value{figure}}%
+  \setcounter{figure}{0}}
+
+\newcommand\normalfigcaption{\renewcommand{\figurename}{図}%
+\renewcommand{\thefigure}{\expandafter\csname\the\normalfigcapsty\endcsname{figure}}%
+\setcounter{figure}{\value{tempor@lfignum}}}
+
+\def\Lcaption{%
+   \ifx\@captype\@undefined
+     \@latex@error{\noexpand\caption outside float}\@ehd
+     \expandafter\@gobble
+   \else
+     \refstepcounter\@captype
+     \expandafter\@firstofone
+   \fi
+   {\@dblarg{\@Lcaption\@captype}}%
+}
+
+\long\def\@Lcaption#1[#2]#3{%
+\par
+\addcontentsline{\csname ext@#1\endcsname}{#1}%
+{\protect\numberline{\csname the#1\endcsname}{\ignorespaces #2}}%
+\begingroup
+\@parboxrestore
+\if@minipage
+\@setminipage
+\fi
+\csname fnum@#1\endcsname　#3\endgroup}
+
+\newcommand\Lincludegraphics{\@ifstar{\@@Lincludegraphics}{\@Lincludegraphics}}
+
+\def\@Lincludegraphics[#1]#2#3#4{\@tempdima#1%
+\divide\@tempdima by 2%
+\raisebox{\@tempdima}{\Lcaption{#3}\label{#4}}%
+\includegraphics[height=#1]{#2}\bigskip}
+
+\def\@@Lincludegraphics#1[#2]#3#4#5{\@tempdima#2%
+\multiply\@tempdima by #1%
+\divide\@tempdima by 10%
+\raisebox{\@tempdima}{\Lcaption{#4}\label{#5}}%
+\includegraphics[height=#2]{#3}\bigskip}

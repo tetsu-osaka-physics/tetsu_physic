@@ -1,0 +1,51 @@
+\NeedsTeXFormat{pLaTeX2e}
+\ProvidesPackage{h2a_rt_s}
+\PackageInfo{h2_rt_s}{expected global options: \MessageBreak
+[a4paper, papersize, twocolumn, fleqn, bold, nobox, dvipdfmx]}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage[version=4]{mhchem}
+\usepackage{fancyhdr}
+\usepackage{caption}
+\usepackage{cases}
+\usepackage{eqnum_extended, enumitem_extended, Fcntr, uw, figcap_ext}
+\graphicspath{{./fig/}}
+
+% don't load in tetsu_physics.sty
+\usepackage{titlesec}
+
+\newcommand{\tabtopsp}[1]{\vbox{\vbox to#1{}\vbox to 1zw{}}}
+\renewcommand{\headrulewidth}{0pt}
+
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\topmargin}{-0.5zw}
+\setlength{\headheight}{0mm}
+\setlength{\headsep}{0mm}
+\setlength{\textheight}{48\baselineskip}
+\setlength{\textwidth}{55zw}
+\setlength{\tabcolsep}{5pt}
+\setlength{\voffset}{-1.3cm}
+\addtolength{\textheight}{\topskip}
+\setlength{\columnseprule}{0.4pt}
+
+\newcommand{\maru}[1]{\ajMaru{#1}}
+
+\renewcommand{\thesection}{\underline{\large\textbf{第　\Combarabic{section}　問}}}
+\titleformat{\section}[hang]
+{\Large\gtfamily}
+{\filright\thesection}{.5em}{\filcenter}[]
+\titlespacing{\section}
+{\parindent}{1.5ex plus .1ex minus .2ex}{0pt}
+
+\renewcommand{\thefigure}{\Combarabic{figure}}
+\renewcommand{\thetable}{\Combarabic{table}}
+
+\captionsetup[figure]{font=normalsize}
+\renewcommand{\figurename}{解答図}
+% \captionsetup[table]{font=normalsize}
+
+\@addtoreset{equation}{section}
+\@addtoreset{figure}{section}
+\@addtoreset{table}{section}
+
+\pagestyle{empty}
