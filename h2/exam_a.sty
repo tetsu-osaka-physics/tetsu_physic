@@ -1,0 +1,57 @@
+\NeedsTeXFormat{pLaTeX2e}
+\ProvidesPackage{exam_a}
+\PackageInfo{h2_rt_asheet}{expected global options: \MessageBreak
+[a4paper, papersize, 12pt, dvipdfmx, nobox, bold]}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{ figcap_ext, uw}
+
+% don't load in tetsu_physics.sty
+\usepackage{ansframe}
+
+\newcounter{combpage}
+
+\setlength\voffset{-1in}
+
+\setlength{\oddsidemargin}{0pt}
+
+\setlength\textheight{650pt}
+\setlength\textwidth{400pt}
+
+\defaultheight=60truept
+\indexlen=20truept % 30truept
+\frameXinterval=30truept % 10truept
+\frameYinterval=40truept % 20truept
+
+\newcommand\testtitile[2]{{\Large 20{#1}年度　第{#2}回　高２校内模試　物理　解答用紙}}
+\newcommand\testname{\addtocounter{combpage}{1}%
+\uline{英語　　　数学　　　物理　　　　受験番号　　　　　氏名\hfill}\par
+\hfill （\Combarabic{combpage}枚目/\ref{combpage}枚中）}
+
+\renewcommand\thesection{{\Large \textrm{第\Combarabic{section}問}}　　{\normalsize ※解答欄の書き間違いに注意すること。}}
+\renewcommand\thesubsection{\textrm{［\Alph{subsection}］}}
+
+\newcommand\score{\@ifstar{\score@@}{\score@}}
+
+\newcommand\score@{\vfill\hfill
+\begin{tikzpicture}%
+  \draw (0,0) rectangle (-1.6, 2);%
+  \draw (0, 1.5)--(-1.6, 1.5);%
+  \draw (-1.1, 1.75)node{\Combarabic{section}};%
+  \draw (-0.6, 1.75)node{［\Alph{subsection}］};%
+\end{tikzpicture}}
+
+\newcommand\score@@{\vfill\hfill
+\begin{tikzpicture}%
+  \draw [very thick](0,0) rectangle (-1.6, 2);%
+  \draw [very thick](0, 1.5)--(-1.6, 1.5);%
+  \draw (-0.8, 1.75)node{\Combarabic{section}合計};%
+  \draw (-1.6, 2)--(-3.2, 2)--(-3.2, 0)--(-1.6, 0);%
+  \draw (-1.6, 1.5)--(-3.2, 1.5);%
+  \draw (-2.7, 1.75)node{\Combarabic{section}};%
+  \draw (-2.2, 1.75)node{［\Alph{subsection}］};%
+\end{tikzpicture}}
+
+\AtEndDocument{\protected@write\@auxout{}{\string\newlabel{combpage}{\Combarabic{combpage}}}}
+
+\pagestyle{empty}

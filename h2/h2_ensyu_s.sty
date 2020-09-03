@@ -1,0 +1,43 @@
+\NeedsTeXFormat{pLaTeX2e}
+\ProvidesPackage{h2_ensyu_s}
+\PackageInfo{h2_ensyu_s}{expected global options: \MessageBreak
+[a4paper, papersize, twocolumn, dvipdfmx]}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage[version=4]{mhchem}
+\usepackage{fancyhdr}
+\usepackage{caption}
+\usepackage{cases}
+\usepackage{eqnum_extended, enumitem_extended, Fcntr, uw, figcap_ext}
+
+% don't load in tetsu_physics.sty
+\usepackage{ascmac}
+
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\topmargin}{-0.5zw}
+\setlength{\headheight}{0mm}
+\setlength{\headsep}{0mm}
+\setlength{\textheight}{48\baselineskip}
+\setlength{\textwidth}{55zw}
+\setlength{\tabcolsep}{5pt}
+\setlength{\voffset}{-1.3cm}
+\addtolength{\textheight}{\topskip}
+\setlength{\columnseprule}{0.4pt}
+
+\newcommand{\maru}[1]{\ajMaru{#1}}
+
+\renewcommand{\thesection}{\arabic{section}.}
+\renewcommand{\headfont}{\mcfamily\rmfamily}
+
+% \renewcommand{\theequation}{\arabic{section}.\arabic{equation}}
+\renewcommand{\thefigure}{\arabic{section}.\arabic{figure}}
+\renewcommand{\thetable}{\arabic{section}.\arabic{table}}
+\@addtoreset{equation}{section}
+\@addtoreset{figure}{section}
+\@addtoreset{table}{section}
+
+% \captionsetup[figure]{font=normalsize}
+\renewcommand{\figurename}{解答図}
+% \captionsetup[table]{font=normalsize}
+
+\pagestyle{empty}

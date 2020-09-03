@@ -1,0 +1,159 @@
+\NeedsTeXFormat{pLaTeX2e}
+\ProvidesPackage{h3_kosyu_test_a}
+\PackageInfo{h3_kosyu_test_a}{expected global options: \MessageBreak
+[b4paper, papersize, 12pt, dvipdfmx]}
+
+% \score*がセンタリングなのが微妙かも --2020/8/10
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{graphicx}
+
+% don't load in tetsu_physics.sty
+\usepackage{ansframe}
+
+\setlength\hoffset{-40pt}
+\setlength\voffset{-60pt}
+\setlength\headheight{60pt}
+\setlength\textwidth{545pt}
+\setlength\textheight{750pt}
+\parindent=0truept
+\defaultheight=80truept
+\setlength\marginparsep{0pt}
+\setlength\marginparwidth{0pt}
+
+\newcounter{DuplexPage}
+\newcounter{framesec}
+\setcounter{DuplexPage}{0}
+\setcounter{framesec}{1}
+\newtoks\testnum
+\newtoks\testname
+\newtoks\secsty
+
+\usepackage{fancyhdr} % load after \setlength !
+\pagestyle{fancy}
+\chead{\testtitles}\rhead{}
+
+\def\@@secsty#1*#2*#3*{#1{#3}#2}
+\def\@secsty#1{\expandafter\@@secsty #1\relax*section*}
+
+\renewcommand{\thesection}{\textrm{\@secsty{\the\secsty}}}
+
+\def\@sect#1#2#3#4#5#6[#7]#8{%
+  \ifnum #2>\c@secnumdepth
+    \let\@svsec\@empty
+  \else
+    \refstepcounter{#1}%
+    \protected@edef\@svsec{\@seccntformat{#1}\relax}%
+  \fi
+  \@tempskipa #5\relax
+  \ifdim \@tempskipa<\z@
+    \def\@svsechd{%
+      #6{\hskip #3\relax
+      \@svsec #8 }%
+      \csname #1mark\endcsname{#7}%
+      \addcontentsline{toc}{#1}{%
+        \ifnum #2>\c@secnumdepth \else
+          \protect\numberline{\csname the#1\endcsname}%
+        \fi
+        #7}}% 目次にフルネームを載せるなら #8
+  \else
+    \begingroup
+      \interlinepenalty \@M % 下から移動
+      #6{%
+        \@hangfrom{\hskip #3\relax\@svsec}%
+        \hfill\ifodd\thepage\textrm{（表）}\else\textrm{（裏）}\fi % #8
+         \@@par}%
+    \endgroup
+    \csname #1mark\endcsname{#7}%
+    \addcontentsline{toc}{#1}{%
+      \ifnum #2>\c@secnumdepth \else
+        \protect\numberline{\csname the#1\endcsname}%
+      \fi
+      #7}% 目次にフルネームを載せるならここは #8
+  \fi
+  \@xsect{#5}}
+
+\def\@ssect#1#2#3#4#5{%
+  \@tempskipa #3\relax
+  \ifdim \@tempskipa<\z@
+    \def\@svsechd{#4{\hskip #1\relax #5}}%
+  \else
+    \begingroup
+      #4{%
+        \@hangfrom{\hskip #1}%
+          \interlinepenalty \@M
+          \hfill\ifodd\thepage\textrm{（表）}\else\textrm{（裏）}\fi % #5
+          \@@par}%
+    \endgroup
+  \fi
+  \@xsect{#3}}
+
+\newcommand\testtitles{\ifnum\thepage=\@ne{\LARGE\the\testname No.\,\the\testnum}\\[1zw]\fi
+  \ifodd\thepage\addtocounter{DuplexPage}{1}\fi
+  {\Large 物　理　解　答　用　紙　\Combarabic{DuplexPage}}}
+
+\newcommand\score{\@ifstar{\score@@}{\score@}}
+
+\newcommand\score@{\vfill
+  \begin{center}%
+    \begin{tikzpicture}%
+      \draw [very thick] (0,0) rectangle (16, 2);%
+      \draw (0.75,1.75)node{クラス};%
+      \draw (1.5,0)--(1.5,2);%
+      \draw (2.75,1.75)node{学校名};%
+      \draw (4,0)--(4,2);%
+      \draw (6.75,1.75)node{氏　　名};%
+      \draw (9.5,0)--(9.5,2);%
+      \draw (10.5,1.75)node{計};%
+      \draw (11.5,0)--(11.5,2);%
+      \draw (12.25,1.75)node{\expandafter\@@secsty\the\secsty\relax*framesec*};%
+      \addtocounter{framesec}{1}%
+      \draw (13,0)--(13,2);%
+      \draw (13.75,1.75)node{\expandafter\@@secsty\the\secsty\relax*framesec*};%
+      \addtocounter{framesec}{1}%
+      \draw (14.5,0)--(14.5,2);%
+      \draw (15.25,1.75)node{\expandafter\@@secsty\the\secsty\relax*framesec*};%
+      \addtocounter{framesec}{1}%
+      \draw (0,1.5)--(16,1.5);%
+    \end{tikzpicture}%
+  \end{center}}
+
+\newcommand\score@@{\vfill
+  \begin{center}%
+    \begin{tikzpicture}%
+      \draw [very thick] (0,0) rectangle (9.5, 2);%
+      \draw (0.75,1.75)node{クラス};%
+      \draw (1.5,0)--(1.5,2);%
+      \draw (2.75,1.75)node{学校名};%
+      \draw (4,0)--(4,2);%
+      \draw (6.75,1.75)node{氏　　名};%
+      \draw (0,1.5)--(9.5,1.5);%
+    \end{tikzpicture}%
+  \end{center}}
+
+\newcommand\scores[3]{\vfill
+  \begin{center}%
+    \begin{tikzpicture}%
+      \draw [very thick] (0,0) rectangle (16, 2);%
+      \draw (0.75,1.75)node{クラス};%
+      \draw (1.5,0)--(1.5,2);%
+      \draw (2.75,1.75)node{学校名};%
+      \draw (4,0)--(4,2);%
+      \draw (6.75,1.75)node{氏　　名};%
+      \draw (9.5,0)--(9.5,2);%
+      \draw (10.5,1.75)node{計};%
+      \draw (11.5,0)--(11.5,2);%
+      \draw (12.25,1.75)node{\expandafter\@@secsty\the\secsty\relax*framesec*};%
+      \draw (12.25,0.75)node{#1};%
+      \addtocounter{framesec}{1}%
+      \draw (13,0)--(13,2);%
+      \draw (13.75,1.75)node{\expandafter\@@secsty\the\secsty\relax*framesec*};%
+      \draw (13.75,0.75)node{#2};%
+      \addtocounter{framesec}{1}%
+      \draw (14.5,0)--(14.5,2);%
+      \draw (15.25,1.75)node{\expandafter\@@secsty\the\secsty\relax*framesec*};%
+      \draw (15.25,0.75)node{#3};%
+      \addtocounter{framesec}{1}%
+      \draw (0,1.5)--(16,1.5);%
+    \end{tikzpicture}%
+  \end{center}}

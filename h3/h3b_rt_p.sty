@@ -1,0 +1,35 @@
+\NeedsTeXFormat{pLaTeX2e}
+\ProvidesPackage{h3b_rt_p}
+\PackageInfo{h3b_rt_p}{expected global options: \MessageBreak
+[a4paper, papersize, dvipdfmx, fleqn, bold, 12pt]}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage[version=4]{mhchem}
+\usepackage{fancyhdr}
+\usepackage{caption}
+\usepackage{cases}
+\usepackage{wrapfig}
+\usepackage{eqnum_extended, enumitem_extended, Fcntr, figcap_ext}
+
+\setlength{\topmargin}{0truept}
+
+\setlength{\headheight}{0truept}
+\setlength{\headsep}{0truept}
+
+\setlength{\textheight}{700truept}
+
+\newcommand{\maru}[1]{\ajMaru{#1}}
+
+\renewcommand{\thesection}{{\large \textgt{第\Combarabic{section}問}}}
+
+\renewcommand{\thefigure}{\Combarabic{figure}}
+\renewcommand{\thetable}{\Combarabic{table}}
+
+\captionsetup[figure]{font=normalsize}
+% \captionsetup[table]{font=normalsize}
+
+\@addtoreset{equation}{section}
+\@addtoreset{figure}{section}
+\@addtoreset{table}{section}
+
+\pagestyle{empty}

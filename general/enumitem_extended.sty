@@ -1,0 +1,586 @@
+\NeedsTeXFormat{pLaTeX2e}
+\ProvidesPackage{enumitem_extended}
+\PackageInfo{enumitem_extended}{availabel global options: \MessageBreak
+[ideographic]}
+
+\newif\ifinlin@
+\newif\ifideographic
+\DeclareOption{ideographic}{\ideographictrue}
+\ProcessOptions*
+
+\@ifundefined{DeclareFontSeriesChangeRule}{\relax}%
+{\DeclareFontSeriesChangeRule {m}{b}  {bx}  {bx}} % undefined @ texlive 2018
+
+\usepackage{otf}
+\usepackage{enumitem}
+\usepackage{Wdate}
+\RequirePackage{ifthen}
+\RequirePackage{tikz}
+
+\def\@item[#1]{%
+  \if@noparitem
+    \@donoparitem
+  \else
+    \if@inlabel
+      \indent \par
+    \fi
+    \ifhmode
+      \unskip\unskip \par
+    \fi
+    \if@newlist
+      \if@nobreak
+        \@nbitem
+      \else
+        \addpenalty\@beginparpenalty
+        \addvspace\@topsep
+        \addvspace{-\parskip}%
+      \fi
+    \else
+      \addpenalty\@itempenalty
+      \addvspace\itemsep
+    \fi
+    \global\@inlabeltrue
+  \fi
+  \everypar{%
+    \@minipagefalse
+    \global\@newlistfalse
+    \if@inlabel
+      \global\@inlabelfalse
+      {\setbox\z@\lastbox
+       \ifvoid\z@
+         \kern-\itemindent
+       \fi}%
+      \box\@labels
+      \penalty\z@
+    \fi
+    \if@nobreak
+      \@nobreakfalse
+      \clubpenalty \@M
+    \else
+      \clubpenalty \@clubpenalty
+      \everypar{}%
+    \fi}%
+  \if@noitemarg
+    \@noitemargfalse
+    \if@nmbrlist
+      \refstepcounter\@listctr
+    \fi
+  \fi
+  \sbox\@tempboxa{\makelabel{#1}}%
+  \global\setbox\@labels\hbox{%
+    \unhbox\@labels
+    \hskip \itemindent
+    \hskip -\labelwidth
+    \hskip -\labelsep
+    \ifdim \wd\@tempboxa >\labelwidth
+      \box\@tempboxa
+    \else
+      \hbox to\labelwidth {\unhbox\@tempboxa}%
+    \fi
+    \hskip \labelsep}%
+  \ifideographic\ifinlin@\else
+    \hskip 1zw%
+    \settowidth{\parindent}{　}\fi\fi
+  \ignorespaces}
+
+\newenvironment{enumerate*}[1][]%
+     {\@nameuse{enit@enumerate*}\enitdp@enumerate{enum}\thr@@{#1}\global\inlin@true}%
+     {\@nameuse{enit@endenumerate*}\global\inlin@false}%
+
+\def\@Roman#1{\ifcase#1\or \CID{7575}\or \CID{7576}\or \CID{7577}\or \CID{7578}\or \CID{7579}%
+\or \CID{7580}\or \CID{7581}\or \CID{7582}\or \CID{7583}\or \CID{7584}%
+\or \CID{8225}\or \CID{8226}\or \CID{8295}\or \CID{8296}\or \CID{8297}%
+\else\@ctrerr\fi\relax}
+
+\def\@roman#1{\ifcase#1\or \CID{8092}\or \CID{8093}\or \CID{8094}\or \CID{8095}\or \CID{8096}%
+\or \CID{8097}\or \CID{8098}\or \CID{8099}\or \CID{8100}\or \CID{8101}%
+\or \CID{8298}\or \CID{8299}\or \CID{8300}\or \CID{8301}\or \CID{8302}%
+\else\@ctrerr\fi\relax}
+
+\def\@Kakko#1{\ifcase#1\or \CID{8071}\or \CID{8072}\or \CID{8073}\or \CID{8074}\or \CID{8075}%
+\or \CID{8076}\or \CID{8077}\or \CID{8078}\or \CID{8079}\or \CID{8080}%
+\or \CID{8081}\or \CID{8082}\or \CID{8083}\or \CID{8084}\or \CID{8085}%
+\or \CID{8086}\or \CID{8087}\or \CID{8088}\or \CID{8089}\or \CID{8090}%
+\or \CID{9894}\or \CID{9895}\or \CID{9896}\or \CID{9897}\or \CID{9898}%
+\or \CID{9899}\or \CID{9900}\or \CID{9901}\or \CID{9902}\or \CID{9903}%
+\or \CID{9904}\or \CID{9905}\or \CID{9906}\or \CID{9907}\or \CID{9908}%
+\or \CID{9909}\or \CID{9910}\or \CID{9911}\or \CID{9912}\or \CID{9913}%
+\else\@ctrerr\fi\relax}
+
+\def\@KAlph#1{\ifcase#1\or \CID{10004}\or \CID{10005}\or \CID{10006}\or \CID{10007}\or \CID{10008}%
+\or \CID{10009}\or \CID{10010}\or \CID{10011}\or \CID{10012}\or \CID{10013}%
+\or \CID{10014}\or \CID{10015}\or \CID{10016}\or \CID{10017}\or \CID{10018}%
+\or \CID{10019}\or \CID{10020}\or \CID{10021}\or \CID{10022}\or \CID{10023}%
+\or \CID{10024}\or \CID{10025}\or \CID{10026}\or \CID{10027}\or \CID{10028}%
+\or \CID{10029}%
+\else\@ctrerr\fi\relax}
+
+\def\@Kalph#1{\ifcase#1\or \CID{8112}\or \CID{8113}\or \CID{8114}\or \CID{8115}\or \CID{8116}%
+\or \CID{8117}\or \CID{8118}\or \CID{8119}\or \CID{8120}\or \CID{8121}%
+\or \CID{8122}\or \CID{8123}\or \CID{8124}\or \CID{8125}\or \CID{8126}%
+\or \CID{8127}\or \CID{8128}\or \CID{8129}\or \CID{8130}\or \CID{8131}%
+\or \CID{8132}\or \CID{8133}\or \CID{8134}\or \CID{8135}\or \CID{8136}%
+\or \CID{8137}%
+\else\@ctrerr\fi\relax}
+
+\def\@KRoman#1{\ifcase#1\or \CID{9989}\or \CID{9990}\or \CID{9991}\or \CID{9992}\or \CID{9993}%
+\or \CID{9994}\or \CID{9995}\or \CID{9996}\or \CID{9997}\or \CID{9998}%
+\or \CID{9999}\or \CID{10000}\or \CID{10001}\or \CID{10002}\or \CID{10003}%
+\else\@ctrerr\fi\relax}
+
+\def\@Kroman#1{\ifcase#1\or \CID{9974}\or \CID{9975}\or \CID{9976}\or \CID{9977}\or \CID{9978}%
+\or \CID{9979}\or \CID{9980}\or \CID{9981}\or \CID{9982}\or \CID{9983}%
+\or \CID{9984}\or \CID{9985}\or \CID{9986}\or \CID{9987}\or \CID{9988}%
+\else\@ctrerr\fi\relax}
+
+\def\@Maru#1{\ifcase#1\or \CID{7555}\or \CID{7556}\or \CID{7557}\or \CID{7558}\or \CID{7559}%
+\or \CID{7560}\or \CID{7561}\or \CID{7562}\or \CID{7563}\or \CID{7564}%
+\or \CID{7565}\or \CID{7566}\or \CID{7567}\or \CID{7568}\or \CID{7569}%
+\or \CID{7570}\or \CID{7571}\or \CID{7572}\or \CID{7573}\or \CID{7574}%
+\or \CID{8091}\or \CID{8102}\or \CID{8103}\or \CID{8104}\or \CID{8105}%
+\or \CID{8106}\or \CID{8107}\or \CID{8108}\or \CID{8109}\or \CID{8110}%
+\or \CID{10244}\or \CID{10245}\or \CID{10246}\or \CID{10247}\or \CID{10248}%
+\or \CID{10249}\or \CID{10250}\or \CID{10251}\or \CID{10252}\or \CID{10253}%
+\else\@ctrerr\fi\relax}
+
+\def\@KHira#1{\ifcase#1\or \CID{10030}\or \CID{10031}\or \CID{10032}\or \CID{10033}\or \CID{10034}%
+\or \CID{10035}\or \CID{10036}\or \CID{10037}\or \CID{10038}\or \CID{10039}%
+\or \CID{10040}\or \CID{10041}\or \CID{10042}\or \CID{10043}\or \CID{10044}%
+\or \CID{10045}\or \CID{10046}\or \CID{10047}\or \CID{10048}\or \CID{10049}%
+\or \CID{10050}\or \CID{10051}\or \CID{10052}\or \CID{10053}\or \CID{10054}%
+\or \CID{10055}\or \CID{10056}\or \CID{10057}\or \CID{10058}\or \CID{10059}%
+\or \CID{10060}\or \CID{10061}\or \CID{10062}\or \CID{10063}\or \CID{10064}%
+\or \CID{10065}\or \CID{10066}\or \CID{10067}\or \CID{10068}\or \CID{10069}%
+\or \CID{10070}\or \CID{10071}\or \CID{10072}\or \CID{10073}\or \CID{10074}%
+\or \CID{10075}\or \CID{10076}\or \CID{10077}%
+\else\@ctrerr\fi\relax}
+
+\def\@KKata#1{\ifcase#1\or \CID{10078}\or \CID{10079}\or \CID{10080}\or \CID{10081}\or \CID{10082}%
+\or \CID{10083}\or \CID{10084}\or \CID{10085}\or \CID{10086}\or \CID{10087}%
+\or \CID{10088}\or \CID{10089}\or \CID{10090}\or \CID{10091}\or \CID{10092}%
+\or \CID{10093}\or \CID{10094}\or \CID{10095}\or \CID{10096}\or \CID{10097}%
+\or \CID{10098}\or \CID{10099}\or \CID{10100}\or \CID{10101}\or \CID{10102}%
+\or \CID{10103}\or \CID{10104}\or \CID{10105}\or \CID{10106}\or \CID{10107}%
+\or \CID{10108}\or \CID{10109}\or \CID{10110}\or \CID{10111}\or \CID{10112}%
+\or \CID{10113}\or \CID{10114}\or \CID{10115}\or \CID{10116}\or \CID{10117}%
+\or \CID{10118}\or \CID{10119}\or \CID{10120}\or \CID{10121}\or \CID{10122}%
+\or \CID{10123}\or \CID{10124}\or \CID{10125}%
+\else\@ctrerr\fi\relax}
+
+\def\@ksuji#1{\ifcase#1\or 一\or 二\or 三\or 四\or 五\or 六\or 七%
+\or 八\or 九\or 十%
+\or 十一\or 十二\or 十三\or 十四\or 十五\or 十六\or 十七%
+\or 十八\or 十九\or 二十%
+\or 廿一\or 廿二\or 廿三\or 廿四\or 廿五\or 廿六\or 廿七%
+\or 廿八\or 廿九\or 三十%
+\or 丗一\or 丗二\or 丗三\or 丗四\or 丗五\or 丗六\or 丗七%
+\or 丗八\or 丗九\or 四十%
+\else\@ctrerr\fi\relax}
+
+\def\@Combarabic#1{\ifnum#1<10\ifcase#1 ０\or １\or ２\or ３\or ４\or ５\or ６%
+\or ７\or ８\or ９\or\fi\else\@arabic{#1}\fi}
+
+\def\@iHira#1{\ifcase#1\or い\or ろ\or は\or に\or ほ\or へ\or と%
+\or ち\or り\or ぬ\or る\or を\or わ\or か\or よ%
+\or た\or れ\or そ\or つ\or ね\or な\or ら\or む%
+\or う\or ゐ\or の\or お\or く\or や\or ま%
+\or け\or ふ\or こ\or え\or て%
+\or あ\or さ\or き\or ゆ\or め\or み\or し\or ゑ\or ひ\or も\or せ\or す%
+\or ん\else\@ctrerr\fi\relax}
+
+\def\@iKata#1{\ifcase#1\or イ\or ロ\or ハ\or ニ\or ホ\or ヘ\or ト%
+\or チ\or リ\or ヌ\or ル\or ヲ\or ワ\or カ\or ヨ%
+\or タ\or レ\or ソ\or ツ\or ネ\or ナ\or ラ\or ム%
+\or ウ\or ヰ\or ノ\or オ\or ク\or ヤ\or マ%
+\or ケ\or フ\or コ\or エ\or テ%
+\or ア\or サ\or キ\or ユ\or メ\or ミ\or シ\or ヱ\or ヒ\or モ\or セ\or ス%
+\or ン\else\@ctrerr\fi\relax}
+
+\def\@Hira#1{\ifcase#1\or あ\or い\or う\or え\or お%
+\or か\or き\or く\or け\or こ%
+\or さ\or し\or す\or せ\or そ%
+\or た\or ち\or つ\or て\or と%
+\or な\or に\or ぬ\or ね\or の%
+\or は\or ひ\or ふ\or へ\or ほ%
+\or ま\or み\or む\or め\or も%
+\or や\or ゐ\or ゆ\or ゑ\or よ%
+\or わ\or を\or ん
+\else\@ctrerr\fi\relax}
+
+\def\@Kata#1{\ifcase#1\or ア\or イ\or ウ\or エ\or オ%
+\or カ\or キ\or ク\or ケ\or コ%
+\or サ\or シ\or ス\or セ\or ソ%
+\or タ\or チ\or ツ\or テ\or ト%
+\or ナ\or ニ\or ヌ\or ネ\or ノ%
+\or ハ\or ヒ\or フ\or ヘ\or ホ%
+\or マ\or ミ\or ム\or メ\or モ%
+\or ヤ\or ヰ\or ユ\or ヱ\or ヨ%
+\or ワ\or ヲ\or ン%
+\else\@ctrerr\fi\relax}
+
+\def\@KHiroha#1{\ifcase#1\or \ajKakkoHira{2}\or \ajKakkoHira{43}\or \ajKakkoHira{26}\or \ajKakkoHira{22}\or \ajKakkoHira{30}%
+\or \ajKakkoHira{29}\or \ajKakkoHira{20}\or \ajKakkoHira{17}\or \ajKakkoHira{40}\or \ajKakkoHira{23}%
+\or \ajKakkoHira{41}\or \ajKakkoHira{47}\or \ajKakkoHira{44}\or \ajKakkoHira{6}\or \ajKakkoHira{38}%
+\or \ajKakkoHira{16}\or \ajKakkoHira{42}\or \ajKakkoHira{15}\or \ajKakkoHira{18}\or \ajKakkoHira{24}%
+\else\@ctrerr\fi\relax}
+
+\def\@KKiroha#1{\ifcase#1\or \ajKakkoKata{2}\or \ajKakkoKata{43}\or \ajKakkoKata{26}\or \ajKakkoKata{22}\or \ajKakkoKata{30}%
+\or \ajKakkoKata{29}\or \ajKakkoKata{20}\or \ajKakkoKata{17}\or \ajKakkoKata{40}\or \ajKakkoKata{23}%
+\or \ajKakkoKata{41}\or \ajKakkoKata{47}\or \ajKakkoKata{44}\or \ajKakkoKata{6}\or \ajKakkoKata{38}%
+\or \ajKakkoKata{16}\or \ajKakkoKata{42}\or \ajKakkoKata{15}\or \ajKakkoKata{18}\or \ajKakkoKata{24}%
+\else\@ctrerr\fi\relax}
+
+\newcommand{\Centerarabic}[1]{%
+\newif\ifunknowncharacter
+\unknowncharactertrue
+\ifthenelse{\equal{#1}{0}}{\unknowncharacterfalse%
+\parbox[c]{0.9em}{%
+\begin{tikzpicture}[line cap=rect, sharp corners, line width=0.08em]
+	\path (-0.37em,0.5em) (0.37em,-0.7em);
+	\draw (0,0)
+		ellipse (0.37em and 0.5em);
+	\draw (0,0.3em)
+		to [out=180,in=90] (-0.18em,0)
+		to [out=270,in=180] (0,-0.3em)
+		to [out=0,in=270] (0.18em,0)
+		to [out=90,in=0] (0,0.3em)
+		-- cycle;
+\end{tikzpicture}}%
+}{}%
+\ifthenelse{\equal{#1}{1}}{\unknowncharacterfalse%
+\parbox[c]{0.9em}{%
+\begin{tikzpicture}[line cap=rect, sharp corners, line width=0.08em]
+	\path (-0.37em,0.5em) (0.37em,-0.7em);
+	\draw (0,0)
+		 ellipse (0.37em and 0.5em);
+	\draw [line join = bevel] (-0.13em,0.25em)
+		.. controls (-0.07em,0.25em) and (0,0.29em) ..  (0,0.34em)
+		-- (0,-0.3em);
+\end{tikzpicture}}%
+}{}%
+\ifthenelse{\equal{#1}{2}}{\unknowncharacterfalse%
+\parbox[c]{0.9em}{%
+\begin{tikzpicture}[line cap=rect, sharp corners, line width=0.08em]
+	\path (-0.37em,0.5em) (0.37em,-0.7em);
+	\draw (0,0)
+		ellipse (0.37em and 0.5em);
+	\draw (-0.15em,0.17em)
+		to [out=85,in=180](0,0.3em)
+		to [out=0,in=90](0.15em, 0.17em)
+		.. controls (0.13em,0)and(-0.12em,-0.10em)..(-0.15em,-0.28em)
+		-- (0.15em, -0.28em);
+\end{tikzpicture}}%
+}{}%
+\ifthenelse{\equal{#1}{3}}{\unknowncharacterfalse%
+\parbox[c]{0.9em}{%
+\begin{tikzpicture}[line cap=rect, sharp corners, line width=0.08em]
+	\path (-0.37em,0.5em) (0.37em,-0.7em);
+	\draw (0,0)
+		ellipse (0.37em and 0.5em);
+	\draw (-0.15em,0.17em)
+		to[out=85,in=180](0,0.3em)
+		to [out=0,in=90](0.15em,0.17em)
+		to[out=270,in=0](-0.01em,0);
+	\draw (-0.01em,0)
+		to [out=1,in=90](0.16em,-0.15em)
+		to [out=270, in=0](0,-0.3em)
+		to [out=180,in=275](-0.17em,-0.17em);
+\end{tikzpicture}}%
+}{}%
+\ifthenelse{\equal{#1}{4}}{\unknowncharacterfalse%
+\parbox[c]{0.9em}{%
+\begin{tikzpicture}[line cap=rect, sharp corners, line width=0.08em,line join=bevel]
+	\path (-0.37em,0.5em) (0.37em,-0.7em);
+	\draw (0,0)
+		ellipse (0.37em and 0.5em);
+	\draw (0.07em,-0.3em)
+		-- (0.07em,0.34em)
+		-- (-0.22em,-0.14em)
+		-- (0.17em,-0.14em);
+\end{tikzpicture}}%
+}{}%
+\ifthenelse{\equal{#1}{5}}{\unknowncharacterfalse%
+\parbox[c]{0.9em}{%
+\begin{tikzpicture}[line cap=rect, sharp corners, line width=0.08em]
+	\path (-0.37em,0.5em) (0.37em,-0.7em);
+	\draw (0,0)
+		ellipse (0.37em and 0.5em);
+	\draw [line join=bevel] (0.14em,0.3em)
+		-- (-0.14em,0.3em)
+		-- (-0.16em,-0.02em)
+		to [out=60,in=180](0,0.08em)
+		to [out=0,in=90] (0.17em,-0.1em)
+		to [out=270,in=0](0,-0.3em)
+		to [out=180,in=290](-0.17em,-0.18em);
+\end{tikzpicture}}%
+}{}%
+\ifthenelse{\equal{#1}{6}}{\unknowncharacterfalse%
+\parbox[c]{0.9em}{%
+\begin{tikzpicture}[line cap=rect, sharp corners, line width=0.08em]
+	\path (-0.37em,0.5em) (0.37em,-0.7em);
+	\draw (0,0)
+		ellipse (0.37em and 0.5em);
+	\draw (0.15em,0.2em)
+		to [out=110,in=0](0,0.3em)
+		to [out=180, in=90](-0.17em,0)
+		to [out=270,in=180](0,-0.3em)
+		to [out=0,in=270](0.17em,-0.12em)
+		to [out=90,in=0](0.02em,0.06em)
+		to [out=180,in=80](-0.15em,-0.08em);
+\end{tikzpicture}}%
+}{}%
+\ifthenelse{\equal{#1}{7}}{\unknowncharacterfalse%
+\parbox[c]{0.9em}{%
+\begin{tikzpicture}[line cap=rect, sharp corners, line width=0.08em]
+	\path (-0.37em,0.5em) (0.37em,-0.7em);
+	\draw (0,0)
+		ellipse (0.37em and 0.5em);
+	\draw [line join=bevel](-0.15em,0.28em)
+		-- (0.17em,0.28em)
+		to [out=230,in=90](0,-0.30em);
+\end{tikzpicture}}%
+}{}%
+\ifthenelse{\equal{#1}{8}}{\unknowncharacterfalse%
+\parbox[c]{0.9em}{%
+\begin{tikzpicture}[line cap=rect, sharp corners, line width=0.08em]
+	\path (-0.37em,0.5em) (0.37em,-0.7em);
+	\draw (0,0)
+		ellipse (0.37em and 0.5em);
+	\draw (0,0.3em)
+		to [out=180,in=90](-0.15em,0.17em)
+		to [out=270,in=180](0,0.04em)
+		to [out=0,in=270](0.15em,0.17em)
+		to [out=90,in=0](0,0.3em)
+		-- cycle;
+	\draw (0,0.04em)
+		to [out=180,in=90](-0.19em,-0.13em)
+		to [out=270,in=180](0,-0.3em)
+		to [out=0,in=270](0.19em,-0.13em)
+		to [out=90,in=0](0,0.04em)
+		-- cycle;
+\end{tikzpicture}}%
+}{}%
+\ifthenelse{\equal{#1}{9}}{\unknowncharacterfalse%
+\parbox[c]{0.9em}{%
+\begin{tikzpicture}[line cap=rect, sharp corners, line width=0.08em]
+	\path (-0.37em,0.5em) (0.37em,-0.7em);
+	\draw (0,0)
+		ellipse(0.37em and 0.5em);
+	\draw (-0.15em,-0.2em)
+		to [out=290,in=180](0,-0.3em)
+		to [out=0, in=270](0.17em,0)
+		to [out=90,in=0](0,0.3em)
+		to [out=180,in=90](-0.17em,0.12em)
+		to [out=270,in=180](-0.02em,-0.06em)
+		to [out=0,in=260](0.15em,0.08em);
+\end{tikzpicture}}%
+}{}%
+\ifthenelse{\equal{#1}{a}}{\unknowncharacterfalse%
+\parbox[c]{0.9em}{%
+\begin{tikzpicture}[line cap=rect, sharp corners, line width=0.08em]
+	\path (-0.37em,0.5em) (0.37em,-0.7em);
+	\draw (0,0)
+		ellipse (0.37em and 0.5em);
+	\draw (-0.16em,0.15em)
+		to [out=70,in=180](0,0.23em)
+		to [out=0,in=90](0.16em,0.10em)
+		-- (0.16em,-0.17em)
+		to [out=320,in=150](0.20em,-0.20em);
+	\draw (0.16em,0.04em)
+		to [out=180,in=90](-0.18em,-0.15em)
+		to [out=270,in=240](0.14em,-0.14em);
+\end{tikzpicture}}%
+}{}%
+\ifthenelse{\equal{#1}{b}}{\unknowncharacterfalse%
+\parbox[c]{0.9em}{%
+\begin{tikzpicture}[line cap=rect, sharp corners, line width=0.08em]
+	\path (-0.37em,0.5em) (0.37em,-0.7em);
+	\draw (0,0)
+		ellipse (0.37em and 0.5em);
+	\draw (-0.14em,0.27em)
+		-- (-0.14em,-0.25em);
+	\draw (-0.14em,-0.13em)
+		to [out=270,in=180](0.04em,-0.27em)
+		to [out=0,in=270](0.22em,-0.09em)
+		to [out=90,in=0](0.04em,0.09em)
+		to [out=180,in=90](-0.14em,-0.05em)
+		-- cycle;
+\end{tikzpicture}}%
+}{}%
+\ifthenelse{\equal{#1}{c}}{\unknowncharacterfalse%
+\parbox[c]{0.9em}{%
+\begin{tikzpicture}[line cap=rect, sharp corners, line width=0.08em]
+	\path (-0.37em,0.5em) (0.37em,-0.7em);
+	\draw (0,0)
+		ellipse (0.37em and 0.5em);
+	\begin{scope}
+		\clip (0.25em,0.25em)
+			-- (-0.25em,0.25em)
+			-- (-0.25em,-0.3em)
+			-- (0.25em,-0.3em)
+			-- (0.25em,-0.12em)
+			-- (0,-0.12em)
+			-- (0,0.08em)
+			-- (0.25em,0.08em)
+			-- cycle;
+		\draw (0,0.20em)
+			to [out=180,in=90](-0.19em,-0.02em)
+			to [out=270,in=180](0,-0.24em)
+			to [out=0,in=270](0.19em,-0.02em)
+			to [out=90,in=0](0,0.20em)
+			-- cycle;
+	\end{scope}
+\end{tikzpicture}}%
+}{}%
+\ifthenelse{\equal{#1}{d}}{\unknowncharacterfalse%
+\parbox[c]{0.9em}{%
+\begin{tikzpicture}[line cap=rect, sharp corners, line width=0.08em]
+	\path (-0.37em,0.5em) (0.37em,-0.7em);
+	\draw (0,0)
+		ellipse (0.37em and 0.5em);
+	\draw (0.14em,0.27em)
+		-- (0.14em,-0.25em);
+	\draw (0.14em,-0.13em)
+		to [out=270,in=0](-0.04em,-0.27em)
+		to [out=180,in=270](-0.22em,-0.09em)
+		to [out=90,in=180](-0.04em,0.09em)
+		to [out=0,in=90](0.14em,-0.05em)
+		-- cycle;
+\end{tikzpicture}}%
+}{}%
+\ifthenelse{\equal{#1}{-}}{\unknowncharacterfalse%
+\parbox[c]{0.9em}{%
+\begin{tikzpicture}[line cap=rect, sharp corners, line width=0.08em]
+	\path (-0.37em,0.5em) (0.37em,-0.7em);
+	\draw (0,0)
+		ellipse (0.37em and 0.5em);
+	\draw (-0.18em,0)
+		-- (0.18em,0);
+\end{tikzpicture}}%
+}{}%
+\ifthenelse{\equal{#1}{\pm} \OR \equal{#1}{±}}{\unknowncharacterfalse%
+\parbox[c]{0.9em}{%
+\begin{tikzpicture}[line cap=rect, sharp corners, line width=0.08em]
+	\path (-0.37em,0.5em) (0.37em,-0.7em);
+	\draw (0,0)
+		ellipse (0.37em and 0.5em);
+	\draw (-0.18em,0.08em)
+		-- (0.18em,0.08em);
+	\draw (-0.18em, -0.2em)
+		-- (0.18em, -0.2em);
+	\draw (0, 0.26em)
+		-- (0,-0.1em);
+\end{tikzpicture}}%
+}{}%
+\ifunknowncharacter{%
+\parbox[c]{0.9em}{%
+\begin{tikzpicture}[line cap=rect, sharp corners, line width=0.08em]
+	\path (-0.37em,0.5em) (0.37em,-0.7em);
+	\draw (0,0)
+		ellipse (0.37em and 0.5em);
+\end{tikzpicture}}%
+}\fi
+}
+
+\def\@Carabic#1{\ifcase#1\or \protect\Centerarabic{1}\or
+\protect\Centerarabic{2}\or \protect\Centerarabic{3}\or
+\protect\Centerarabic{4}\or \protect\Centerarabic{5}\or
+\protect\Centerarabic{6}\or \protect\Centerarabic{7}\or
+\protect\Centerarabic{8}\or \protect\Centerarabic{9}\or
+\protect\Centerarabic{0}\or \protect\Centerarabic{a}\or
+\protect\Centerarabic{b}\or \protect\Centerarabic{c}\or
+\protect\Centerarabic{d}\or \protect\Centerarabic{-}\or
+\protect\Centerarabic{\pm}\or
+\else\@ctrerr\fi\relax}
+
+\def\@Wdate#1{\ifcase#1\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate\or\theWmonth/\theWday\addWdate
+\or\theWmonth/\theWday\addWdate
+\else\@ctrerr\fi\relax}
+
+\def\Roman#1{\expandafter\@Roman\csname c@#1\endcsname}
+\AddEnumerateCounter{\Roman}{\@Roman}{\ajRoman{99}}
+
+\def\roman#1{\expandafter\@roman\csname c@#1\endcsname}
+\AddEnumerateCounter{\roman}{\@roman}{\ajroman{99}}
+
+\def\Kakko#1{\expandafter\@Kakko\csname c@#1\endcsname}
+\AddEnumerateCounter{\Kakko}{\@Kakko}{\ajKakko{99}}
+
+\def\KAlph#1{\expandafter\@KAlph\csname c@#1\endcsname}
+\AddEnumerateCounter{\KAlph}{\@KAlph}{\ajKakkoAlph{99}}
+\def\KAlpha{\KAlph}
+
+\def\Kalph#1{\expandafter\@Kalph\csname c@#1\endcsname}
+\AddEnumerateCounter{\Kalph}{\@Kalph}{\ajKakkoalph{99}}
+\def\Kalpha{\Kalph}
+
+\def\KRoman#1{\expandafter\@KRoman\csname c@#1\endcsname}
+\AddEnumerateCounter{\KRoman}{\@KRoman}{\ajKakkoRoman{99}}
+
+\def\Kroman#1{\expandafter\@Kroman\csname c@#1\endcsname}
+\AddEnumerateCounter{\Kroman}{\@Kroman}{\ajKakkoroman{99}}
+
+\def\Maru#1{\expandafter\@Maru\csname c@#1\endcsname}
+\AddEnumerateCounter{\Maru}{\@Maru}{\ajMaru{99}}
+
+\def\KHira#1{\expandafter\@KHira\csname c@#1\endcsname}
+\AddEnumerateCounter{\KHira}{\@KHira}{\ajKakkoHira{99}}
+
+\def\KKata#1{\expandafter\@KKata\csname c@#1\endcsname}
+\AddEnumerateCounter{\KKata}{\@KKata}{\ajKakkoKata{99}}
+
+\def\ksuji#1{\expandafter\@ksuji\csname c@#1\endcsname}
+\AddEnumerateCounter{\ksuji}{\@ksuji}{\kansuji{99}}
+
+\def\Combarabic#1{\expandafter\@Combarabic\csname c@#1\endcsname}
+\AddEnumerateCounter{\Combarabic}{\@Combarabic}{\@Combarabic{0}}
+
+\def\iHira#1{\expandafter\@iHira\csname c@#1\endcsname}
+\AddEnumerateCounter{\iHira}{\@iHira}{\@iHira{1}}
+
+\def\iKata#1{\expandafter\@iKata\csname c@#1\endcsname}
+\AddEnumerateCounter{\iKata}{\@iKata}{\@iKata{1}}
+
+\def\Hira#1{\expandafter\@Hira\csname c@#1\endcsname}
+\AddEnumerateCounter{\Hira}{\@Hira}{\@Hira{1}}
+
+\def\Kata#1{\expandafter\@Kata\csname c@#1\endcsname}
+\AddEnumerateCounter{\Kata}{\@Kata}{\@Kata{1}}
+
+\def\KHiroha#1{\expandafter\@KHiroha\csname c@#1\endcsname}
+\AddEnumerateCounter{\KHiroha}{\@KHiroha}{\@KHiroha{1}}
+
+\def\KKiroha#1{\expandafter\@KKiroha\csname c@#1\endcsname}
+\AddEnumerateCounter{\KKiroha}{\@KKiroha}{\@KKiroha{1}}
+
+\def\Carabic#1{\expandafter\@Carabic\csname c@#1\endcsname}
+\AddEnumerateCounter{\Carabic}{\@Carabic}{\@Carabic{1}}
+
+\def\Wdate#1{\expandafter\@Wdate\csname c@#1\endcsname}
+\AddEnumerateCounter{\Wdate}{\@Wdate}{22/22}
