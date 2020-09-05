@@ -4,15 +4,16 @@
 [b5paper, papersize, fleqn, 11pt, dvipdfmx, bold, nodots]}
 
 \usepackage{tetsu_physics}
-\usepackage{txfonts}
+% 東大のフォントが変態なので，入れても良いかも
+% \usepackage{txfonts}
 
 \setlength{\oddsidemargin}{6truept}
 \setlength{\topmargin}{4truept}
 
-\setlength{\headheight}{6truept}
-\setlength{\headsep}{12truept}
+\setlength{\headheight}{0truept}
+\setlength{\headsep}{0truept}
 
-\setlength{\textheight}{546truept}
+\setlength{\textheight}{580truept}
 \setlength{\textwidth}{375truept}
 
 \setlength{\marginparsep}{18truept}
@@ -37,8 +38,8 @@
 \renewcommand{\thefigure}{\Combarabic{section}---\Combarabic{figure}}
 \renewcommand{\thetable}{\Combarabic{section}---\Combarabic{table}}
 
-\captionsetup[figure]{font=normalsize}
-\captionsetup[table]{font=normalsize}
+\captionsetup[figure]{font=normalsize, labelsep=none}
+\captionsetup[table]{font=normalsize, labelsep=none}
 
 \@addtoreset{equation}{section}
 \@addtoreset{figure}{section}
@@ -47,7 +48,7 @@
 \renewcommand{\section}{%\setlength{\oddsidemargin}{0zw}%
   \if@slide\clearpage\fi
   \@startsection{section}{1}{\z@}%
-  {\Cvs \@plus.5\Cdp \@minus.2\Cdp}% 前アキ
+  {\z@}% 前アキ
   {\z@}% 後アキ
   {\hskip -1zw\relax\headfont\raggedright}}
 
@@ -106,8 +107,8 @@
 \defstyle{varEq}{（式\Combarabic*）}
 \eqnumsty{varEq}
 
-\setlist[1]{leftmargin=2zw, topsep=2zw, listparindent=1zw, labelsep=1zw}
-\setlist[2]{leftmargin=1zw, itemsep=2zw, listparindent=1zw, labelsep=1zw, itemindent=1zw}
+\setlist[1]{leftmargin=2zw, topsep=2zw, itemsep=2zw, listparindent=1zw, labelsep=1zw}
+\setlist[2]{leftmargin=1zw, topsep=2zw, itemsep=2zw, listparindent=1zw, labelsep=1zw, itemindent=1zw}
 
 \AtBeginDocument{%
   \abovedisplayskip     =0.5\abovedisplayskip

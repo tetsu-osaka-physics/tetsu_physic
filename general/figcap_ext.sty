@@ -8,14 +8,20 @@
 \usepackage{enumitem_extended}
 \usepackage{graphicx}
 
-\newcommand\setfigcapstyle[1]{\renewcommand{\figurename}{}%
+\newcommand\setfigcapstyle[1]{\let\previ@usfigurename\figurename
+  \renewcommand{\figurename}{}%
+  \let\previ@usfigcapsty\thefigure
   \renewcommand{\thefigure}{\csname#1\endcsname{figure}}%
   \setcounter{tempor@lfignum}{\value{figure}}%
   \setcounter{figure}{0}}
 
 \newcommand\normalfigcaption{\renewcommand{\figurename}{図}%
-\renewcommand{\thefigure}{\expandafter\csname\the\normalfigcapsty\endcsname{figure}}%
-\setcounter{figure}{\value{tempor@lfignum}}}
+  \renewcommand{\thefigure}{\expandafter\csname\the\normalfigcapsty\endcsname{figure}}%
+  \setcounter{figure}{\value{tempor@lfignum}}}
+
+\newcommand\previousfigcaption{\let\figurename\previ@usfigurename
+  \let\thefigure\previ@usfigcapsty
+  \setcounter{figure}{\value{tempor@lfignum}}}
 
 \def\Lcaption{%
    \ifx\@captype\@undefined
