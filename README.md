@@ -5,7 +5,6 @@
 ## 初回導入時の設定
 ターミナル：
 ```sh
-brew install git
 mv ~/FOR/get-sty.sh ~/Desktop/get-sty.sh
 chmod a+x ~/Desktop/get-sty.sh
 ```

@@ -1,6 +1,10 @@
 \NeedsTeXFormat{pLaTeX2e}
 \ProvidesPackage{tetsu_physics}
 
+\newif\ifideographic@
+\DeclareOption{ideographic}{\ideographic@true}
+\ProcessOptions*
+
 \usepackage{amsmath, amssymb, amsthm, amscd}
 \usepackage{manfnt, mathrsfs}
 \usepackage[version=4]{mhchem}
@@ -29,7 +33,7 @@
 \fi
 
 % enumerate indent and sep
-\setlist{leftmargin=2zw, topsep=1zw, itemsep=.5zw, listparindent=1zw, labelsep=1zw, itemindent=1zw}
+\ifideographic@\setlist{leftmargin=2zw, topsep=1zw, itemsep=.5zw, listparindent=1zw, labelsep=1zw, itemindent=1zw}\fi
 
 % wavy capacitor
 \ctikzset{bipoles/wcapacitor/height/.initial=.3}
