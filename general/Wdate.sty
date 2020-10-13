@@ -9,7 +9,7 @@
 
 \newcommand\addWdate{%
 \ifnum\ifnum\theWmonth=1 31\else\ifnum\theWmonth=3 31\else\ifnum\theWmonth=5 31\else
-\ifnum\theWmonth=7 31\else\ifnum\theWmonth=8 31\else\ifnum\theWmonth=12 31\else0\fi\fi\fi\fi\fi\fi=31%
+\ifnum\theWmonth=7 31\else\ifnum\theWmonth=8 31\else\ifnum\theWmonth=10 31\else\ifnum\theWmonth=12 31\else0\fi\fi\fi\fi\fi\fi\fi=31%
   \ifnum\theWday>24%
     \addtocounter{Wday}{-24}%
     \addtocounter{Wmonth}{1}%
