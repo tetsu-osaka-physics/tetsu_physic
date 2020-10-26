@@ -1,6 +1,10 @@
 \NeedsTeXFormat{pLaTeX2e}
 \ProvidesPackage{tetsu_physics}
 
+\newif\ifideographic@
+\DeclareOption{ideographic}{\ideographic@true}
+\ProcessOptions*
+
 \usepackage{amsmath, amssymb, amsthm, amscd}
 \usepackage{manfnt, mathrsfs}
 \usepackage[version=4]{mhchem}
@@ -10,7 +14,65 @@
 \usepackage{cases}
 \usepackage{wrapfig}
 \usepackage{titlesec}
-\usepackage{eqnum_extended, enumitem_extended, Fcntr, uw, figcap_ext, ansframe}
+\usepackage{eqnum_extended, enumitem_extended, Fcntr, uw, figcap_ext}
 \usepackage{tikz}
-\usetikzlibrary{intersections, calc, arrows, decorations.pathmorphing}
-\usepackage{circuitikz}
+\usetikzlibrary{intersections, calc, arrows, decorations.pathmorphing, decorations.markings, patterns}
+\usepackage[nooldvoltagedirection]{circuitikz}
+
+% titilesec paragraph
+\renewcommand{\jsParagraphMark}{■}
+\if@twocolumn
+  \renewcommand{\paragraph}{\@startsection{paragraph}{4}{\z@}%
+    {\z@}{\if@slide .4\Cvs \else -1zw\fi}% 改行せず 1zw のアキ
+    {\normalfont\normalsize\headfont\jsParagraphMark}}
+\else
+  \renewcommand{\paragraph}{\@startsection{paragraph}{4}{\z@}%
+    {0.5\Cvs \@plus.5\Cdp \@minus.2\Cdp}%
+    {\if@slide .5\Cvs \@plus.3\Cdp \else -1zw\fi}% 改行せず 1zw のアキ
+    {\normalfont\normalsize\headfont\jsParagraphMark}}
+\fi
+
+% enumerate indent and sep
+\ifideographic@\setlist{leftmargin=2zw, topsep=1zw, itemsep=.5zw, listparindent=1zw, labelsep=1zw, itemindent=1zw}\fi
+
+% wavy capacitor
+\ctikzset{bipoles/wcapacitor/height/.initial=.3}
+\ctikzset{bipoles/wcapacitor/width/.initial=.12}
+\ctikzset{bipoles/wcapacitor/bend width/.initial=.6}
+%
+\def\pgf@circ@wcapacitor@path#1{\pgf@circ@bipole@path{wcapacitor}{#1}}
+\compattikzset{wavy capacitor/.style = {\circuitikzbasekey, /tikz/to path=\pgf@circ@wcapacitor@path, l=#1}}
+%
+\pgfcircdeclarebipolescaled{capacitors}
+{}
+{\ctikzvalof{bipoles/wcapacitor/height}}
+{wcapacitor}
+{\ctikzvalof{bipoles/wcapacitor/height}}
+{\ctikzvalof{bipoles/wcapacitor/width}}
+{
+  \pgf@circ@setlinewidth{bipoles}{\pgfstartlinewidth}
+
+  \pgfscope
+    \pgfsetlinewidth{.5pt}
+    \pgfpathmoveto{\pgfpoint{\pgf@circ@res@left}{\pgf@circ@res@up}}
+    \pgftransformrotate{-90}
+    \pgfpathsine{\pgfpoint{0.5\pgf@circ@res@up}{-\ctikzvalof{bipoles/wcapacitor/bend width}\pgf@circ@res@right}}
+    \pgfpathcosine{\pgfpoint{0.5\pgf@circ@res@up}{\ctikzvalof{bipoles/wcapacitor/bend width}\pgf@circ@res@right}}
+    \pgfpathsine{\pgfpoint{0.5\pgf@circ@res@up}{-\ctikzvalof{bipoles/wcapacitor/bend width}\pgf@circ@res@left}}
+    \pgfpathcosine{\pgfpoint{0.5\pgf@circ@res@up}{\ctikzvalof{bipoles/wcapacitor/bend width}\pgf@circ@res@left}}
+    \pgfusepath{draw}
+  \endpgfscope
+
+  \pgfscope
+    \pgfsetlinewidth{.5pt}
+    \pgfpathmoveto{\pgfpoint{\pgf@circ@res@right}{\pgf@circ@res@up}}
+    \pgftransformrotate{-90}
+    \pgfpathsine{\pgfpoint{0.5\pgf@circ@res@up}{-\ctikzvalof{bipoles/wcapacitor/bend width}\pgf@circ@res@right}}
+    \pgfpathcosine{\pgfpoint{0.5\pgf@circ@res@up}{\ctikzvalof{bipoles/wcapacitor/bend width}\pgf@circ@res@right}}
+    \pgfpathsine{\pgfpoint{0.5\pgf@circ@res@up}{-\ctikzvalof{bipoles/wcapacitor/bend width}\pgf@circ@res@left}}
+    \pgfpathcosine{\pgfpoint{0.5\pgf@circ@res@up}{\ctikzvalof{bipoles/wcapacitor/bend width}\pgf@circ@res@left}}
+    \pgfusepath{draw}
+  \endpgfscope
+}
+
+%

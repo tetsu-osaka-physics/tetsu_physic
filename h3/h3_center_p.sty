@@ -16,6 +16,11 @@
 \renewcommand{\thesection}{第\Combarabic{section}問}
 \renewcommand{\thesubsection}{\normalsize 問\Combarabic{subsection}}
 
+\renewcommand{\subsection}{\@startsection{subsection}{2}{\z@}%
+  {\Cvs \@plus.5\Cdp \@minus.2\Cdp}% 前アキ
+  {.5\Cvs \@plus.3\Cdp}% 後アキ
+  {\normalfont\large\headfont}}
+
 \@addtoreset{Choicecntr}{subsection}
 
 \newcounter{Choicecntr}
