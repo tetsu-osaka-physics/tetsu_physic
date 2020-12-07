@@ -16,8 +16,8 @@
 \usepackage{titlesec}
 \usepackage{eqnum_extended, enumitem_extended, Fcntr, uw, figcap_ext}
 \usepackage{tikz}
-\usetikzlibrary{intersections, calc, arrows, decorations.pathmorphing, decorations.markings, patterns}
-\usepackage[nooldvoltagedirection]{circuitikz}
+\usetikzlibrary{intersections, calc, arrows, decorations.pathmorphing, decorations.markings, patterns, angles, quotes}
+\usepackage[nooldvoltagedirection, straightvoltages, europeanresistors, cuteinductors, straightlabels]{circuitikz}
 
 % titilesec paragraph
 \renewcommand{\jsParagraphMark}{■}
@@ -34,6 +34,10 @@
 
 % enumerate indent and sep
 \ifideographic@\setlist{leftmargin=2zw, topsep=1zw, itemsep=.5zw, listparindent=1zw, labelsep=1zw, itemindent=1zw}\fi
+
+% MWEs: /usr/local/texlive/2020/texmf-dist/tex/generic/circuitikz/
+% capacitor width
+\newcommand\Cwidth{bipoles/capacitor/width/.initial}
 
 % wavy capacitor
 \ctikzset{bipoles/wcapacitor/height/.initial=.3}
@@ -75,4 +79,73 @@
   \endpgfscope
 }
 
-%
+% capacitor
+\newcommand{\drawCapa}{\@ifstar{\@drawCapa}{\@@drawCapa}}
+\newcommand{\@drawCapa}[3]{%
+  \begin{scope}
+    \draw #1 to [capacitor, \Cwidth=0.4, name=c@p@] #2;
+    \draw (c@p@.center) node {#3};
+  \end{scope}
+}
+\newcommand{\@@drawCapa}[5][r]{%
+  \ifx#1r%
+    \begin{scope}
+      \draw #2 to [capacitor, \Cwidth=0.4, name=c@p@] #3;
+      \draw (c@p@.center) node {#4};
+      \draw (c@p@.north east) node [right] {$+$#5};
+      \draw (c@p@.north west) node [left] {$-$#5};
+    \end{scope}
+  \fi
+  \ifx#1l%
+    \begin{scope}
+      \draw #2 to [capacitor, \Cwidth=0.4, name=c@p@] #3;
+      \draw (c@p@.center) node {#4};
+      \draw (c@p@.north east) node [right] {$-$#5};
+      \draw (c@p@.north west) node [left] {$+$#5};
+    \end{scope}
+  \fi
+  \ifx#1u%
+    \begin{scope}
+      \draw #2 to [capacitor, \Cwidth=0.4, name=c@p@] #3;
+      \draw (c@p@.center) node {#4};
+      \draw (c@p@.north west) node [right] {$+$#5};
+      \draw (c@p@.north east) node [right] {$-$#5};
+    \end{scope}
+  \fi
+  \ifx#1d%
+    \begin{scope}
+      \draw #2 to [capacitor, \Cwidth=0.4, name=c@p@] #3;
+      \draw (c@p@.center) node {#4};
+      \draw (c@p@.north west) node [right] {$-$#5};
+      \draw (c@p@.north east) node [right] {$+$#5};
+    \end{scope}
+  \fi
+}
+
+% Alternative current Voltage Source
+\def\pgf@circ@ACV@path#1{\pgf@circ@bipole@path{ACV}{#1}}
+\compattikzset{ACV/.style = {\circuitikzbasekey, /tikz/to path=\pgf@circ@ACV@path, label=#1}}
+
+\pgfcircdeclarebipole{} % independent sinusoidal current source
+    {\ctikzvalof{bipoles/isourcesin/height}}
+    {ACV}
+    {\ctikzvalof{bipoles/isourcesin/height}}
+    {\ctikzvalof{bipoles/isourcesin/width}}
+    {
+        \pgfpointorigin
+        \pgfsetlinewidth{\pgfkeysvalueof{/tikz/circuitikz/bipoles/thickness}\pgfstartlinewidth}
+        \pgfpathellipse{\pgfpointorigin}{\pgfpoint{0}{\pgf@circ@res@up}}{\pgfpoint{\pgf@circ@res@left}{0}}
+        \pgfusepath{draw}
+        \pgf@circ@res@up = .5\pgf@circ@res@up
+        \pgfscope
+            \pgfpathmoveto{\pgfpoint{-\pgf@circ@res@up}{0cm}}
+            \pgfpathsine{\pgfpoint{.5\pgf@circ@res@up}{.5\pgf@circ@res@up}}
+            \pgfpathcosine{\pgfpoint{.5\pgf@circ@res@up}{-.5\pgf@circ@res@up}}
+            \pgfpathsine{\pgfpoint{.5\pgf@circ@res@up}{-.5\pgf@circ@res@up}}
+            \pgfpathcosine{\pgfpoint{.5\pgf@circ@res@up}{.5\pgf@circ@res@up}}
+            \pgfusepath{draw}
+        \endpgfscope
+
+        \pgfpathmoveto{\pgfpoint{.7\pgf@circ@res@left}{\pgf@circ@res@zero}}
+        \pgfpathlineto{\pgfpoint{.7\pgf@circ@res@right}{\pgf@circ@res@zero}}
+    }
