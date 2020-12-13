@@ -149,3 +149,138 @@
         \pgfpathmoveto{\pgfpoint{.7\pgf@circ@res@left}{\pgf@circ@res@zero}}
         \pgfpathlineto{\pgfpoint{.7\pgf@circ@res@right}{\pgf@circ@res@zero}}
     }
+
+% transformer with no lines (plain & core)
+\def\pgf@circ@drawtransformerbasicbody@nl{
+    \pgfscope
+        \pgfslopedattimetrue
+        \pgfallowupsidedownattimetrue
+        \pgftransformlineattime{.5}{%
+            \pgfpoint%
+            {\pgf@circ@res@left}%
+            {\pgf@circ@res@up}%
+            }{%
+            \pgfpoint
+            {\pgf@circ@res@left}%
+            {\pgf@circ@res@down}%
+        }
+
+        \pgfkeys{\circuitikzbasekey/.cd, transformer L1}
+        \edef\pgf@circ@temp{\ctikzvalof{inductor}}%
+        \def\pgf@temp{european}%
+        \ifx\pgf@temp\pgf@circ@temp%
+            \pgfnode{fullgenericshape}{center}{}{\thisshape-L1}{\pgfusepath{stroke}}
+        \else%
+            \def\pgf@temp{cute}
+            \ifx\pgf@temp\pgf@circ@temp%
+                \pgfnode{cuteinductorshape}{center}{}{\thisshape-L1}{\pgfusepath{stroke}}
+            \else%
+                \pgfnode{americaninductorshape}{center}{}{\thisshape-L1}{\pgfusepath{stroke}}
+            \fi%
+        \fi%
+
+
+    \endpgfscope
+    \pgfscope
+        \pgfslopedattimetrue
+        \pgfallowupsidedownattimetrue
+        \pgftransformlineattime{.5}{%
+            \pgfpoint%
+            {\pgf@circ@res@right}%
+            {\pgf@circ@res@down}%
+            }{%
+            \pgfpoint
+            {\pgf@circ@res@right}%
+            {\pgf@circ@res@up}%
+        }
+
+        \pgfkeys{\circuitikzbasekey/.cd, transformer L2}
+        \edef\pgf@circ@temp{\ctikzvalof{inductor}}%
+        \def\pgf@temp{european}%
+        \ifx\pgf@temp\pgf@circ@temp%
+            \pgfnode{fullgenericshape}{center}{}{\thisshape-L2}{\pgfusepath{stroke}}
+        \else%
+            \def\pgf@temp{cute}
+            \ifx\pgf@temp\pgf@circ@temp%
+                \pgfnode{cuteinductorshape}{center}{}{\thisshape-L2}{\pgfusepath{stroke}}
+            \else%
+                \pgfnode{americaninductorshape}{center}{}{\thisshape-L2}{\pgfusepath{stroke}}
+            \fi%
+        \fi%
+
+    \endpgfscope
+
+    \pgfpathmoveto{\pgfpoint{\pgf@circ@res@left}{\pgf@circ@res@up}}
+    \pgfpathlineto{\pgfpoint{\pgf@circ@res@left}{\pgf@circ@res@up}}
+    \pgfpathlineto{\pgfpointanchor{\thisshape-L1}{b}}
+
+    \pgfpathmoveto{\pgfpointanchor{\thisshape-L1}{a}}
+    % \pgfpathlineto{\pgfpoint{\pgf@circ@res@left}{\pgf@circ@res@down}}
+    \pgfpathlineto{\pgfpoint{\pgf@circ@res@left}{\pgf@circ@res@down}}
+
+    \pgfpathmoveto{\pgfpoint{\pgf@circ@res@right}{\pgf@circ@res@up}}
+    % \pgfpathlineto{\pgfpoint{\pgf@circ@res@right}{\pgf@circ@res@up}}
+    \pgfpathlineto{\pgfpointanchor{\thisshape-L2}{a}}
+
+    \pgfpathmoveto{\pgfpointanchor{\thisshape-L2}{b}}
+    % \pgfpathlineto{\pgfpoint{\pgf@circ@res@right}{\pgf@circ@res@down}}
+    \pgfpathlineto{\pgfpoint{\pgf@circ@res@right}{\pgf@circ@res@down}}
+
+    \pgfusepath{draw}
+
+}
+
+\pgfcircdeclarequadpole{transformerNL}{
+    \pgf@circ@drawtransformerbasicbody@nl
+}{\pgf@circ@drawtransformerbasicanchor}
+
+\ctikzset{quadpoles/transformerNL/inner/.initial=0.4}
+\ctikzset{quadpoles/transformerNL/width/.initial=0.65}
+\ctikzset{quadpoles/transformerNL/width1/.initial=.4}
+\ctikzset{quadpoles/transformerNL/height/.initial=1.5}
+\ctikzset{quadpoles/transformerNL/height1/.initial=.8}
+
+\pgfcircdeclarequadpole{transformerNL core}{
+
+    \pgf@circ@drawtransformerbasicbody@nl
+
+    % use the chocke line thickness
+    \pgfsetlinewidth{\ctikzvalof{bipoles/cutechoke/cthick}\pgflinewidth}
+
+    % Find the distance from center for the lines representing the core
+    % the 2.5 is for backward compatibility --- the distance was calculated as a fraction
+    % of the whole component, now as a fraction of the distance between coils, to be
+    % compatible with the quadpoles "inner" style.
+    \pgfmathsetlength{\pgf@circ@res@other}{2.5*\stretto*\ctikzvalof{quadpoles/transformer core/core width}*\pgf@circ@res@right}
+
+    \pgfmoveto{\pgfpoint%
+        {\pgf@circ@res@other}%
+        {\ctikzvalof{quadpoles/transformer core/core height}\pgf@circ@res@down}%
+    }
+    \pgflineto{
+        \pgfpoint%
+        {\pgf@circ@res@other}%
+        {\ctikzvalof{quadpoles/transformer core/core height}\pgf@circ@res@up}%
+    }
+
+    %% this should be just -\pgf@circ@res@other, but in case someone define an asymmetric trafo someday...
+    \pgfmathsetlength{\pgf@circ@res@other}{2.5*\stretto*\ctikzvalof{quadpoles/transformer core/core width}*\pgf@circ@res@left}
+    \pgfmoveto{\pgfpoint%
+        {\pgf@circ@res@other}%
+        {\ctikzvalof{quadpoles/transformer core/core height}\pgf@circ@res@down}%
+    }
+    \pgflineto{
+        \pgfpoint%
+        {\pgf@circ@res@other}%
+        {\ctikzvalof{quadpoles/transformer core/core height}\pgf@circ@res@up}%
+    }
+
+    \pgf@circ@setlinewidth{bipoles}{\pgflinewidth}
+    \pgfusepath{draw}
+}{\pgf@circ@drawtransformerbasicanchor}
+
+\ctikzset{quadpoles/transformerNL core/inner/.initial=1}
+\ctikzset{quadpoles/transformerNL core/width/.initial=0.65}
+\ctikzset{quadpoles/transformerNL core/height/.initial=1.5}
+\ctikzset{quadpoles/transformerNL core/core height/.initial=.5}
+\ctikzset{quadpoles/transformerNL core/core width/.initial=.05}
