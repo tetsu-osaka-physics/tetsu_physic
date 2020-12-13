@@ -108,16 +108,16 @@
     \begin{scope}
       \draw #2 to [capacitor, \Cwidth=0.4, name=c@p@] #3;
       \draw (c@p@.center) node {#4};
-      \draw (c@p@.north west) node [right] {$+$#5};
-      \draw (c@p@.north east) node [right] {$-$#5};
+      \draw (c@p@.south west) node [right] {$+$#5};
+      \draw (c@p@.south east) node [right] {$-$#5};
     \end{scope}
   \fi
   \ifx#1d%
     \begin{scope}
       \draw #2 to [capacitor, \Cwidth=0.4, name=c@p@] #3;
       \draw (c@p@.center) node {#4};
-      \draw (c@p@.north west) node [right] {$-$#5};
-      \draw (c@p@.north east) node [right] {$+$#5};
+      \draw (c@p@.south west) node [right] {$-$#5};
+      \draw (c@p@.south east) node [right] {$+$#5};
     \end{scope}
   \fi
 }
