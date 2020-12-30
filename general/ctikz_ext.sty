@@ -1,0 +1,254 @@
+\NeedsTeXFormat{pLaTeX2e}
+\ProvidesPackage{ctikz_ext}
+
+\usepackage[nooldvoltagedirection, straightvoltages, europeanresistors, cuteinductors, straightlabels]{circuitikz}
+
+% MWEs: /usr/local/texlive/2020/texmf-dist/tex/generic/circuitikz/
+% capacitor width
+\newcommand\Cwidth{bipoles/capacitor/width/.initial}
+
+% wavy capacitor
+\ctikzset{bipoles/wcapacitor/height/.initial=.3}
+\ctikzset{bipoles/wcapacitor/width/.initial=.12}
+\ctikzset{bipoles/wcapacitor/bend width/.initial=.6}
+%
+\def\pgf@circ@wcapacitor@path#1{\pgf@circ@bipole@path{wcapacitor}{#1}}
+\compattikzset{wavy capacitor/.style = {\circuitikzbasekey, /tikz/to path=\pgf@circ@wcapacitor@path, l=#1}}
+%
+\pgfcircdeclarebipolescaled{capacitors}
+{}
+{\ctikzvalof{bipoles/wcapacitor/height}}
+{wcapacitor}
+{\ctikzvalof{bipoles/wcapacitor/height}}
+{\ctikzvalof{bipoles/wcapacitor/width}}
+{
+  \pgf@circ@setlinewidth{bipoles}{\pgfstartlinewidth}
+
+  \pgfscope
+    \pgfsetlinewidth{.5pt}
+    \pgfpathmoveto{\pgfpoint{\pgf@circ@res@left}{\pgf@circ@res@up}}
+    \pgftransformrotate{-90}
+    \pgfpathsine{\pgfpoint{0.5\pgf@circ@res@up}{-\ctikzvalof{bipoles/wcapacitor/bend width}\pgf@circ@res@right}}
+    \pgfpathcosine{\pgfpoint{0.5\pgf@circ@res@up}{\ctikzvalof{bipoles/wcapacitor/bend width}\pgf@circ@res@right}}
+    \pgfpathsine{\pgfpoint{0.5\pgf@circ@res@up}{-\ctikzvalof{bipoles/wcapacitor/bend width}\pgf@circ@res@left}}
+    \pgfpathcosine{\pgfpoint{0.5\pgf@circ@res@up}{\ctikzvalof{bipoles/wcapacitor/bend width}\pgf@circ@res@left}}
+    \pgfusepath{draw}
+  \endpgfscope
+
+  \pgfscope
+    \pgfsetlinewidth{.5pt}
+    \pgfpathmoveto{\pgfpoint{\pgf@circ@res@right}{\pgf@circ@res@up}}
+    \pgftransformrotate{-90}
+    \pgfpathsine{\pgfpoint{0.5\pgf@circ@res@up}{-\ctikzvalof{bipoles/wcapacitor/bend width}\pgf@circ@res@right}}
+    \pgfpathcosine{\pgfpoint{0.5\pgf@circ@res@up}{\ctikzvalof{bipoles/wcapacitor/bend width}\pgf@circ@res@right}}
+    \pgfpathsine{\pgfpoint{0.5\pgf@circ@res@up}{-\ctikzvalof{bipoles/wcapacitor/bend width}\pgf@circ@res@left}}
+    \pgfpathcosine{\pgfpoint{0.5\pgf@circ@res@up}{\ctikzvalof{bipoles/wcapacitor/bend width}\pgf@circ@res@left}}
+    \pgfusepath{draw}
+  \endpgfscope
+}
+
+% capacitor
+\newcommand{\drawCapa}{\@ifstar{\@drawCapa}{\@@drawCapa}}
+\newcommand{\@drawCapa}[3]{%
+  \begin{scope}
+    \draw #1 to [capacitor, \Cwidth=0.4, name=c@p@] #2;
+    \draw (c@p@.center) node {#3};
+  \end{scope}
+}
+\newcommand{\@@drawCapa}[5][r]{%
+  \ifx#1r%
+    \begin{scope}
+      \draw #2 to [capacitor, \Cwidth=0.4, name=c@p@] #3;
+      \draw (c@p@.center) node {#4};
+      \draw (c@p@.north east) node [right] {$+$#5};
+      \draw (c@p@.north west) node [left] {$-$#5};
+    \end{scope}
+  \fi
+  \ifx#1l%
+    \begin{scope}
+      \draw #2 to [capacitor, \Cwidth=0.4, name=c@p@] #3;
+      \draw (c@p@.center) node {#4};
+      \draw (c@p@.north east) node [right] {$-$#5};
+      \draw (c@p@.north west) node [left] {$+$#5};
+    \end{scope}
+  \fi
+  \ifx#1u%
+    \begin{scope}
+      \draw #2 to [capacitor, \Cwidth=0.4, name=c@p@] #3;
+      \draw (c@p@.center) node {#4};
+      \draw (c@p@.south east) node [right] {$+$#5};
+      \draw (c@p@.south west) node [right] {$-$#5};
+    \end{scope}
+  \fi
+  \ifx#1d%
+    \begin{scope}
+      \draw #2 to [capacitor, \Cwidth=0.4, name=c@p@] #3;
+      \draw (c@p@.center) node {#4};
+      \draw (c@p@.south east) node [right] {$-$#5};
+      \draw (c@p@.south west) node [right] {$+$#5};
+    \end{scope}
+  \fi
+}
+
+% Alternative current Voltage Source
+\def\pgf@circ@ACV@path#1{\pgf@circ@bipole@path{ACV}{#1}}
+\compattikzset{ACV/.style = {\circuitikzbasekey, /tikz/to path=\pgf@circ@ACV@path, label=#1}}
+
+\pgfcircdeclarebipole{} % independent sinusoidal current source
+    {\ctikzvalof{bipoles/isourcesin/height}}
+    {ACV}
+    {\ctikzvalof{bipoles/isourcesin/height}}
+    {\ctikzvalof{bipoles/isourcesin/width}}
+    {
+        \pgfpointorigin
+        \pgfsetlinewidth{\pgfkeysvalueof{/tikz/circuitikz/bipoles/thickness}\pgfstartlinewidth}
+        \pgfpathellipse{\pgfpointorigin}{\pgfpoint{0}{\pgf@circ@res@up}}{\pgfpoint{\pgf@circ@res@left}{0}}
+        \pgfusepath{draw}
+        \pgf@circ@res@up = .5\pgf@circ@res@up
+        \pgfscope
+            \pgfpathmoveto{\pgfpoint{-\pgf@circ@res@up}{0cm}}
+            \pgfpathsine{\pgfpoint{.5\pgf@circ@res@up}{.5\pgf@circ@res@up}}
+            \pgfpathcosine{\pgfpoint{.5\pgf@circ@res@up}{-.5\pgf@circ@res@up}}
+            \pgfpathsine{\pgfpoint{.5\pgf@circ@res@up}{-.5\pgf@circ@res@up}}
+            \pgfpathcosine{\pgfpoint{.5\pgf@circ@res@up}{.5\pgf@circ@res@up}}
+            \pgfusepath{draw}
+        \endpgfscope
+
+        \pgfpathmoveto{\pgfpoint{.7\pgf@circ@res@left}{\pgf@circ@res@zero}}
+        \pgfpathlineto{\pgfpoint{.7\pgf@circ@res@right}{\pgf@circ@res@zero}}
+    }
+
+% transformer with no lines (plain & core)
+\def\pgf@circ@drawtransformerbasicbody@nl{
+    \pgfscope
+        \pgfslopedattimetrue
+        \pgfallowupsidedownattimetrue
+        \pgftransformlineattime{.5}{%
+            \pgfpoint%
+            {\pgf@circ@res@left}%
+            {\pgf@circ@res@up}%
+            }{%
+            \pgfpoint
+            {\pgf@circ@res@left}%
+            {\pgf@circ@res@down}%
+        }
+
+        \pgfkeys{\circuitikzbasekey/.cd, transformer L1}
+        \edef\pgf@circ@temp{\ctikzvalof{inductor}}%
+        \def\pgf@temp{european}%
+        \ifx\pgf@temp\pgf@circ@temp%
+            \pgfnode{fullgenericshape}{center}{}{\thisshape-L1}{\pgfusepath{stroke}}
+        \else%
+            \def\pgf@temp{cute}
+            \ifx\pgf@temp\pgf@circ@temp%
+                \pgfnode{cuteinductorshape}{center}{}{\thisshape-L1}{\pgfusepath{stroke}}
+            \else%
+                \pgfnode{americaninductorshape}{center}{}{\thisshape-L1}{\pgfusepath{stroke}}
+            \fi%
+        \fi%
+
+
+    \endpgfscope
+    \pgfscope
+        \pgfslopedattimetrue
+        \pgfallowupsidedownattimetrue
+        \pgftransformlineattime{.5}{%
+            \pgfpoint%
+            {\pgf@circ@res@right}%
+            {\pgf@circ@res@down}%
+            }{%
+            \pgfpoint
+            {\pgf@circ@res@right}%
+            {\pgf@circ@res@up}%
+        }
+
+        \pgfkeys{\circuitikzbasekey/.cd, transformer L2}
+        \edef\pgf@circ@temp{\ctikzvalof{inductor}}%
+        \def\pgf@temp{european}%
+        \ifx\pgf@temp\pgf@circ@temp%
+            \pgfnode{fullgenericshape}{center}{}{\thisshape-L2}{\pgfusepath{stroke}}
+        \else%
+            \def\pgf@temp{cute}
+            \ifx\pgf@temp\pgf@circ@temp%
+                \pgfnode{cuteinductorshape}{center}{}{\thisshape-L2}{\pgfusepath{stroke}}
+            \else%
+                \pgfnode{americaninductorshape}{center}{}{\thisshape-L2}{\pgfusepath{stroke}}
+            \fi%
+        \fi%
+
+    \endpgfscope
+
+    \pgfpathmoveto{\pgfpoint{\pgf@circ@res@left}{\pgf@circ@res@up}}
+    \pgfpathlineto{\pgfpoint{\pgf@circ@res@left}{\pgf@circ@res@up}}
+    \pgfpathlineto{\pgfpointanchor{\thisshape-L1}{b}}
+
+    \pgfpathmoveto{\pgfpointanchor{\thisshape-L1}{a}}
+    % \pgfpathlineto{\pgfpoint{\pgf@circ@res@left}{\pgf@circ@res@down}}
+    \pgfpathlineto{\pgfpoint{\pgf@circ@res@left}{\pgf@circ@res@down}}
+
+    \pgfpathmoveto{\pgfpoint{\pgf@circ@res@right}{\pgf@circ@res@up}}
+    % \pgfpathlineto{\pgfpoint{\pgf@circ@res@right}{\pgf@circ@res@up}}
+    \pgfpathlineto{\pgfpointanchor{\thisshape-L2}{a}}
+
+    \pgfpathmoveto{\pgfpointanchor{\thisshape-L2}{b}}
+    % \pgfpathlineto{\pgfpoint{\pgf@circ@res@right}{\pgf@circ@res@down}}
+    \pgfpathlineto{\pgfpoint{\pgf@circ@res@right}{\pgf@circ@res@down}}
+
+    \pgfusepath{draw}
+
+}
+
+\pgfcircdeclarequadpole{transformerNL}{
+    \pgf@circ@drawtransformerbasicbody@nl
+}{\pgf@circ@drawtransformerbasicanchor}
+
+\ctikzset{quadpoles/transformerNL/inner/.initial=0.4}
+\ctikzset{quadpoles/transformerNL/width/.initial=0.65}
+\ctikzset{quadpoles/transformerNL/width1/.initial=.4}
+\ctikzset{quadpoles/transformerNL/height/.initial=1.5}
+\ctikzset{quadpoles/transformerNL/height1/.initial=.8}
+
+\pgfcircdeclarequadpole{transformerNL core}{
+
+    \pgf@circ@drawtransformerbasicbody@nl
+
+    % use the chocke line thickness
+    \pgfsetlinewidth{\ctikzvalof{bipoles/cutechoke/cthick}\pgflinewidth}
+
+    % Find the distance from center for the lines representing the core
+    % the 2.5 is for backward compatibility --- the distance was calculated as a fraction
+    % of the whole component, now as a fraction of the distance between coils, to be
+    % compatible with the quadpoles "inner" style.
+    \pgfmathsetlength{\pgf@circ@res@other}{2.5*\stretto*\ctikzvalof{quadpoles/transformer core/core width}*\pgf@circ@res@right}
+
+    \pgfmoveto{\pgfpoint%
+        {\pgf@circ@res@other}%
+        {\ctikzvalof{quadpoles/transformer core/core height}\pgf@circ@res@down}%
+    }
+    \pgflineto{
+        \pgfpoint%
+        {\pgf@circ@res@other}%
+        {\ctikzvalof{quadpoles/transformer core/core height}\pgf@circ@res@up}%
+    }
+
+    %% this should be just -\pgf@circ@res@other, but in case someone define an asymmetric trafo someday...
+    \pgfmathsetlength{\pgf@circ@res@other}{2.5*\stretto*\ctikzvalof{quadpoles/transformer core/core width}*\pgf@circ@res@left}
+    \pgfmoveto{\pgfpoint%
+        {\pgf@circ@res@other}%
+        {\ctikzvalof{quadpoles/transformer core/core height}\pgf@circ@res@down}%
+    }
+    \pgflineto{
+        \pgfpoint%
+        {\pgf@circ@res@other}%
+        {\ctikzvalof{quadpoles/transformer core/core height}\pgf@circ@res@up}%
+    }
+
+    \pgf@circ@setlinewidth{bipoles}{\pgflinewidth}
+    \pgfusepath{draw}
+}{\pgf@circ@drawtransformerbasicanchor}
+
+\ctikzset{quadpoles/transformerNL core/inner/.initial=1}
+\ctikzset{quadpoles/transformerNL core/width/.initial=0.65}
+\ctikzset{quadpoles/transformerNL core/height/.initial=1.5}
+\ctikzset{quadpoles/transformerNL core/core height/.initial=.5}
+\ctikzset{quadpoles/transformerNL core/core width/.initial=.05}
