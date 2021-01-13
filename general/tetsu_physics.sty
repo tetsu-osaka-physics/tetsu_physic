@@ -13,24 +13,24 @@
 \usepackage{caption}
 \usepackage{cases}
 \usepackage{wrapfig}
-\usepackage{titlesec}
+% \usepackage{titlesec}
 \usepackage{eqnum_extended, enumitem_extended, Fcntr, uw, figcap_ext}
 \usepackage{tikz}
 \usetikzlibrary{intersections, calc, arrows, decorations.pathmorphing, decorations.markings, patterns, angles, quotes}
 \usepackage{ctikz_ext}
 
 % titilesec paragraph
-\renewcommand{\jsParagraphMark}{■}
-\if@twocolumn
-  \renewcommand{\paragraph}{\@startsection{paragraph}{4}{\z@}%
-    {\z@}{\if@slide .4\Cvs \else -1zw\fi}% 改行せず 1zw のアキ
-    {\normalfont\normalsize\headfont\jsParagraphMark}}
-\else
-  \renewcommand{\paragraph}{\@startsection{paragraph}{4}{\z@}%
-    {0.5\Cvs \@plus.5\Cdp \@minus.2\Cdp}%
-    {\if@slide .5\Cvs \@plus.3\Cdp \else -1zw\fi}% 改行せず 1zw のアキ
-    {\normalfont\normalsize\headfont\jsParagraphMark}}
-\fi
+% \renewcommand{\jsParagraphMark}{■}
+% \if@twocolumn
+%   \renewcommand{\paragraph}{\@startsection{paragraph}{4}{\z@}%
+%     {\z@}{\if@slide .4\Cvs \else -1zw\fi}% 改行せず 1zw のアキ
+%     {\normalfont\normalsize\headfont\jsParagraphMark}}
+% \else
+%   \renewcommand{\paragraph}{\@startsection{paragraph}{4}{\z@}%
+%     {0.5\Cvs \@plus.5\Cdp \@minus.2\Cdp}%
+%     {\if@slide .5\Cvs \@plus.3\Cdp \else -1zw\fi}% 改行せず 1zw のアキ
+%     {\normalfont\normalsize\headfont\jsParagraphMark}}
+% \fi
 
 % enumerate indent and sep
 \ifideographic@\setlist{leftmargin=2zw, topsep=1zw, itemsep=.5zw, listparindent=1zw, labelsep=1zw, itemindent=1zw}\fi
