@@ -13,6 +13,17 @@
 
 % don't load in tetsu_physics.sty
 \usepackage{titlesec}
+\renewcommand{\jsParagraphMark}{■}
+\if@twocolumn
+  \renewcommand{\paragraph}{\@startsection{paragraph}{4}{\z@}%
+    {\z@}{\if@slide .4\Cvs \else -1zw\fi}% 改行せず 1zw のアキ
+    {\normalfont\normalsize\headfont\jsParagraphMark}}
+\else
+  \renewcommand{\paragraph}{\@startsection{paragraph}{4}{\z@}%
+    {0.5\Cvs \@plus.5\Cdp \@minus.2\Cdp}%
+    {\if@slide .5\Cvs \@plus.3\Cdp \else -1zw\fi}% 改行せず 1zw のアキ
+    {\normalfont\normalsize\headfont\jsParagraphMark}}
+\fi
 
 \newcommand{\tabtopsp}[1]{\vbox{\vbox to#1{}\vbox to 1zw{}}}
 \renewcommand{\headrulewidth}{0pt}
