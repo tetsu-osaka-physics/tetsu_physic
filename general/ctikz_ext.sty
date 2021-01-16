@@ -391,24 +391,24 @@
             \pgftransformshift{\pgfpoint{\pgf@circ@res@step}{0pt}}
             \pgfnode{currarrow}{tip}{}{}{\pgfusepath{fill}}
         \endpgfscope
-				\iffl@w@x
-					\pgfscope
-							\pgfsetlinewidth{.5mm}
-	            \pgf@circ@res@step = \pgf@circ@Rlen
-	            \divide \pgf@circ@res@step by 12
-	            \pgfpathmoveto{\pgfpoint{-\pgf@circ@res@step}{\pgf@circ@res@step}}
-	            \pgfpathlineto{\pgfpoint{\pgf@circ@res@step}{-\pgf@circ@res@step}}
-	            \pgfusepath{draw}
-	        \endpgfscope
-					\pgfscope
-							\pgfsetlinewidth{.5mm}
-	            \pgf@circ@res@step = \pgf@circ@Rlen
-	            \divide \pgf@circ@res@step by 12
-	            \pgfpathmoveto{\pgfpoint{-\pgf@circ@res@step}{-\pgf@circ@res@step}}
-	            \pgfpathlineto{\pgfpoint{\pgf@circ@res@step}{\pgf@circ@res@step}}
-	            \pgfusepath{draw}
-	        \endpgfscope
-				\fi
+        \iffl@w@x
+        	\pgfscope
+        			\pgfsetlinewidth{.5mm}
+              \pgf@circ@res@step = \pgf@circ@Rlen
+              \divide \pgf@circ@res@step by 12
+              \pgfpathmoveto{\pgfpoint{-\pgf@circ@res@step}{\pgf@circ@res@step}}
+              \pgfpathlineto{\pgfpoint{\pgf@circ@res@step}{-\pgf@circ@res@step}}
+              \pgfusepath{draw}
+          \endpgfscope
+        	\pgfscope
+        			\pgfsetlinewidth{.5mm}
+              \pgf@circ@res@step = \pgf@circ@Rlen
+              \divide \pgf@circ@res@step by 12
+              \pgfpathmoveto{\pgfpoint{-\pgf@circ@res@step}{-\pgf@circ@res@step}}
+              \pgfpathlineto{\pgfpoint{\pgf@circ@res@step}{\pgf@circ@res@step}}
+              \pgfusepath{draw}
+          \endpgfscope
+        \fi
     }
 }
 % end of no current flow
