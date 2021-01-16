@@ -1,0 +1,74 @@
+\NeedsTeXFormat{pLaTeX2e}
+\ProvidesPackage{h3_handai_p}
+\PackageInfo{h3b_rt_p}{expected global options: \MessageBreak
+[a4paper, papersize, 12pt, dvipdfmx, bold]}
+\usepackage[ideographic]{tetsu_physics}
+\usepackage{ascmac}
+\fancypagestyle{pg}
+{\lhead{}
+\rhead{}
+\cfoot{-- \thepage\ --}
+\renewcommand{\headrulewidth}{0.0pt}}
+\renewcommand{\baselinestretch}{1.2}
+\setlength{\textheight}{\paperheight}
+\setlength{\topmargin}{4.6truemm}
+\addtolength{\topmargin}{-\headheight}
+\addtolength{\topmargin}{-\headsep}
+\addtolength{\textheight}{-60truemm}
+\setlength{\textwidth}{150truemm}
+\setlength{\oddsidemargin}{+4.6truemm}
+\setlength{\evensidemargin}{+4.6truemm}
+\setlength{\fboxrule}{1pt}
+
+\renewcommand{\thefigure}{\arabic{figure}}
+% \renewcommand{\thetable}{\Combarabic{table}}
+\normalfigcapsty{arabic}
+
+\captionsetup[figure]{font=normalsize}
+\captionsetup[sub]{margin=0pt, font=small, labelformat=simple, labelsep=space, skip=6pt, list=false, hypcap=false}
+% \captionsetup[table]{font=normalsize}
+
+\@addtoreset{equation}{section}
+\@addtoreset{figure}{section}
+\@addtoreset{table}{section}
+
+\renewcommand{\section}{%\setlength{\oddsidemargin}{0zw}%
+  \if@slide\clearpage\fi
+  \@startsection{section}{1}{\z@}%
+  {\Cvs \@plus.5\Cdp \@minus.2\Cdp}% 前アキ
+  {\z@}% 後アキ
+  {\hskip -1zw\relax\headfont\raggedright}}
+
+\def\@sect#1#2#3#4#5#6[#7]#8{%
+  \ifnum #2>\c@secnumdepth
+    \let\@svsec\@empty
+  \else
+    \refstepcounter{#1}%
+    \protected@edef\@svsec{\@seccntformat{#1}\relax}%
+  \fi
+  \ifdim \@tempskipa<\z@
+    \def\@svsechd{%
+      #6{\hskip #3\relax
+      \@svsec #8}%
+      \csname #1mark\endcsname{#7}%
+      \addcontentsline{toc}{#1}{%
+        \ifnum #2>\c@secnumdepth \else
+          \protect\numberline{\csname the#1\endcsname}%
+        \fi
+        #7}}% 目次にフルネームを載せるなら #8
+  \else
+    \begingroup
+      \interlinepenalty \@M % 下から移動
+      #6{\@svsec}%
+    \endgroup
+    \csname #1mark\endcsname{#7}%
+    \addcontentsline{toc}{#1}{%
+      \ifnum #2>\c@secnumdepth \else
+        \protect\numberline{\csname the#1\endcsname}%
+      \fi
+      #7}% 目次にフルネームを載せるならここは #8
+  \fi}
+
+\renewcommand{\thesection}{{\Large \normalfont{〔}\,\textbf{\Combarabic{section}}\,\normalfont{〕}}}
+
+\newcommand\emptypage{\begin{center}《計算余白》\end{center}\newpage}
