@@ -1,5 +1,6 @@
 \NeedsTeXFormat{pLaTeX2e}
 \ProvidesPackage{ctikz_ext}
+\newif\iffl@w@x
 
 \usepackage[nooldvoltagedirection, straightvoltages, europeanresistors, cuteinductors, straightlabels]{circuitikz}
 
@@ -46,8 +47,9 @@
     \pgfusepath{draw}
   \endpgfscope
 }
+% end of wavy capacitor
 
-% capacitor
+% charged capacitor
 \newcommand{\drawCapa}{\@ifstar{\@drawCapa}{\@@drawCapa}}
 \newcommand{\@drawCapa}[3]{%
   \begin{scope}
@@ -89,6 +91,7 @@
     \end{scope}
   \fi
 }
+% end of charged capacitor
 
 % Alternative current Voltage Source
 \def\pgf@circ@ACV@path#1{\pgf@circ@bipole@path{ACV}{#1}}
@@ -117,6 +120,7 @@
         \pgfpathmoveto{\pgfpoint{.7\pgf@circ@res@left}{\pgf@circ@res@zero}}
         \pgfpathlineto{\pgfpoint{.7\pgf@circ@res@right}{\pgf@circ@res@zero}}
     }
+% end of Alternative current Voltage Source
 
 % transformer with no lines (plain & core)
 \def\pgf@circ@drawtransformerbasicbody@nl{
@@ -252,3 +256,159 @@
 \ctikzset{quadpoles/transformerNL core/height/.initial=1.5}
 \ctikzset{quadpoles/transformerNL core/core height/.initial=.5}
 \ctikzset{quadpoles/transformerNL core/core width/.initial=.05}
+% end of transformer with no lines (plain & core)
+
+% no current flow
+\ctikzset{xf^>/.style = {
+        xf = #1,
+        \circuitikzbasekey/bipole/flow/direction = forward,
+        \circuitikzbasekey/bipole/flow/x position = after,
+        \circuitikzbasekey/bipole/flow/y position = above
+    }
+}
+
+\ctikzset{xf_>/.style = {
+        xf = #1,
+        \circuitikzbasekey/bipole/flow/direction = forward,
+        \circuitikzbasekey/bipole/flow/x position = after,
+        \circuitikzbasekey/bipole/flow/y position = below
+    }
+}
+
+\ctikzset{xf>^/.style = {
+        xf = #1,
+        \circuitikzbasekey/bipole/flow/direction = forward,
+        \circuitikzbasekey/bipole/flow/x position = before,
+        \circuitikzbasekey/bipole/flow/y position = above
+    }
+}
+
+\ctikzset{xf>_/.style = {
+        xf = #1,
+        \circuitikzbasekey/bipole/flow/direction = forward,
+        \circuitikzbasekey/bipole/flow/x position = before,
+        \circuitikzbasekey/bipole/flow/y position = below
+    }
+}
+
+\ctikzset{xf^</.style = {
+        xf = #1,
+        \circuitikzbasekey/bipole/flow/direction = backward,
+        \circuitikzbasekey/bipole/flow/x position = after,
+        \circuitikzbasekey/bipole/flow/y position = above
+    }
+}
+
+\ctikzset{xf_</.style = {
+        xf = #1,
+        \circuitikzbasekey/bipole/flow/direction = backward,
+        \circuitikzbasekey/bipole/flow/x position = after,
+        \circuitikzbasekey/bipole/flow/y position = below
+    }
+}
+
+\ctikzset{xf<^/.style = {
+        xf = #1,
+        \circuitikzbasekey/bipole/flow/direction = backward,
+        \circuitikzbasekey/bipole/flow/x position = before,
+        \circuitikzbasekey/bipole/flow/y position = above
+    }
+}
+
+\ctikzset{xf<_/.style = {
+        xf = #1,
+        \circuitikzbasekey/bipole/flow/direction = backward,
+        \circuitikzbasekey/bipole/flow/x position = before,
+        \circuitikzbasekey/bipole/flow/y position = below
+    }
+}
+
+\ctikzset{xf</.style = { xf = #1, \circuitikzbasekey/bipole/flow/direction = backward} }
+\ctikzset{xf_/.style = { xf = #1, \circuitikzbasekey/bipole/flow/y position = below } }
+\ctikzset{xf>/.style = { xf = #1, \circuitikzbasekey/bipole/flow/direction = forward } }
+\ctikzset{xf^/.style = { xf = #1, \circuitikzbasekey/bipole/flow/y position = above } }
+
+\ctikzset{xf/.code = {
+				\fl@w@xtrue
+        \pgfcirc@has@ftrue
+        \pgfkeys{\circuitikzbasekey/bipole/flow/direction = forward,
+            \circuitikzbasekey/bipole/flow/x position = after,
+        \circuitikzbasekey/bipole/flow/y position = above }
+        \pgfkeys{/tikz/circuitikz/bipole/flow/label/name=#1}
+        \ctikzsetvalof{bipole/flow/label/unit}{}
+        \ifpgf@circ@siunitx
+            \pgf@circ@handleSI{#1}
+            \ifpgf@circ@siunitx@res
+                \edef\pgf@temp{\pgf@circ@handleSI@val}
+                \pgfkeyslet{/tikz/circuitikz/bipole/flow/label/name}{\pgf@temp}
+                \edef\pgf@temp{\pgf@circ@handleSI@unit}
+                \pgfkeyslet{/tikz/circuitikz/bipole/flow/label/unit}{\pgf@temp}
+            \else
+        \fi
+        \else
+    \fi
+}
+}
+
+\pgfdeclareshape{flowarrow}{
+    \savedanchor{\northeast}{%
+        \pgf@circ@res@step = \pgf@circ@Rlen
+        \divide \pgf@circ@res@step by \ctikzvalof{current arrow scale}
+        \pgf@y=.5\pgf@circ@res@step
+        \pgf@circ@res@step = \pgf@circ@Rlen
+        \divide \pgf@circ@res@step by 4
+        \pgf@x=\pgf@circ@res@step%
+    }
+    \anchor{north}{\northeast\pgf@x=0cm\relax}
+    \anchor{east}{\northeast\pgf@y=0cm\relax}
+    \anchor{south}{\northeast\pgf@y=-\pgf@y \pgf@x=0cm\relax}
+    \anchor{west}{\northeast\pgf@y=0cm\pgf@x=-\pgf@x}
+    \anchor{north east}{\northeast}
+    \anchor{north west}{\northeast\pgf@x=-\pgf@x}
+    \anchor{south east}{\northeast\pgf@y=-\pgf@y}
+    \anchor{south west}{\northeast\pgf@y=-\pgf@y\pgf@x=-\pgf@x}
+    \anchor{text}{% text centered above
+        \pgfpointorigin
+        \pgfpoint{-.5\wd\pgfnodeparttextbox}{\dimexpr.5\dp\pgfnodeparttextbox+.5\ht\pgfnodeparttextbox}
+    }
+    \anchor{center}{
+        \pgfpointorigin
+    }
+    \anchor{tip}{
+        \pgfpointorigin
+        \pgf@circ@res@step = \pgf@circ@Rlen
+        \divide \pgf@circ@res@step by \ctikzvalof{current arrow scale}
+        \pgf@x	=\pgf@circ@res@step
+    }
+    \behindforegroundpath{
+        \pgfscope
+            \pgf@circ@res@step = \pgf@circ@Rlen
+            \divide \pgf@circ@res@step by 4
+            \pgfpathmoveto{\pgfpoint{-\pgf@circ@res@step}{0pt}}
+            \pgfpathlineto{\pgfpoint{\pgf@circ@res@step}{0pt}}
+            \pgfsetcolor{\ctikzvalof{color}}
+            \pgfusepath{draw}
+            \pgftransformshift{\pgfpoint{\pgf@circ@res@step}{0pt}}
+            \pgfnode{currarrow}{tip}{}{}{\pgfusepath{fill}}
+        \endpgfscope
+				\iffl@w@x
+					\pgfscope
+							\pgfsetlinewidth{.5mm}
+	            \pgf@circ@res@step = \pgf@circ@Rlen
+	            \divide \pgf@circ@res@step by 12
+	            \pgfpathmoveto{\pgfpoint{-\pgf@circ@res@step}{\pgf@circ@res@step}}
+	            \pgfpathlineto{\pgfpoint{\pgf@circ@res@step}{-\pgf@circ@res@step}}
+	            \pgfusepath{draw}
+	        \endpgfscope
+					\pgfscope
+							\pgfsetlinewidth{.5mm}
+	            \pgf@circ@res@step = \pgf@circ@Rlen
+	            \divide \pgf@circ@res@step by 12
+	            \pgfpathmoveto{\pgfpoint{-\pgf@circ@res@step}{-\pgf@circ@res@step}}
+	            \pgfpathlineto{\pgfpoint{\pgf@circ@res@step}{\pgf@circ@res@step}}
+	            \pgfusepath{draw}
+	        \endpgfscope
+				\fi
+    }
+}
+% end of no current flow
