@@ -7,7 +7,24 @@
 
 \usepackage{enumitem_extended}
 \usepackage{graphicx}
+\usepackage{subcaption}
 
+% recommended
+\captionsetup[sub]{margin=0pt, font+=smaller, labelformat=simple, labelsep=space, skip=6pt, list=false, hypcap=false}
+
+\newcommand\setsubfigcapstyle{\@ifstar{\@@setsubfigcapstyle}{\@setsubfigcapstyle}}
+
+\newcommand\@@setsubfigcapstyle[2][\relax]{
+  \renewcommand{\subfigurename}{#1}%
+  \renewcommand{\thesubfigure}{\figurename\thefigure\csname#2\endcsname{subfigure}}%
+  }
+
+\newcommand\@setsubfigcapstyle[2][\relax]{
+  \renewcommand{\subfigurename}{#1}%
+  \renewcommand{\thesubfigure}{\csname#2\endcsname{subfigure}}%
+  }
+
+% obsolete
 \newcommand\setfigcapstyle[1]{\let\previ@usfigurename\figurename
   \renewcommand{\figurename}{}%
   \let\previ@usfigcapsty\thefigure
