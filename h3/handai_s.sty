@@ -1,0 +1,28 @@
+\NeedsTeXFormat{pLaTeX2e}
+\ProvidesPackage{handai_s}
+\PackageInfo{handai_s}{expected global options: \MessageBreak
+[a4paper, papersize, dvipdfmx, fleqn, f, nobox, anslabel, bold]}
+
+\usepackage{tetsu_physics}
+
+\newcommand{\tabtopsp}[1]{\vbox{\vbox to#1{}\vbox to 1zw{}}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\arraystretch}{2}
+
+\renewcommand{\thesection}{{\Large \normalfont{〔}\,\textbf{\Combarabic{section}}\,\normalfont{〕}}}
+
+\renewcommand{\figurename}{解答図}
+\setlength\belowcaptionskip{-5\p@} % dafault: 5\jsc@mpt
+% \captionsetup[table]{font=normalsize}
+
+\@addtoreset{equation}{section}
+\@addtoreset{figure}{section}
+\@addtoreset{table}{section}
+
+\fancypagestyle{pg}
+{\lhead{}
+\rhead{}
+\cfoot{\normalsize{-- \thepage\ --}}
+\renewcommand{\headrulewidth}{0.0pt}}
+
+\pagestyle{pg}
