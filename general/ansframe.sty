@@ -1,5 +1,12 @@
 \NeedsTeXFormat{pLaTeX2e}
 \ProvidesPackage{ansframe}
+\PackageInfo{ansframe}{availabel global options: \MessageBreak
+[nolabelframe]}
+
+\newif\ifn@l@belfr@me
+\DeclareOption{nolabelframe}{\n@l@belfr@metrue}
+\ProcessOptions*
+
 \usepackage{tikz}
 \usetikzlibrary{intersections, calc}
 \usepackage{Fcntr}
@@ -48,7 +55,8 @@
   \drawframe[\fr@meheight]{\fr@melen}}
 
 \newcommand\drawlabel[1][\defaultheight]{\fr@meheight#1%
-  \draw [thick] (\fr@meXposition+\indexlen,\fr@meYposition)--(\fr@meXposition,\fr@meYposition)--(\fr@meXposition,\fr@meYposition-\fr@meheight)--(\fr@meXposition+\indexlen,\fr@meYposition-\fr@meheight);%
+  \ifn@l@belfr@me\else
+  \draw [thick] (\fr@meXposition+\indexlen,\fr@meYposition)--(\fr@meXposition,\fr@meYposition)--(\fr@meXposition,\fr@meYposition-\fr@meheight)--(\fr@meXposition+\indexlen,\fr@meYposition-\fr@meheight);\fi
   \draw (\fr@meXposition+\indexlen/2,\fr@meYposition-\fr@meheight/2)node{\normalsize\f*{}};}
 
 \newcommand\drawframe[2][\defaultheight]{\fr@meheight#1%
