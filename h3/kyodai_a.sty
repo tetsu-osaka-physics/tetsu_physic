@@ -1,0 +1,36 @@
+\NeedsTeXFormat{pLaTeX2e}
+\ProvidesPackage{kyodai_a}
+\PackageInfo{kyodai_a}{expected global options: \MessageBreak
+[a4paper, papersize, 12pt, dvipdfmx, deluxe]}
+
+\usepackage{tetsu_physics}
+
+% don't load in tetsu_physics.sty
+\usepackage[nolabelframe]{ansframe}
+
+\setlength\hoffset{-10pt}
+\setlength\voffset{-30pt}
+\setlength\headheight{20pt}
+\setlength\topmargin{0pt}
+\setlength\headsep{0pt}
+\setlength\textwidth{400pt}
+\setlength\textheight{630pt}
+\parindent=0truept
+\defaultheight=60truept
+\indexlen=50truept
+\frameXinterval=50truept
+\frameYinterval=35truept
+\setlength\marginparsep{0pt}
+\setlength\marginparwidth{0pt}
+\renewcommand\headrulewidth{0pt}
+
+\pagestyle{fancy}
+\rhead{}\chead{{\large 解答用}}\lhead{}
+\cfoot{}
+
+\renewcommand{\thesection}{\hspace{-2zw}\textbf{\textrm{物理問題\Roman{section}}}}
+
+\renewcommand\drawlabel[1][\defaultheight]{\fr@meheight#1%
+  \ifn@l@belfr@me\else
+  \draw [thick] (\fr@meXposition+\indexlen,\fr@meYposition)--(\fr@meXposition,\fr@meYposition)--(\fr@meXposition,\fr@meYposition-\fr@meheight)--(\fr@meXposition+\indexlen,\fr@meYposition-\fr@meheight);\fi
+  \draw (\fr@meXposition+\indexlen/2,\fr@meYposition-\fr@meheight/2)node{\large\f*{}};}
