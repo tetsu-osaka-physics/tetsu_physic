@@ -13,6 +13,7 @@
 \usepackage{color}
 % いくつかの部分はtempdimとか使ってるが，nodeの機能[above left]とかを使った方が良さげ --2020/4/10
 % 末尾の奴にも\frameXintervalが設定されるのが微妙かな．修正するかも --2020/7/22
+% →修正した --2021/8/20
 % /のcatcodeは\char 47 --2020/7/23
 
 \newdimen\fr@meheight
@@ -47,9 +48,13 @@
     \fr@menum\@cdr#2\@nil
     \fr@melen\textwidth
     \ifl@belnest\advance\fr@melen by -\indexlen\fi
+    % \divide\fr@melen by \fr@menum
+    % \advance\fr@melen by -\indexlen
+    % \advance\fr@melen by -\frameXinterval
+    \advance\fr@melen by \frameXinterval
+    \advance\fr@melen by - \fr@menum\frameXinterval
     \divide\fr@melen by \fr@menum
     \advance\fr@melen by -\indexlen
-    \advance\fr@melen by -\frameXinterval
   \else\fr@melen#2\fi
   \drawlabel[\fr@meheight]%
   \drawframe[\fr@meheight]{\fr@melen}}
@@ -131,9 +136,13 @@
   \fr@menum#2%
   \fr@melen\textwidth
   \ifl@belnest\advance\fr@melen by -\indexlen\fi
+  % \divide\fr@melen by \fr@menum
+  % \advance\fr@melen by -\indexlen
+  % \advance\fr@melen by -\frameXinterval
+  \advance\fr@melen by \frameXinterval
+  \advance\fr@melen by - \fr@menum\frameXinterval
   \divide\fr@melen by \fr@menum
   \advance\fr@melen by -\indexlen
-  \advance\fr@melen by -\frameXinterval
   %
   \@tempcnta=\z@
   \loop\ifnum\@tempcnta<\fr@menum
@@ -149,9 +158,13 @@
     \fr@menum\@cdr#3\@nil
     \fr@meDivlen\textwidth
     \ifl@belnest\advance\fr@meDivlen by -\indexlen\fi
+    % \divide\fr@meDivlen by \fr@menum
+    % \advance\fr@meDivlen by -\indexlen
+    % \advance\fr@meDivlen by -\frameXinterval
+    \advance\fr@meDivlen by \frameXinterval
+    \advance\fr@meDivlen by - \fr@menum\frameXinterval
     \divide\fr@meDivlen by \fr@menum
     \advance\fr@meDivlen by -\indexlen
-    \advance\fr@meDivlen by -\frameXinterval
   \else\fr@meDivlen#3\fi
   \divide\fr@meDivlen by #2%
   \fr@meheight#1%
@@ -174,9 +187,13 @@
     \fr@menum\@cdr#3\@nil
     \wh@lelen\textwidth
     \ifl@belnest\advance\wh@lelen by -\indexlen\fi
+    % \divide\wh@lelen by \fr@menum
+    % \advance\wh@lelen by -\indexlen
+    % \global\advance\wh@lelen by -\frameXinterval
+    \advance\wh@lelen by \frameXinterval
+    \advance\wh@lelen by - \fr@menum\frameXinterval
     \divide\wh@lelen by \fr@menum
     \advance\wh@lelen by -\indexlen
-    \global\advance\wh@lelen by -\frameXinterval
   \else\global\wh@lelen#3\fi
   \global\l@belcall\@ne
   \global\l@beldrawtrue}
@@ -187,9 +204,13 @@
     \fr@menum\@cdr#3\@nil
     \wh@lelen\textwidth
     \ifl@belnest\advance\wh@lelen by -\indexlen\fi
+    % \divide\wh@lelen by \fr@menum
+    % \advance\wh@lelen by -\indexlen
+    % \global\advance\wh@lelen by -\frameXinterval
+    \advance\wh@lelen by \frameXinterval
+    \advance\wh@lelen by - \fr@menum\frameXinterval
     \divide\wh@lelen by \fr@menum
     \advance\wh@lelen by -\indexlen
-    \global\advance\wh@lelen by -\frameXinterval
   \else\global\wh@lelen#3\fi
   \global\l@belcall\@ne
   \global\l@beldrawfalse}
