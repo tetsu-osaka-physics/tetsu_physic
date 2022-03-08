@@ -3,17 +3,7 @@
 \PackageInfo{h3b_rt_s}{expected global options: \MessageBreak
 []}
 
-%%%%%%%%%%%パッケージ奴%%%%%%%%%%%
-
-% \usepackage{amsmath,amssymb,amsthm,ulem,fancyhdr,fancybox,layout,caption,titlesec,cases}
-% \usepackage[dvipdfmx]{graphicx}
-% \usepackage[version=4]{mhchem}
-% \usepackage{eqnum_extended,enumitem_extended}
-% \usepackage[nobox]{Fcntr}
-% \usepackage{uw}
 \usepackage{tetsu_physics}
-
-%%%%%%%%%%%余白等奴%%%%%%%%%%%
 
 % ######## measure #########
 % # mm = 1mm = 2.85pt      #
@@ -48,23 +38,9 @@
 \setlength{\columnsep}{3zw}
 \setlength{\columnseprule}{0.4pt}
 
-%%%%%%%%%%%基本コマンド奴%%%%%%%%%%%
-
 \newcommand{\maru}[1]{\ajMaru{#1}}
 
-%%%%%%%%%%%sectionで大問定義する奴%%%%%%%%%%%
-
-% H３Bの原本はsty化してない（ただ，余白とかのレイアウトは設定した）．多分，2020年度から変える．
-% ここの設定もH2Bのまま．
-
-\renewcommand{\thesection}{\underline{\large\textgt{第　\Combarabic{section}　問}}}
-\titleformat{\section}[hang]
-{\Large\gtfamily}
-{\filright\thesection}{.5em}{\filcenter}[]
-\titlespacing{\section}
-{\parindent}{1.5ex plus .1ex minus .2ex}{0pt}
-
-%%%%%%%%%%%解答図キャプションを全角にする奴%%%%%%%%%%%
+\renewcommand{\thesection}{{\large\textgt{第\Combarabic{section}問}}}
 
 \renewcommand{\thefigure}{\Combarabic{figure}}
 \renewcommand{\thetable}{\Combarabic{table}}
@@ -73,14 +49,8 @@
 \renewcommand{\figurename}{解答図}
 % \captionsetup[table]{font=normalsize}
 
-%%%%%%%%%%%大問ごとにリセットする奴%%%%%%%%%%%
-
-\makeatletter
 \@addtoreset{equation}{section}
 \@addtoreset{figure}{section}
 \@addtoreset{table}{section}
-\makeatother
-
-%%%%%%%%%%%ページ番号のスタイル奴%%%%%%%%%%%
 
 \pagestyle{empty}
