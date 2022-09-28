@@ -93,6 +93,73 @@
 }
 % end of charged capacitor
 
+% coil 3d
+\newcommand\drawcoil[6][R]{%
+  % #1: heliciy
+  % #2: start point
+  % #3: relative coordinate
+  % #4: amplitude
+  % #5: aspect
+  % #6: number of loops
+  %
+  \tikzmath{coordinate \st@p;
+  coordinate \r@l;
+  \st@p = #2;
+  \r@l = #3;
+  \totlen = veclen#3; % [cm]
+  \len = (\totlen * 1cm/1pt - 2*#5*#4) / (#6+0.5);}
+  %
+  \pgfmathanglebetweenpoints{\pgfpoint{0cm}{0cm}}{\pgfpoint{\r@lx}{\r@ly}}
+  \def\t{\pgfmathresult}
+  %
+  \newdimen\zsegmentlength
+  \zsegmentlength=\dimexpr\len pt\relax
+  \divide\zsegmentlength by 12
+  %
+  \begin{scope}[rotate around={\t: #2}, xshift=\st@px, yshift=\st@py]
+    \if#1R % Right-handed
+    \draw (0, 0) .. controls (\zsegmentlength, 0.555*#4) and (0.445*#5*#4+2*\zsegmentlength, #4) .. (#5*#4+3*\zsegmentlength, #4);
+    %
+    \foreach \i in {1, ..., #6}{
+      \begin{scope}[xshift=(\i-1)*12*\zsegmentlength]
+        % intersection
+        \path[name path=RU, draw] (12*\zsegmentlength, 0) .. controls (13*\zsegmentlength, 0.555*#4) and (0.445*#5*#4+14*\zsegmentlength, #4) .. (#5*#4+15*\zsegmentlength, #4);
+        \path[name path=RD] (#5*#4+3*\zsegmentlength, #4) .. controls (1.555*#5*#4+4*\zsegmentlength, #4) and (2*#5*#4+5*\zsegmentlength, 0.555*#4) .. (2*#5*#4+6*\zsegmentlength, 0);
+        \path[name intersections={of=RU and RD}];
+        %
+        \fill[white] (intersection-1) circle [radius=0.2*#4];
+        \draw (#5*#4+3*\zsegmentlength, #4) .. controls (1.555*#5*#4+4*\zsegmentlength, #4) and (2*#5*#4+5*\zsegmentlength, 0.555*#4) .. (2*#5*#4+6*\zsegmentlength, 0);
+        \draw (2*#5*#4+6*\zsegmentlength, 0) .. controls (2*#5*#4+7*\zsegmentlength, -0.555*#4) and (1.555*#5*#4+8*\zsegmentlength, -#4) .. (#5*#4+9*\zsegmentlength, -#4);
+        \draw (#5*#4+9*\zsegmentlength, -#4) .. controls (0.445*#5*#4+10*\zsegmentlength, -#4) and (11*\zsegmentlength, -0.555*#4) .. (12*\zsegmentlength, 0);
+      \end{scope}}
+    %
+    \begin{scope}[xshift=#6*12*\zsegmentlength]
+      \draw (#5*#4+3*\zsegmentlength, #4) .. controls (1.555*#5*#4+4*\zsegmentlength, #4) and (2*#5*#4+5*\zsegmentlength, 0.555*#4) .. (2*#5*#4+6*\zsegmentlength, 0);
+    \end{scope}
+  \else % Left-handed
+    \draw (0, 0) .. controls (\zsegmentlength, 0.555*#4) and (0.445*#5*#4+2*\zsegmentlength, #4) .. (#5*#4+3*\zsegmentlength, #4);
+    %
+    \foreach \i in {1, ..., #6}{
+      \begin{scope}[xshift=(\i-1)*12*\zsegmentlength]
+        % intersection
+        \path[name path=RU] (12*\zsegmentlength, 0) .. controls (13*\zsegmentlength, 0.555*#4) and (0.445*#5*#4+14*\zsegmentlength, #4) .. (#5*#4+15*\zsegmentlength, #4);
+        \path[name path=RD, draw] (#5*#4+3*\zsegmentlength, #4) .. controls (1.555*#5*#4+4*\zsegmentlength, #4) and (2*#5*#4+5*\zsegmentlength, 0.555*#4) .. (2*#5*#4+6*\zsegmentlength, 0);
+        \path[name intersections={of=RU and RD}];
+        %
+        \fill[white] (intersection-1) circle [radius=0.2*#4];
+        \draw (2*#5*#4+6*\zsegmentlength, 0) .. controls (2*#5*#4+7*\zsegmentlength, -0.555*#4) and (1.555*#5*#4+8*\zsegmentlength, -#4) .. (#5*#4+9*\zsegmentlength, -#4);
+        \draw (#5*#4+9*\zsegmentlength, -#4) .. controls (0.445*#5*#4+10*\zsegmentlength, -#4) and (11*\zsegmentlength, -0.555*#4) .. (12*\zsegmentlength, 0);
+        \draw (12*\zsegmentlength, 0) .. controls (13*\zsegmentlength, 0.555*#4) and (0.445*#5*#4+14*\zsegmentlength, #4) .. (#5*#4+15*\zsegmentlength, #4);
+      \end{scope}}
+    %
+    \begin{scope}[xshift=#6*12*\zsegmentlength]
+      \draw (#5*#4+3*\zsegmentlength, #4) .. controls (1.555*#5*#4+4*\zsegmentlength, #4) and (2*#5*#4+5*\zsegmentlength, 0.555*#4) .. (2*#5*#4+6*\zsegmentlength, 0);
+    \end{scope}
+    \fi
+  \end{scope}
+}
+% end of coil 3d
+
 % Alternative current Voltage Source
 \def\pgf@circ@ACV@path#1{\pgf@circ@bipole@path{ACV}{#1}}
 \compattikzset{ACV/.style = {\circuitikzbasekey, /tikz/to path=\pgf@circ@ACV@path, label=#1}}
