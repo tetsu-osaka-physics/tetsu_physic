@@ -1,0 +1,86 @@
+\NeedsTeXFormat{pLaTeX2e}
+\ProvidesPackage{kyodai_p}
+\PackageInfo{kyodai_p}{expected global options: \MessageBreak
+[a4paper, papersize, 12pt, dvipdfmx, fleqn, bold, ideographic]}
+
+\usepackage{tetsu_physics}
+
+\renewcommand{\baselinestretch}{1.1}
+% \setlength{\topmargin}{15pt}
+\setlength{\fboxsep}{0.8mm}
+\setlength{\fboxrule}{1pt}
+% \setlength{\parindent}{.5\textwidth}
+% \setlength{\textheight}{65zw}
+\setlength{\textwidth}{37zw}
+% \setlength\parskip{2zw}
+\setlength\belowcaptionskip{5\jsc@mpt} % dafault: 5\jsc@mpt
+\setlength\bigskipamount{2zw}
+
+\pagestyle{fancy}
+\rhead{}
+\lhead{}
+\cfoot{--- \thepage\ ---}
+\renewcommand{\headrulewidth}{0pt}
+
+\graphicspath{{./fig/}}
+
+\captionsetup[figure]{format=plain, labelformat=simple, labelsep=period, font=large, font=bf}
+\captionsetup[table]{format=plain, labelformat=simple, labelsep=period, font=large, font=bf}
+
+\@addtoreset{equation}{section}
+\@addtoreset{figure}{section}
+\@addtoreset{table}{section}
+
+\renewcommand{\section}{%
+  \if@slide\clearpage\fi
+  \@startsection{section}{1}{\z@}%
+  {1zw}% 前アキ
+  {1.6zw}% 後アキ
+  {\normalfont\Large\headfont\raggedright}}
+
+\renewcommand{\thesection}{物理問題　\textrm{\Roman{section}}}
+
+\renewcommand\@f[1]{
+  \if#1{}\def\ARG{{#1}}\else\def\ARG{#1}\fi
+  \ifnobox
+    \if\ARG　{#1}
+    \else
+      \if\ARG""\addtocounter{Fcntr}{1}{\csname\the\fstyle\endcsname{Fcntr}}
+      \else\setcounter{fref}{#1}{\csname\the\fstyle\endcsname{fref}}
+      \fi
+    \fi
+  \else
+    \if\ARG　\framebox[4zw]{#1}
+    \else
+      \if\ARG""\ifmmode\mathop{\addtocounter{Fcntr}{1}\framebox[4zw]{\textgt{\csname\the\fstyle\endcsname{Fcntr}}}}\else
+      \addtocounter{Fcntr}{1}\framebox[4zw]{\textgt{\csname\the\fstyle\endcsname{Fcntr}}}
+      \fi\else\ifmmode\mathop{\setcounter{fref}{#1}\framebox[4zw]{\textgt{\csname\the\fstyle\endcsname{fref}}}}\else
+      \setcounter{fref}{#1}\framebox[4zw]{\textgt{\csname\the\fstyle\endcsname{fref}}}
+      \fi\fi
+    \fi
+  \fi}
+
+\def\@doublebox#1{%
+  \begingroup
+    \setbox\@fancybox\hbox{{#1}}%
+    \fboxrule=\fboxrule
+    \setbox\@fancybox\hbox{\fbox{\box\@fancybox}}%
+    \fboxrule=\fboxrule
+    \advance\fboxsep by -1.8mm
+    \fbox{\box\@fancybox}%
+  \endgroup}
+
+\renewcommand\ff[1]{
+  \if#1{}\def\ARG{{#1}}\else\def\ARG{#1}\fi
+  \if\ARG　\doublebox{\hspace{1.2zw}　\hspace{1.2zw}}
+  \else\setcounter{ffref}{#1}\ifmmode\mathop{\doublebox{\hspace{1zw}\csname\the\fstyle\endcsname{ffref}\hspace{1zw}}}\else
+  \doublebox{\hspace{1zw}\textgt{\csname\the\fstyle\endcsname{ffref}}\hspace{1zw}}
+  \fi\fi}
+
+\def\ref#1{\textbf{\expandafter \@setref \csname r@#1\endcsname \@firstoftwo {#1}}}
+\def\st@ritem{%
+  \@inmatherr\item
+  \@ifnextchar [\@item{\@noitemargtrue \@item[\@itemlabel]}}
+
+\setlist{parsep=2zw, font=\textbf}
+\defstyle{varKakko}{（\,\arabic*\,）}
