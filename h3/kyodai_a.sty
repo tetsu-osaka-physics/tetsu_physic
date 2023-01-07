@@ -12,9 +12,9 @@
 \setlength\voffset{-30pt}
 \setlength\headheight{20pt}
 \setlength\topmargin{0pt}
-\setlength\headsep{0pt}
+\setlength\headsep{50pt}
 \setlength\textwidth{400pt}
-\setlength\textheight{630pt}
+\setlength\textheight{500pt}
 \parindent=0truept
 \defaultheight=70truept
 \indexlen=50truept
@@ -25,10 +25,15 @@
 \renewcommand\headrulewidth{0pt}
 
 \pagestyle{fancy}
-\rhead{}\chead{{\large 解　　　　答　　　　用}}\lhead{}
+\rhead{}
+\chead{{\large 解　　　　答　　　　用}}
+\lhead{{\raisebox{-4zw}{\Large\thesection}}}
 \cfoot{--- \thepage\ ---}
 
 \renewcommand{\thesection}{\hspace{-2zw}\textbf{\textrm{物理問題\Roman{section}}}}
+
+\renewcommand{\section}[1]{\refstepcounter{section}
+\lhead{{\raisebox{-4zw}{\Large\thesection}}}\rhead{}}
 
 \renewcommand\drawlabel[1][\defaultheight]{\fr@meheight#1%
   \ifn@l@belfr@me\else
