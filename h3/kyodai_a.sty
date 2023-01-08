@@ -17,8 +17,8 @@
 \setlength\textheight{500pt}
 \parindent=0truept
 \defaultheight=70truept
-\indexlen=50truept
-\frameXinterval=5truept
+\indexlen=30truept
+\frameXinterval=8truept
 \frameYinterval=20truept
 \setlength\marginparsep{0pt}
 \setlength\marginparwidth{0pt}
@@ -35,7 +35,10 @@
 \renewcommand{\section}[1]{\refstepcounter{section}
 \lhead{{\raisebox{-4zw}{\Large\thesection}}}\rhead{}}
 
-\renewcommand\drawlabel[1][\defaultheight]{\fr@meheight#1%
-  \ifn@l@belfr@me\else
-  \draw [thick] (\fr@meXposition+\indexlen,\fr@meYposition)--(\fr@meXposition,\fr@meYposition)--(\fr@meXposition,\fr@meYposition-\fr@meheight)--(\fr@meXposition+\indexlen,\fr@meYposition-\fr@meheight);\fi
-  \draw (\fr@meXposition+\indexlen/2,\fr@meYposition-\fr@meheight/2)node{\large\f*{}};}
+\tikzset{every picture/.style={line width=1pt}}
+\tikzset{thick/.style={line width=1pt}}
+
+% \renewcommand\drawlabel[1][\defaultheight]{\fr@meheight#1%
+%   \ifn@l@belfr@me\else
+%   \draw [thick] (\fr@meXposition+\indexlen,\fr@meYposition)--(\fr@meXposition,\fr@meYposition)--(\fr@meXposition,\fr@meYposition-\fr@meheight)--(\fr@meXposition+\indexlen,\fr@meYposition-\fr@meheight);\fi
+%   \draw (\fr@meXposition+\indexlen/2,\fr@meYposition-\fr@meheight/2)node{\large\f*{}};}
