@@ -93,7 +93,12 @@
   \fi
   \@xsect{#3}}
 
-\newcommand\testtitles{\ifnum\thepage=\@ne{\LARGE\the\testname No.\,\the\testnum}\\[1zw]\fi
+\def\@dummyX{X}
+\newcommand\testtitles{
+  % \testnum={X}にした場合にNo.Xを出さないようにする設定
+  \edef\@testnum{\the\testnum}
+  \ifx\@testnum\@dummyX \ifnum\thepage=\@ne{\LARGE\the\testname}\\[1zw]\fi
+    \else\ifnum\thepage=\@ne{\LARGE\the\testname No.\,\the\testnum}\\[1zw]\fi\fi
   \ifodd\thepage\addtocounter{DuplexPage}{1}\fi
   {\hspace{2zw}\Large 解　答　用　紙（その\Combarabic{DuplexPage}）}}
 
